@@ -1,0 +1,17 @@
+node_modules
+Frontend/node_modules
+Frontend/dist
+.git
+.gitignore
+*.md
+.env*
+.vscode
+.idea
+*.log
+coverage
+.cache
+.vite
+.playwright-mcp
+projects-page
+projects-page-verified
+projects-page-working
