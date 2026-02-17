@@ -43,9 +43,18 @@ coverage/
 .cache/
 .eslintcache
 *.tsbuildinfo
+.vite/
 
 # Vite
 *.local
 
 # MySQL
 *.sql.gz
+
+# Playwright
+.playwright-mcp/
+
+# Temp files
+projects-page
+projects-page-verified
+projects-page-working
