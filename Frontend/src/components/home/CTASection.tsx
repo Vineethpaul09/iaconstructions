@@ -11,7 +11,11 @@ const CTASection: React.FC = () => {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.6, 1, 1, 0.6]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.7, 1],
+    [0.6, 1, 1, 0.6],
+  );
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden py-24">
@@ -27,7 +31,10 @@ const CTASection: React.FC = () => {
       <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-[#C9A227]/40 to-transparent" />
 
       {/* Parallax content */}
-      <motion.div style={{ y, opacity }} className="relative mx-auto max-w-4xl px-4 text-center">
+      <motion.div
+        style={{ y, opacity }}
+        className="relative mx-auto max-w-4xl px-4 text-center"
+      >
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,7 +71,11 @@ const CTASection: React.FC = () => {
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
 
-          <Button variant="outline" size="lg" className="min-w-[180px] border-[#fafafa]/20 text-[#fafafa] hover:bg-[#fafafa]/10">
+          <Button
+            variant="outline"
+            size="lg"
+            className="min-w-[180px] border-[#fafafa]/20 text-[#fafafa] hover:bg-[#fafafa]/10"
+          >
             <Phone className="mr-2 h-4 w-4" />
             Talk to an Expert
           </Button>

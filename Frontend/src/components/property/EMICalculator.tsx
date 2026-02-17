@@ -1,12 +1,7 @@
 ﻿import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Calculator, IndianRupee } from "lucide-react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 
 /* ─── Types ─────────────────────────────────────────── */
@@ -64,7 +59,7 @@ const EMICalculator: React.FC<EMICalculatorProps> = ({
 
   const { emi, totalInterest, totalPayment } = useMemo(
     () => calculateEMI(loanAmount, interestRate, tenure),
-    [loanAmount, interestRate, tenure]
+    [loanAmount, interestRate, tenure],
   );
 
   return (
@@ -164,9 +159,7 @@ const EMICalculator: React.FC<EMICalculatorProps> = ({
             max={15}
             step={0.1}
             value={[interestRate]}
-            onValueChange={(v) =>
-              setInterestRate(parseFloat(v[0].toFixed(1)))
-            }
+            onValueChange={(v) => setInterestRate(parseFloat(v[0].toFixed(1)))}
             aria-label="Annual interest rate"
           />
           <div className="flex justify-between text-xs text-[#7a8fa6]">

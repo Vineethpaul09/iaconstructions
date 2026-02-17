@@ -92,8 +92,14 @@ const LOCATIONS: SelectOption[] = [
 ];
 
 const contactSchema = z.object({
-  name: z.string().min(1, "Name is required").min(2, "Name must be at least 2 characters"),
-  email: z.string().min(1, "Email is required").email("Enter a valid email address"),
+  name: z
+    .string()
+    .min(1, "Name is required")
+    .min(2, "Name must be at least 2 characters"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Enter a valid email address"),
   phone: z
     .string()
     .min(1, "Phone number is required")
@@ -195,7 +201,8 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
     }, 300);
   };
 
-  const canProceedStep2 = formState.propertyType !== "" && formState.location !== "";
+  const canProceedStep2 =
+    formState.propertyType !== "" && formState.location !== "";
 
   const formatCurrency = (v: number) =>
     v >= 10000000
@@ -382,7 +389,12 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
+          transition={{
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+            delay: 0.3,
+          }}
         >
           <Check className="h-10 w-10 text-[#C9A227]" />
         </motion.div>
@@ -402,10 +414,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent
-        onClose={handleClose}
-        className="max-w-md overflow-hidden"
-      >
+      <DialogContent onClose={handleClose} className="max-w-md overflow-hidden">
         {/* Progress bar */}
         {step < 4 && (
           <div className="space-y-1.5 mb-2">

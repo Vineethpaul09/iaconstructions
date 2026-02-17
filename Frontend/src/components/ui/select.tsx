@@ -1,22 +1,22 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 export interface SelectOption {
-  value: string
-  label: string
-  disabled?: boolean
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
 
 export interface SelectProps {
-  value?: string
-  onValueChange?: (value: string) => void
-  options: SelectOption[]
-  placeholder?: string
-  disabled?: boolean
-  className?: string
-  id?: string
-  name?: string
-  "aria-label"?: string
+  value?: string;
+  onValueChange?: (value: string) => void;
+  options: SelectOption[];
+  placeholder?: string;
+  disabled?: boolean;
+  className?: string;
+  id?: string;
+  name?: string;
+  "aria-label"?: string;
 }
 
 const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
@@ -32,13 +32,13 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
       name,
       "aria-label": ariaLabel,
     },
-    ref
+    ref,
   ) => {
-    const [open, setOpen] = React.useState(false)
-    const [highlightedIndex, setHighlightedIndex] = React.useState(-1)
-    const containerRef = React.useRef<HTMLDivElement>(null)
+    const [open, setOpen] = React.useState(false);
+    const [highlightedIndex, setHighlightedIndex] = React.useState(-1);
+    const containerRef = React.useRef<HTMLDivElement>(null);
 
-    const selectedOption = options.find((o) => o.value === value)
+    const selectedOption = options.find((o) => o.value === value);
 
     React.useEffect(() => {
       const handleClickOutside = (e: MouseEvent) => {
@@ -46,52 +46,53 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
           containerRef.current &&
           !containerRef.current.contains(e.target as Node)
         ) {
-          setOpen(false)
+          setOpen(false);
         }
-      }
-      document.addEventListener("mousedown", handleClickOutside)
-      return () => document.removeEventListener("mousedown", handleClickOutside)
-    }, [])
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (disabled) return
+      if (disabled) return;
       switch (e.key) {
         case "Enter":
         case " ":
-          e.preventDefault()
+          e.preventDefault();
           if (open && highlightedIndex >= 0) {
-            const opt = options[highlightedIndex]
+            const opt = options[highlightedIndex];
             if (!opt.disabled) {
-              onValueChange?.(opt.value)
-              setOpen(false)
+              onValueChange?.(opt.value);
+              setOpen(false);
             }
           } else {
-            setOpen((prev) => !prev)
+            setOpen((prev) => !prev);
           }
-          break
+          break;
         case "ArrowDown":
-          e.preventDefault()
+          e.preventDefault();
           if (!open) {
-            setOpen(true)
+            setOpen(true);
           } else {
             setHighlightedIndex((prev) =>
-              prev < options.length - 1 ? prev + 1 : 0
-            )
+              prev < options.length - 1 ? prev + 1 : 0,
+            );
           }
-          break
+          break;
         case "ArrowUp":
-          e.preventDefault()
+          e.preventDefault();
           if (open) {
             setHighlightedIndex((prev) =>
-              prev > 0 ? prev - 1 : options.length - 1
-            )
+              prev > 0 ? prev - 1 : options.length - 1,
+            );
           }
-          break
+          break;
         case "Escape":
-          setOpen(false)
-          break
+          setOpen(false);
+          break;
       }
-    }
+    };
 
     return (
       <div ref={containerRef} className={cn("relative", className)}>
@@ -109,7 +110,7 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
           onKeyDown={handleKeyDown}
           className={cn(
             "flex h-10 w-full items-center justify-between rounded-md border border-[#1a3a5c] bg-[#0f2847] px-3 py-2 text-sm text-[#fafafa] shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
-            !selectedOption && "text-[#94a3b8]"
+            !selectedOption && "text-[#94a3b8]",
           )}
         >
           <span className="truncate">
@@ -127,7 +128,7 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
             strokeLinejoin="round"
             className={cn(
               "ml-2 shrink-0 text-[#94a3b8] transition-transform duration-200",
-              open && "rotate-180"
+              open && "rotate-180",
             )}
           >
             <path d="m6 9 6 6 6-6" />
@@ -149,12 +150,12 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
                   "relative flex cursor-pointer select-none items-center px-3 py-2 text-[#fafafa] transition-colors",
                   value === option.value && "bg-[#C9A227]/10 text-[#C9A227]",
                   highlightedIndex === index && "bg-[#1a3a5c]",
-                  option.disabled && "cursor-not-allowed opacity-50"
+                  option.disabled && "cursor-not-allowed opacity-50",
                 )}
                 onClick={() => {
                   if (!option.disabled) {
-                    onValueChange?.(option.value)
-                    setOpen(false)
+                    onValueChange?.(option.value);
+                    setOpen(false);
                   }
                 }}
                 onMouseEnter={() => setHighlightedIndex(index)}
@@ -181,9 +182,9 @@ const Select = React.forwardRef<HTMLButtonElement, SelectProps>(
           </ul>
         )}
       </div>
-    )
-  }
-)
-Select.displayName = "Select"
+    );
+  },
+);
+Select.displayName = "Select";
 
-export { Select }
+export { Select };

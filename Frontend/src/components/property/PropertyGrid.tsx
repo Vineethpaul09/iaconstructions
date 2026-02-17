@@ -114,9 +114,7 @@ function EmptyState() {
       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#122d4d]/80 ring-1 ring-white/10">
         <SearchX className="h-10 w-10 text-[#7a8fa6]" />
       </div>
-      <h3 className="text-xl font-semibold text-white">
-        No properties found
-      </h3>
+      <h3 className="text-xl font-semibold text-white">No properties found</h3>
       <p className="mt-2 max-w-sm text-sm text-[#7a8fa6]">
         We couldn't find any properties matching your criteria. Try adjusting
         your filters or check back later for new listings.

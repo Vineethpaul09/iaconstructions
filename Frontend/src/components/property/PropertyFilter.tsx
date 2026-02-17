@@ -1,11 +1,6 @@
 ﻿import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  SlidersHorizontal,
-  ChevronDown,
-  X,
-  RotateCcw,
-} from "lucide-react";
+import { SlidersHorizontal, ChevronDown, X, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -132,7 +127,7 @@ export default function PropertyFilter({
 
   const toggleArray = (
     key: "propertyTypes" | "locations" | "statuses",
-    value: string
+    value: string,
   ) => {
     setFilter((prev) => {
       const arr = prev[key];
@@ -234,14 +229,12 @@ export default function PropertyFilter({
           {BEDROOM_OPTIONS.map((opt) => (
             <button
               key={opt}
-              onClick={() =>
-                setFilter((prev) => ({ ...prev, bedrooms: opt }))
-              }
+              onClick={() => setFilter((prev) => ({ ...prev, bedrooms: opt }))}
               className={cn(
                 "rounded-lg border px-3.5 py-1.5 text-sm font-medium transition-all",
                 filter.bedrooms === opt
                   ? "border-[#C9A227] bg-[#C9A227]/15 text-[#C9A227]"
-                  : "border-white/10 bg-white/5 text-[#94a3b8] hover:border-white/20 hover:text-[#b0c4d8]"
+                  : "border-white/10 bg-white/5 text-[#94a3b8] hover:border-white/20 hover:text-[#b0c4d8]",
               )}
             >
               {opt === "Any" ? "Any" : `${opt} BHK`}
@@ -277,7 +270,7 @@ export default function PropertyFilter({
                 "w-full rounded-lg px-3 py-2 text-left text-sm transition-all",
                 filter.sortBy === opt.value
                   ? "bg-[#C9A227]/15 text-[#C9A227]"
-                  : "text-[#94a3b8] hover:bg-white/5 hover:text-[#b0c4d8]"
+                  : "text-[#94a3b8] hover:bg-white/5 hover:text-[#b0c4d8]",
               )}
             >
               {opt.label}
@@ -313,12 +306,7 @@ export default function PropertyFilter({
   return (
     <>
       {/* ── Desktop Sidebar ───────────────────────────────────────── */}
-      <aside
-        className={cn(
-          "hidden lg:block w-[300px] shrink-0",
-          className
-        )}
-      >
+      <aside className={cn("hidden lg:block w-[300px] shrink-0", className)}>
         <div className="sticky top-24 rounded-2xl border border-white/10 bg-[#0f2847]/70 p-5 backdrop-blur-md">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="flex items-center gap-2 text-lg font-semibold text-white">
@@ -462,7 +450,7 @@ function CollapsibleSection({
         <ChevronDown
           className={cn(
             "h-4 w-4 text-[#7a8fa6] transition-transform duration-200",
-            open && "rotate-180"
+            open && "rotate-180",
           )}
         />
       </button>
@@ -497,7 +485,7 @@ function CheckboxItem({ label, checked, onChange }: CheckboxItemProps) {
           "flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded border transition-all",
           checked
             ? "border-[#C9A227] bg-[#C9A227]"
-            : "border-[#1a3a5c] bg-transparent"
+            : "border-[#1a3a5c] bg-transparent",
         )}
       >
         {checked && (

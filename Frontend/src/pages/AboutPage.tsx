@@ -181,13 +181,12 @@ export default function AboutPage() {
 
           <motion.div variants={fadeUp} initial="hidden" animate="visible">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
-              About{" "}
-              <span className="text-[#C9A227]">iA Constructions</span>
+              About <span className="text-[#C9A227]">iA Constructions</span>
             </h1>
             <p className="text-[#94a3b8] max-w-2xl text-lg">
               Building dreams into reality since 2017. Trusted Builders &amp;
-              Developers in and around Hyderabad — serving NRIs across
-              USA, Canada, Australia &amp; UK.
+              Developers in and around Hyderabad — serving NRIs across USA,
+              Canada, Australia &amp; UK.
             </p>
           </motion.div>
         </div>
@@ -225,7 +224,7 @@ export default function AboutPage() {
                 "relative flex items-start gap-6 mb-12",
                 idx % 2 === 0
                   ? "sm:flex-row sm:text-right"
-                  : "sm:flex-row-reverse sm:text-left"
+                  : "sm:flex-row-reverse sm:text-left",
               )}
             >
               {/* Dot */}
@@ -235,7 +234,7 @@ export default function AboutPage() {
               <div
                 className={cn(
                   "ml-10 sm:ml-0 sm:w-1/2",
-                  idx % 2 === 0 ? "sm:pr-12" : "sm:pl-12"
+                  idx % 2 === 0 ? "sm:pr-12" : "sm:pl-12",
                 )}
               >
                 <span className="text-[#C9A227] font-bold text-lg">
@@ -293,9 +292,9 @@ export default function AboutPage() {
                   Our Vision
                 </h3>
                 <p className="text-[#94a3b8] leading-relaxed">
-                  To become Hyderabad's most trusted real estate
-                  developer — known for quality construction, transparent
-                  processes, and seamless NRI property services.
+                  To become Hyderabad's most trusted real estate developer —
+                  known for quality construction, transparent processes, and
+                  seamless NRI property services.
                 </p>
               </CardContent>
             </Card>

@@ -1,30 +1,30 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 interface AccordionContextValue {
-  expandedItems: Set<string>
-  toggle: (value: string) => void
-  type: "single" | "multiple"
+  expandedItems: Set<string>;
+  toggle: (value: string) => void;
+  type: "single" | "multiple";
 }
 
 const AccordionContext = React.createContext<AccordionContextValue | undefined>(
-  undefined
-)
+  undefined,
+);
 
 function useAccordionContext() {
-  const context = React.useContext(AccordionContext)
+  const context = React.useContext(AccordionContext);
   if (!context) {
     throw new Error(
-      "Accordion components must be used within an <Accordion> provider"
-    )
+      "Accordion components must be used within an <Accordion> provider",
+    );
   }
-  return context
+  return context;
 }
 
 export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
-  type?: "single" | "multiple"
-  defaultValue?: string | string[]
-  collapsible?: boolean
+  type?: "single" | "multiple";
+  defaultValue?: string | string[];
+  collapsible?: boolean;
 }
 
 const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
@@ -37,35 +37,35 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [expandedItems, setExpandedItems] = React.useState<Set<string>>(
       () => {
-        if (!defaultValue) return new Set()
-        if (Array.isArray(defaultValue)) return new Set(defaultValue)
-        return new Set([defaultValue])
-      }
-    )
+        if (!defaultValue) return new Set();
+        if (Array.isArray(defaultValue)) return new Set(defaultValue);
+        return new Set([defaultValue]);
+      },
+    );
 
     const toggle = React.useCallback(
       (value: string) => {
         setExpandedItems((prev) => {
-          const next = new Set(prev)
+          const next = new Set(prev);
           if (next.has(value)) {
             if (collapsible || type === "multiple") {
-              next.delete(value)
+              next.delete(value);
             }
           } else {
             if (type === "single") {
-              next.clear()
+              next.clear();
             }
-            next.add(value)
+            next.add(value);
           }
-          return next
-        })
+          return next;
+        });
       },
-      [type, collapsible]
-    )
+      [type, collapsible],
+    );
 
     return (
       <AccordionContext.Provider value={{ expandedItems, toggle, type }}>
@@ -77,18 +77,17 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
           {children}
         </div>
       </AccordionContext.Provider>
-    )
-  }
-)
-Accordion.displayName = "Accordion"
+    );
+  },
+);
+Accordion.displayName = "Accordion";
 
 // ─── AccordionItem ───
 
-const AccordionItemContext = React.createContext<string>("")
+const AccordionItemContext = React.createContext<string>("");
 
-export interface AccordionItemProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  value: string
+export interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  value: string;
 }
 
 const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
@@ -106,9 +105,9 @@ const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps>(
         {children}
       </div>
     </AccordionItemContext.Provider>
-  )
-)
-AccordionItem.displayName = "AccordionItem"
+  ),
+);
+AccordionItem.displayName = "AccordionItem";
 
 // ─── AccordionTrigger ───
 
@@ -116,9 +115,9 @@ const AccordionTrigger = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement>
 >(({ className, children, ...props }, ref) => {
-  const { expandedItems, toggle } = useAccordionContext()
-  const value = React.useContext(AccordionItemContext)
-  const isOpen = expandedItems.has(value)
+  const { expandedItems, toggle } = useAccordionContext();
+  const value = React.useContext(AccordionItemContext);
+  const isOpen = expandedItems.has(value);
 
   return (
     <h3 className="flex">
@@ -129,7 +128,7 @@ const AccordionTrigger = React.forwardRef<
         onClick={() => toggle(value)}
         className={cn(
           "flex flex-1 items-center justify-between py-4 text-sm font-medium text-[#fafafa] transition-all hover:text-[#C9A227] cursor-pointer [&[data-state=open]>svg]:rotate-45",
-          className
+          className,
         )}
         data-state={isOpen ? "open" : "closed"}
         {...props}
@@ -147,7 +146,7 @@ const AccordionTrigger = React.forwardRef<
           strokeLinejoin="round"
           className={cn(
             "shrink-0 text-[#94a3b8] transition-transform duration-200",
-            isOpen && "rotate-45"
+            isOpen && "rotate-45",
           )}
         >
           <path d="M5 12h14" />
@@ -155,15 +154,15 @@ const AccordionTrigger = React.forwardRef<
             d="M12 5v14"
             className={cn(
               "origin-center transition-all duration-200",
-              isOpen && "scale-0"
+              isOpen && "scale-0",
             )}
           />
         </svg>
       </button>
     </h3>
-  )
-})
-AccordionTrigger.displayName = "AccordionTrigger"
+  );
+});
+AccordionTrigger.displayName = "AccordionTrigger";
 
 // ─── AccordionContent ───
 
@@ -171,17 +170,17 @@ const AccordionContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
-  const { expandedItems } = useAccordionContext()
-  const value = React.useContext(AccordionItemContext)
-  const isOpen = expandedItems.has(value)
-  const contentRef = React.useRef<HTMLDivElement>(null)
-  const [height, setHeight] = React.useState<number>(0)
+  const { expandedItems } = useAccordionContext();
+  const value = React.useContext(AccordionItemContext);
+  const isOpen = expandedItems.has(value);
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const [height, setHeight] = React.useState<number>(0);
 
   React.useEffect(() => {
     if (contentRef.current) {
-      setHeight(contentRef.current.scrollHeight)
+      setHeight(contentRef.current.scrollHeight);
     }
-  }, [isOpen, children])
+  }, [isOpen, children]);
 
   return (
     <div
@@ -192,12 +191,15 @@ const AccordionContent = React.forwardRef<
       style={{ height: isOpen ? height : 0 }}
       {...props}
     >
-      <div ref={contentRef} className={cn("pb-4 text-sm text-[#94a3b8]", className)}>
+      <div
+        ref={contentRef}
+        className={cn("pb-4 text-sm text-[#94a3b8]", className)}
+      >
         {children}
       </div>
     </div>
-  )
-})
-AccordionContent.displayName = "AccordionContent"
+  );
+});
+AccordionContent.displayName = "AccordionContent";
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

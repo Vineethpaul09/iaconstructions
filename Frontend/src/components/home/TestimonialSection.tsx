@@ -23,10 +23,10 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }) => (
 
 /* ─── Testimonial card ──────────────────────────────── */
 
-const TestimonialCard: React.FC<{ testimonial: Testimonial; index: number }> = ({
-  testimonial,
-  index,
-}) => (
+const TestimonialCard: React.FC<{
+  testimonial: Testimonial;
+  index: number;
+}> = ({ testimonial, index }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -77,19 +77,16 @@ const TestimonialSection: React.FC = () => {
 
   const totalSlides = testimonials.length;
 
-  const scrollToIndex = useCallback(
-    (index: number) => {
-      const container = scrollContainerRef.current;
-      if (!container) return;
-      const cardWidth = 340; // min-w + gap
-      container.scrollTo({
-        left: index * cardWidth,
-        behavior: "smooth",
-      });
-      setActiveIndex(index);
-    },
-    []
-  );
+  const scrollToIndex = useCallback((index: number) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const cardWidth = 340; // min-w + gap
+    container.scrollTo({
+      left: index * cardWidth,
+      behavior: "smooth",
+    });
+    setActiveIndex(index);
+  }, []);
 
   const handlePrev = () =>
     scrollToIndex(activeIndex > 0 ? activeIndex - 1 : totalSlides - 1);

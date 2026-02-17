@@ -1,31 +1,31 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 interface DialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  children: React.ReactNode
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  children: React.ReactNode;
 }
 
 const Dialog: React.FC<DialogProps> = ({ open, onOpenChange, children }) => {
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onOpenChange(false)
-    }
+      if (e.key === "Escape") onOpenChange(false);
+    };
     if (open) {
-      document.addEventListener("keydown", handleEscape)
-      document.body.style.overflow = "hidden"
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
     return () => {
-      document.removeEventListener("keydown", handleEscape)
-      document.body.style.overflow = ""
-    }
-  }, [open, onOpenChange])
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "";
+    };
+  }, [open, onOpenChange]);
 
-  if (!open) return null
-  return <>{children}</>
-}
-Dialog.displayName = "Dialog"
+  if (!open) return null;
+  return <>{children}</>;
+};
+Dialog.displayName = "Dialog";
 
 const DialogOverlay = React.forwardRef<
   HTMLDivElement,
@@ -35,14 +35,14 @@ const DialogOverlay = React.forwardRef<
     ref={ref}
     className={cn(
       "fixed inset-0 z-50 bg-[#071428]/70 backdrop-blur-sm animate-in fade-in-0",
-      className
+      className,
     )}
     onClick={onClose}
     aria-hidden="true"
     {...props}
   />
-))
-DialogOverlay.displayName = "DialogOverlay"
+));
+DialogOverlay.displayName = "DialogOverlay";
 
 const DialogContent = React.forwardRef<
   HTMLDivElement,
@@ -56,7 +56,7 @@ const DialogContent = React.forwardRef<
       aria-modal="true"
       className={cn(
         "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl border border-[#1a3a5c] bg-[#0f2847] p-6 shadow-2xl duration-200",
-        className
+        className,
       )}
       {...props}
     >
@@ -85,8 +85,8 @@ const DialogContent = React.forwardRef<
       )}
     </div>
   </>
-))
-DialogContent.displayName = "DialogContent"
+));
+DialogContent.displayName = "DialogContent";
 
 const DialogHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
@@ -95,12 +95,12 @@ const DialogHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   <div
     className={cn(
       "flex flex-col space-y-1.5 text-center sm:text-left",
-      className
+      className,
     )}
     {...props}
   />
-)
-DialogHeader.displayName = "DialogHeader"
+);
+DialogHeader.displayName = "DialogHeader";
 
 const DialogTitle = React.forwardRef<
   HTMLHeadingElement,
@@ -110,24 +110,20 @@ const DialogTitle = React.forwardRef<
     ref={ref}
     className={cn(
       "text-lg font-semibold leading-none tracking-tight text-[#fafafa]",
-      className
+      className,
     )}
     {...props}
   />
-))
-DialogTitle.displayName = "DialogTitle"
+));
+DialogTitle.displayName = "DialogTitle";
 
 const DialogDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn("text-sm text-[#94a3b8]", className)}
-    {...props}
-  />
-))
-DialogDescription.displayName = "DialogDescription"
+  <p ref={ref} className={cn("text-sm text-[#94a3b8]", className)} {...props} />
+));
+DialogDescription.displayName = "DialogDescription";
 
 const DialogFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
@@ -136,12 +132,12 @@ const DialogFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   <div
     className={cn(
       "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
+      className,
     )}
     {...props}
   />
-)
-DialogFooter.displayName = "DialogFooter"
+);
+DialogFooter.displayName = "DialogFooter";
 
 export {
   Dialog,
@@ -151,4 +147,4 @@ export {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-}
+};
