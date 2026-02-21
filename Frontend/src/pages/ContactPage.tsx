@@ -17,6 +17,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import CountryCodeSelect, {
+  formatPhoneNumber,
+  validatePhoneNumber,
+  getCountryByCode,
+  stripNonDigits,
+} from "@/components/ui/CountryCodeSelect";
 
 /* ── Animation helpers ─────────────────────────────────────────────── */
 
@@ -67,7 +73,7 @@ const offices = [
     city: "Hyderabad",
     state: "Telangana",
     address:
-      "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072",
+      "MIG 59, Rd Number 1, near YSR Statue, Kukatpally Housing Board Colony, Phase 1, KPHB Phase 1, Kukatpally, Hyderabad, Telangana 500072, India",
     phone: "+1 (778)764-5123",
   },
 ];
@@ -80,9 +86,10 @@ const subjects = [
   "Schedule a Visit",
   "Loan Assistance",
   "Legal Consultation",
-  "Career Opportunities",
   "Other",
 ];
+
+/* ── Country codes ─────────────────────────────────────────────────── */
 
 /* ── Component ─────────────────────────────────────────────────────── */
 
@@ -90,32 +97,64 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    countryCode: "+1",
     phone: "",
     subject: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "phone") {
+      // Format as user types
+      const formatted = formatPhoneNumber(value, formData.countryCode);
+      setFormData({ ...formData, phone: formatted });
+      setPhoneError(null);
+      return;
+    }
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleCountryCodeChange = (code: string) => {
+    // Re-format existing phone digits for new country
+    const digits = stripNonDigits(formData.phone);
+    const formatted = formatPhoneNumber(digits, code);
+    setFormData({ ...formData, countryCode: code, phone: formatted });
+    setPhoneError(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Validate phone
+    const error = validatePhoneNumber(formData.phone, formData.countryCode);
+    if (error) {
+      setPhoneError(error);
+      return;
+    }
     // In production, submit to API
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 4000);
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    setFormData({
+      name: "",
+      email: "",
+      countryCode: "+1",
+      phone: "",
+      subject: "",
+      message: "",
+    });
+    setPhoneError(null);
   };
 
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">
       {/* ── Hero Banner ──────────────────────────────────────────── */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0f2847] to-[#0B1F3A]">
+      <section className="relative pt-10 pb-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0f2847] to-[#0B1F3A]">
         <div className="max-w-7xl mx-auto">
           <motion.nav
             variants={fadeUp}
@@ -144,7 +183,7 @@ export default function ContactPage() {
       </section>
 
       {/* ── Contact Form + Info ───────────────────────────────────── */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           {/* Form – 3/5 */}
           <motion.div
@@ -203,15 +242,28 @@ export default function ContactPage() {
                       <label className="block text-[#e4e4e7] text-sm mb-2">
                         Phone Number *
                       </label>
-                      <Input
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+91 XXXXX XXXXX"
-                        required
-                        className="bg-[#122d4d] border-[#1a3a5c] text-white placeholder:text-[#7a8fa6] focus:border-[#C9A227]"
-                      />
+                      <div className="flex gap-2">
+                        <CountryCodeSelect
+                          value={formData.countryCode}
+                          onChange={handleCountryCodeChange}
+                        />
+                        <Input
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder={
+                            getCountryByCode(formData.countryCode).placeholder
+                          }
+                          required
+                          className="flex-1 bg-[#122d4d] border-[#1a3a5c] text-white placeholder:text-[#7a8fa6] focus:border-[#C9A227]"
+                        />
+                      </div>
+                      {phoneError && (
+                        <p className="text-xs text-red-400 mt-1">
+                          {phoneError}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-[#e4e4e7] text-sm mb-2">
@@ -333,19 +385,24 @@ export default function ContactPage() {
           </h2>
         </motion.div>
 
-        {/* Map placeholder */}
+        {/* Google Map */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="w-full aspect-[16/7] bg-[#0f2847] rounded-xl border border-[#1a3a5c] flex items-center justify-center mb-12"
+          className="w-full aspect-[16/7] rounded-xl border border-[#1a3a5c] overflow-hidden mb-12"
         >
-          <div className="text-center text-[#7a8fa6]">
-            <MapPin className="h-12 w-12 mx-auto mb-3 text-[#C9A227]/40" />
-            <p className="font-medium">Google Maps Integration</p>
-            <p className="text-sm mt-1">Map will be displayed here</p>
-          </div>
+          <iframe
+            title="iA Constructions Location"
+            src="https://www.google.com/maps/d/u/0/embed?mid=1GD-8xkko5d8d9YMRDFZUIliabxy088w&ehbc=2E312F"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </motion.div>
 
         {/* Office cards */}

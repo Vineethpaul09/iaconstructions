@@ -12,6 +12,12 @@ import {
   ArrowRight,
   Check,
 } from "lucide-react";
+import CountryCodeSelect, {
+  formatPhoneNumber,
+  validatePhoneNumber,
+  getCountryByCode,
+  stripNonDigits,
+} from "@/components/ui/CountryCodeSelect";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +42,7 @@ interface FormState {
   budgetRange: [number, number];
   name: string;
   email: string;
+  countryCode: string;
   phone: string;
 }
 
@@ -100,10 +107,7 @@ const contactSchema = z.object({
     .string()
     .min(1, "Email is required")
     .email("Enter a valid email address"),
-  phone: z
-    .string()
-    .min(1, "Phone number is required")
-    .regex(/^\d{10}$/, "Phone must be exactly 10 digits"),
+  phone: z.string().min(1, "Phone number is required"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -138,8 +142,11 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
     budgetRange: [2000000, 15000000],
     name: "",
     email: "",
+    countryCode: "+1",
     phone: "",
   });
+
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   const {
     register,
@@ -172,9 +179,17 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
   };
 
   const handleFinalSubmit = (data: ContactFormValues) => {
+    // Validate phone for selected country
+    const error = validatePhoneNumber(data.phone, formState.countryCode);
+    if (error) {
+      setPhoneError(error);
+      return;
+    }
+    setPhoneError(null);
     const completeData = {
       ...formState,
       ...data,
+      phone: stripNonDigits(data.phone),
       propertyId: propertyId ?? null,
       submittedAt: new Date().toISOString(),
     };
@@ -195,6 +210,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
         budgetRange: [2000000, 15000000],
         name: "",
         email: "",
+        countryCode: "+1",
         phone: "",
       });
       resetForm();
@@ -361,18 +377,42 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
         <label className="text-sm font-medium text-[#e4e4e7]">
           Phone Number
         </label>
-        <Input
-          type="tel"
-          placeholder="7787645123"
-          maxLength={10}
-          {...register("phone")}
-          onChange={(e) => {
-            register("phone").onChange(e);
-            setFormState((prev) => ({ ...prev, phone: e.target.value }));
-          }}
-        />
-        {errors.phone && (
-          <p className="text-xs text-red-400">{errors.phone.message}</p>
+        <div className="flex gap-2">
+          <CountryCodeSelect
+            value={formState.countryCode}
+            onChange={(code) => {
+              const digits = stripNonDigits(formState.phone);
+              const formatted = formatPhoneNumber(digits, code);
+              setFormState((prev) => ({
+                ...prev,
+                countryCode: code,
+                phone: formatted,
+              }));
+              setValue("phone", formatted);
+              setPhoneError(null);
+            }}
+          />
+          <Input
+            type="tel"
+            placeholder={getCountryByCode(formState.countryCode).placeholder}
+            className="flex-1"
+            {...register("phone")}
+            onChange={(e) => {
+              const formatted = formatPhoneNumber(
+                e.target.value,
+                formState.countryCode,
+              );
+              e.target.value = formatted;
+              register("phone").onChange(e);
+              setFormState((prev) => ({ ...prev, phone: formatted }));
+              setPhoneError(null);
+            }}
+          />
+        </div>
+        {(errors.phone || phoneError) && (
+          <p className="text-xs text-red-400">
+            {phoneError || errors.phone?.message}
+          </p>
         )}
       </div>
     </form>

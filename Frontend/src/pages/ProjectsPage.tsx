@@ -149,7 +149,7 @@ export default function ProjectsPage() {
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">
       {/* ── Hero Banner ──────────────────────────────────────────── */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0f2847] to-[#0B1F3A]">
+      <section className="relative pt-10 pb-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0f2847] to-[#0B1F3A]">
         <div className="max-w-7xl mx-auto">
           <motion.nav
             variants={fadeUp}
@@ -177,7 +177,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* ── Tabs + Grid ──────────────────────────────────────────── */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <Tabs
           defaultValue="all"
           value={activeTab}

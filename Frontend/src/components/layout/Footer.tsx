@@ -143,7 +143,7 @@ const Footer: React.FC = () => {
             <div className="rounded-lg overflow-hidden border border-[#1a3a5c]">
               <iframe
                 title="iA Constructions Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.2!2d78.3830!3d17.3549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb95ed2b0b8b8f%3A0x0!2sKPHB%20Colony%2C%20Kukatpally%2C%20Hyderabad%2C%20Telangana%20500072!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/d/u/0/embed?mid=1GD-8xkko5d8d9YMRDFZUIliabxy088w&ehbc=2E312F"
                 width="100%"
                 height="180"
                 style={{ border: 0 }}

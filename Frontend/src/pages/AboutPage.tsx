@@ -7,9 +7,6 @@ import {
   Target,
   Eye,
   ChevronRight,
-  Trophy,
-  Medal,
-  Star,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -149,22 +146,13 @@ const team = [
   },
 ];
 
-/* ── Awards ─────────────────────────────────────────────────────────── */
-
-const awards = [
-  "Best Residential Developer – Telangana 2023",
-  "Green Building Award – IGBC 2022",
-  "Most Trusted Builder – Hyderabad 2024",
-  "Excellence in Construction Quality – Telangana 2023",
-];
-
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">
       {/* ── Hero Banner ──────────────────────────────────────────── */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0f2847] to-[#0B1F3A]">
+      <section className="relative pt-10 pb-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0f2847] to-[#0B1F3A]">
         <div className="max-w-7xl mx-auto">
           <motion.nav
             variants={fadeUp}
@@ -193,13 +181,13 @@ export default function AboutPage() {
       </section>
 
       {/* ── Company Story + Timeline ─────────────────────────────── */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="text-center mb-16"
+          className="text-center mb-5"
         >
           <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
             Our Journey
@@ -255,7 +243,7 @@ export default function AboutPage() {
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 
       {/* ── Mission & Vision ─────────────────────────────────────── */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -305,7 +293,7 @@ export default function AboutPage() {
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 
       {/* ── Core Values ──────────────────────────────────────────── */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -351,13 +339,13 @@ export default function AboutPage() {
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 
       {/* ── Leadership Team ──────────────────────────────────────── */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="text-center mb-14"
+          className="text-center mb-5"
         >
           <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
             Our People
@@ -403,7 +391,7 @@ export default function AboutPage() {
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 
       {/* ── Stats ────────────────────────────────────────────────── */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0f2847] via-[#0B1F3A] to-[#0f2847]">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0f2847] via-[#0B1F3A] to-[#0f2847]">
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -419,61 +407,6 @@ export default function AboutPage() {
               <p className="text-[#e4e4e7] mt-2 text-sm uppercase tracking-wider">
                 {stat.label}
               </p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
-
-      <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
-
-      {/* ── Awards & Certifications ──────────────────────────────── */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="text-center mb-14"
-        >
-          <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
-            Recognition
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-white">
-            Awards & Certifications
-          </h2>
-        </motion.div>
-
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {awards.map((award, idx) => (
-            <motion.div key={idx} variants={fadeUp}>
-              <Card className="bg-[#0f2847]/60 border-[#1a3a5c] h-full text-center">
-                <CardContent className="p-6 flex flex-col items-center gap-4">
-                  <div className="p-3 rounded-full bg-[#C9A227]/10 text-[#C9A227]">
-                    {idx % 2 === 0 ? (
-                      <Trophy className="h-7 w-7" />
-                    ) : (
-                      <Medal className="h-7 w-7" />
-                    )}
-                  </div>
-                  <p className="text-white font-medium text-sm leading-relaxed">
-                    {award}
-                  </p>
-                  <div className="flex gap-0.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-3.5 w-3.5 fill-[#C9A227] text-[#C9A227]"
-                      />
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
             </motion.div>
           ))}
         </motion.div>

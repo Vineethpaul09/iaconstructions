@@ -175,7 +175,7 @@ export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">
       {/* ── Hero Banner ──────────────────────────────────────────── */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0f2847] to-[#0B1F3A]">
+      <section className="relative pt-10 pb-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0f2847] to-[#0B1F3A]">
         <div className="max-w-6xl mx-auto text-center">
           <motion.nav
             variants={fadeUp}
@@ -206,14 +206,14 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Core Services (Zigzag) ───────────────────────────────── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
             <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
               What We Offer
@@ -244,7 +244,7 @@ export default function ServicesPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-5"
           >
             <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
               GHMC & HMDA
