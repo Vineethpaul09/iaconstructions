@@ -52,7 +52,7 @@ const overlayVariants = {
 
 // ───────────────────────────── Top Bar
 const TopBar: React.FC = () => (
-  <div className="hidden md:block w-full bg-[#0B1F3A] border-b border-[#C9A227]/15 text-xs text-[#94a3b8]">
+  <div className="hidden md:block w-full bg-[#0B1F3A] border-b border-[#C9A227]/15 text-xs text-[#e4e4e7]">
     <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-9">
       {/* left */}
       <div className="flex items-center gap-5">
@@ -61,7 +61,7 @@ const TopBar: React.FC = () => (
           className="flex items-center gap-1.5 hover:text-[#C9A227] transition-colors"
         >
           <Phone className="h-3 w-3 text-[#C9A227]" />
-          +17787645123
+          +1 (778)764-5123
         </a>
         <a
           href="mailto:dinesh@iaconstructions.com"
@@ -167,7 +167,7 @@ const DesktopDropdown: React.FC<DesktopDropdownProps> = ({
                       "block px-4 py-2.5 text-sm transition-colors",
                       childActive
                         ? "text-[#C9A227] bg-[#C9A227]/10"
-                        : "text-[#94a3b8] hover:text-[#C9A227] hover:bg-[#C9A227]/5",
+                        : "text-[#e4e4e7] hover:text-[#C9A227] hover:bg-[#C9A227]/5",
                     )}
                   >
                     {child.label}
@@ -245,7 +245,7 @@ const MobileAccordion: React.FC<MobileAccordionProps> = ({ item, onClose }) => {
                   "block px-8 py-2 text-sm transition-colors",
                   location.pathname === item.href
                     ? "text-[#C9A227]"
-                    : "text-[#94a3b8] hover:text-[#C9A227]",
+                    : "text-[#e4e4e7] hover:text-[#C9A227]",
                 )}
               >
                 All {item.label}
@@ -259,7 +259,7 @@ const MobileAccordion: React.FC<MobileAccordionProps> = ({ item, onClose }) => {
                     "block px-8 py-2 text-sm transition-colors",
                     location.pathname === child.href
                       ? "text-[#C9A227]"
-                      : "text-[#94a3b8] hover:text-[#C9A227]",
+                      : "text-[#e4e4e7] hover:text-[#C9A227]",
                   )}
                 >
                   {child.label}
@@ -327,7 +327,7 @@ const Navbar: React.FC = () => {
                   Constructions
                 </span>
               </div>
-              <span className="text-[9px] lg:text-[10px] font-medium uppercase tracking-[0.2em] text-[#94a3b8] mt-0.5">
+              <span className="text-[9px] lg:text-[10px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
                 Builders &amp; Developers
               </span>
             </div>
@@ -402,13 +402,13 @@ const Navbar: React.FC = () => {
                       Constructions
                     </span>
                   </div>
-                  <span className="text-[8px] font-medium uppercase tracking-[0.2em] text-[#94a3b8] mt-0.5">
+                  <span className="text-[8px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
                     Builders &amp; Developers
                   </span>
                 </div>
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="p-2 text-[#94a3b8] hover:text-[#C9A227] transition-colors"
+                  className="p-2 text-[#e4e4e7] hover:text-[#C9A227] transition-colors"
                   aria-label="Close menu"
                 >
                   <X className="h-5 w-5" />
@@ -433,13 +433,13 @@ const Navbar: React.FC = () => {
                 </Button>
 
                 {/* contact info in drawer */}
-                <div className="mt-6 space-y-3 text-sm text-[#94a3b8]">
+                <div className="mt-6 space-y-3 text-sm text-[#e4e4e7]">
                   <a
                     href="tel:+17787645123"
                     className="flex items-center gap-2 hover:text-[#C9A227] transition-colors"
                   >
                     <Phone className="h-4 w-4 text-[#C9A227]" />
-                    +17787645123
+                    +1 (778)764-5123
                   </a>
                   <a
                     href="mailto:dinesh@iaconstructions.com"
@@ -454,7 +454,7 @@ const Navbar: React.FC = () => {
                 <div className="flex items-center gap-4 mt-6">
                   <a
                     href="mailto:dinesh@iaconstructions.com"
-                    className="text-[#94a3b8] hover:text-[#C9A227] transition-colors"
+                    className="text-[#e4e4e7] hover:text-[#C9A227] transition-colors"
                   >
                     <Mail className="h-5 w-5" />
                   </a>
@@ -462,7 +462,7 @@ const Navbar: React.FC = () => {
                     href="https://www.instagram.com/iaconstructions.in"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#94a3b8] hover:text-[#C9A227] transition-colors"
+                    className="text-[#e4e4e7] hover:text-[#C9A227] transition-colors"
                   >
                     <Instagram className="h-5 w-5" />
                   </a>
@@ -470,7 +470,7 @@ const Navbar: React.FC = () => {
                     href="https://wa.me/919154450123"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#94a3b8] hover:text-[#C9A227] transition-colors"
+                    className="text-[#e4e4e7] hover:text-[#C9A227] transition-colors"
                   >
                     <svg
                       className="h-5 w-5"

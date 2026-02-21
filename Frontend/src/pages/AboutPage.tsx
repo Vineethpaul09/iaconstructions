@@ -183,7 +183,7 @@ export default function AboutPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
               About <span className="text-[#C9A227]">iA Constructions</span>
             </h1>
-            <p className="text-[#94a3b8] max-w-2xl text-lg">
+            <p className="text-[#e4e4e7] max-w-2xl text-lg">
               Building dreams into reality since 2017. Trusted Builders &amp;
               Developers in and around Hyderabad — serving NRIs across USA,
               Canada, Australia &amp; UK.
@@ -243,7 +243,7 @@ export default function AboutPage() {
                 <h3 className="text-white font-semibold text-lg mt-1">
                   {ms.title}
                 </h3>
-                <p className="text-[#94a3b8] text-sm mt-2 leading-relaxed">
+                <p className="text-[#e4e4e7] text-sm mt-2 leading-relaxed">
                   {ms.description}
                 </p>
               </div>
@@ -272,7 +272,7 @@ export default function AboutPage() {
                 <h3 className="text-2xl font-bold text-white mb-3">
                   Our Mission
                 </h3>
-                <p className="text-[#94a3b8] leading-relaxed">
+                <p className="text-[#e4e4e7] leading-relaxed">
                   To transform the Indian real estate landscape by delivering
                   world-class living spaces that combine innovative design,
                   uncompromising quality, and exceptional value — making luxury
@@ -291,7 +291,7 @@ export default function AboutPage() {
                 <h3 className="text-2xl font-bold text-white mb-3">
                   Our Vision
                 </h3>
-                <p className="text-[#94a3b8] leading-relaxed">
+                <p className="text-[#e4e4e7] leading-relaxed">
                   To become Hyderabad's most trusted real estate developer —
                   known for quality construction, transparent processes, and
                   seamless NRI property services.
@@ -338,7 +338,7 @@ export default function AboutPage() {
                   <h3 className="text-lg font-semibold text-white">
                     {cv.title}
                   </h3>
-                  <p className="text-[#94a3b8] text-sm leading-relaxed">
+                  <p className="text-[#e4e4e7] text-sm leading-relaxed">
                     {cv.description}
                   </p>
                 </CardContent>
@@ -390,7 +390,7 @@ export default function AboutPage() {
                     {member.name}
                   </h3>
                   <p className="text-[#C9A227] text-sm mt-1">{member.role}</p>
-                  <p className="text-[#94a3b8] text-sm mt-3 leading-relaxed">
+                  <p className="text-[#e4e4e7] text-sm mt-3 leading-relaxed">
                     {member.bio}
                   </p>
                 </CardContent>
@@ -416,7 +416,7 @@ export default function AboutPage() {
               <p className="text-4xl sm:text-5xl font-bold text-[#C9A227]">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </p>
-              <p className="text-[#94a3b8] mt-2 text-sm uppercase tracking-wider">
+              <p className="text-[#e4e4e7] mt-2 text-sm uppercase tracking-wider">
                 {stat.label}
               </p>
             </motion.div>

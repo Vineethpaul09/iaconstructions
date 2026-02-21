@@ -103,7 +103,7 @@ export function SearchBar() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1.4fr_1fr_auto]">
           {/* Location */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-medium uppercase tracking-widest text-[#94a3b8]">
+            <label className="text-[11px] font-medium uppercase tracking-widest text-[#e4e4e7]">
               Location
             </label>
             <Select
@@ -118,7 +118,7 @@ export function SearchBar() {
 
           {/* Property Type */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-medium uppercase tracking-widest text-[#94a3b8]">
+            <label className="text-[11px] font-medium uppercase tracking-widest text-[#e4e4e7]">
               Property Type
             </label>
             <Select
@@ -133,7 +133,7 @@ export function SearchBar() {
 
           {/* Budget Range */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-medium uppercase tracking-widest text-[#94a3b8]">
+            <label className="text-[11px] font-medium uppercase tracking-widest text-[#e4e4e7]">
               Budget Range
             </label>
             <div className="flex flex-col gap-2 rounded-md border border-[#1a3a5c] bg-[#0f2847] px-3 py-2">
@@ -142,7 +142,7 @@ export function SearchBar() {
                   <IndianRupee className="h-3.5 w-3.5 text-[#C9A227]" />
                   {formatBudget(budget[0])}
                 </span>
-                <span className="text-[#94a3b8]">—</span>
+                <span className="text-[#e4e4e7]">—</span>
                 <span className="flex items-center gap-1 text-[#fafafa]">
                   <IndianRupee className="h-3.5 w-3.5 text-[#C9A227]" />
                   {formatBudget(budget[1])}
@@ -161,7 +161,7 @@ export function SearchBar() {
 
           {/* Bedrooms */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-[11px] font-medium uppercase tracking-widest text-[#94a3b8]">
+            <label className="text-[11px] font-medium uppercase tracking-widest text-[#e4e4e7]">
               Bedrooms
             </label>
             <Select
@@ -192,7 +192,7 @@ export function SearchBar() {
           <button
             type="button"
             onClick={() => setShowAdvanced((prev) => !prev)}
-            className="group inline-flex items-center gap-1.5 text-xs font-medium text-[#94a3b8] transition-colors hover:text-[#C9A227]"
+            className="group inline-flex items-center gap-1.5 text-xs font-medium text-[#e4e4e7] transition-colors hover:text-[#C9A227]"
           >
             <SlidersHorizontal className="h-3.5 w-3.5 transition-transform group-hover:rotate-12" />
             {showAdvanced ? "Hide" : "Advanced"} Filters
@@ -208,7 +208,7 @@ export function SearchBar() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="mt-4 overflow-hidden border-t border-[#1a3a5c]/60 pt-4"
           >
-            <p className="text-center text-xs text-[#94a3b8]/60">
+            <p className="text-center text-xs text-[#e4e4e7]/60">
               Advanced filter options coming soon — amenities, possession date,
               facing, and more.
             </p>

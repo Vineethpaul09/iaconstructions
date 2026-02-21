@@ -234,7 +234,7 @@ export default function PropertyFilter({
                 "rounded-lg border px-3.5 py-1.5 text-sm font-medium transition-all",
                 filter.bedrooms === opt
                   ? "border-[#C9A227] bg-[#C9A227]/15 text-[#C9A227]"
-                  : "border-white/10 bg-white/5 text-[#94a3b8] hover:border-white/20 hover:text-[#b0c4d8]",
+                  : "border-white/10 bg-white/5 text-[#e4e4e7] hover:border-white/20 hover:text-[#b0c4d8]",
               )}
             >
               {opt === "Any" ? "Any" : `${opt} BHK`}
@@ -270,7 +270,7 @@ export default function PropertyFilter({
                 "w-full rounded-lg px-3 py-2 text-left text-sm transition-all",
                 filter.sortBy === opt.value
                   ? "bg-[#C9A227]/15 text-[#C9A227]"
-                  : "text-[#94a3b8] hover:bg-white/5 hover:text-[#b0c4d8]",
+                  : "text-[#e4e4e7] hover:bg-white/5 hover:text-[#b0c4d8]",
               )}
             >
               {opt.label}
@@ -373,7 +373,7 @@ export default function PropertyFilter({
                 </h3>
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-[#94a3b8] transition-colors hover:bg-white/10 hover:text-white"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-[#e4e4e7] transition-colors hover:bg-white/10 hover:text-white"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -510,7 +510,7 @@ function CheckboxItem({ label, checked, onChange }: CheckboxItemProps) {
         onChange={onChange}
         className="sr-only"
       />
-      <span className={cn("text-[#94a3b8]", checked && "text-[#cbd5e1]")}>
+      <span className={cn("text-[#e4e4e7]", checked && "text-[#cbd5e1]")}>
         {label}
       </span>
     </label>

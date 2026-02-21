@@ -231,7 +231,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
               className={`transition-colors ${
                 formState.intent === item.value
                   ? "text-[#C9A227]"
-                  : "text-[#94a3b8] group-hover:text-[#C9A227]"
+                  : "text-[#e4e4e7] group-hover:text-[#C9A227]"
               }`}
             >
               {item.icon}
@@ -239,7 +239,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
             <span className="text-sm font-medium text-[#fafafa]">
               {item.label}
             </span>
-            <span className="text-xs text-[#94a3b8]">{item.description}</span>
+            <span className="text-xs text-[#e4e4e7]">{item.description}</span>
           </button>
         ))}
       </div>
@@ -253,7 +253,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </h3>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-[#94a3b8]">
+        <label className="text-sm font-medium text-[#e4e4e7]">
           Property Type
         </label>
         <Select
@@ -267,7 +267,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-[#94a3b8]">Location</label>
+        <label className="text-sm font-medium text-[#e4e4e7]">Location</label>
         <Select
           options={LOCATIONS}
           placeholder="Select location"
@@ -279,7 +279,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </div>
 
       <div className="space-y-3">
-        <label className="text-sm font-medium text-[#94a3b8]">
+        <label className="text-sm font-medium text-[#e4e4e7]">
           Budget Range
         </label>
         <Slider
@@ -327,7 +327,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </h3>
 
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-[#94a3b8]">Full Name</label>
+        <label className="text-sm font-medium text-[#e4e4e7]">Full Name</label>
         <Input
           placeholder="John Doe"
           {...register("name")}
@@ -342,7 +342,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </div>
 
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-[#94a3b8]">Email</label>
+        <label className="text-sm font-medium text-[#e4e4e7]">Email</label>
         <Input
           type="email"
           placeholder="john@example.com"
@@ -358,7 +358,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </div>
 
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-[#94a3b8]">
+        <label className="text-sm font-medium text-[#e4e4e7]">
           Phone Number
         </label>
         <Input
@@ -400,7 +400,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
         </motion.div>
       </motion.div>
       <h3 className="text-xl font-bold text-[#fafafa]">Thank You!</h3>
-      <p className="text-center text-sm text-[#94a3b8] max-w-xs">
+      <p className="text-center text-sm text-[#e4e4e7] max-w-xs">
         Our property consultant will reach out to you within 24 hours. We're
         excited to help you find the perfect property.
       </p>
@@ -418,7 +418,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
         {/* Progress bar */}
         {step < 4 && (
           <div className="space-y-1.5 mb-2">
-            <div className="flex items-center justify-between text-xs text-[#94a3b8]">
+            <div className="flex items-center justify-between text-xs text-[#e4e4e7]">
               <span>Step {step} of 4</span>
               <span>{Math.round((step / 4) * 100)}%</span>
             </div>

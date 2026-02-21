@@ -35,8 +35,7 @@ export const services: Service[] = [
     description:
       "Expert land sourcing and due-diligence in Hyderabad — title verification, market analysis, and deal negotiation.",
     icon: "MapPinHouse",
-    image:
-      "https://images.pexels.com/photos/7765190/pexels-photo-7765190.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/images/landacquisition.jpg",
     features: [
       "Land scouting & feasibility analysis",
       "Legal title verification",
@@ -63,7 +62,7 @@ export const services: Service[] = [
     description:
       "Complete assistance in obtaining GHMC approvals and documentation for borewell drilling in Hyderabad.",
     icon: "Droplets",
-    image: "/images/borewell-drilling.png",
+    image: "/images/agriculture-borewell-drilling-service.jpeg",
     features: [
       "GHMC borewell application",
       "Site inspection coordination",
@@ -90,8 +89,7 @@ export const services: Service[] = [
     description:
       "Specialized services for obtaining GHMC permissions for 4+ floor apartments.",
     icon: "Building",
-    image:
-      "https://images.pexels.com/photos/9370034/pexels-photo-9370034.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/images/multi-storey.jpg",
 
     features: [
       "G+4 and above building clearance",
@@ -105,8 +103,7 @@ export const services: Service[] = [
     description:
       "End-to-end coordination with GHMC, HMDA, and other Hyderabad authorities for all approvals.",
     icon: "Users",
-    image:
-      "https://images.pexels.com/photos/2834211/pexels-photo-2834211.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/images/liaisoning-services.jpg",
     features: [
       "Application filing & follow-up",
       "Authority coordination",

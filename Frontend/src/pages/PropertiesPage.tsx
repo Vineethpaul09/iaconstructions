@@ -143,7 +143,7 @@ export default function PropertiesPage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3">
               Our Properties
             </h1>
-            <p className="text-[#94a3b8] max-w-2xl">
+            <p className="text-[#e4e4e7] max-w-2xl">
               We build premium residences and investment opportunities in and
               around Hyderabad, Telangana.
             </p>
@@ -161,7 +161,7 @@ export default function PropertiesPage() {
           viewport={{ once: true }}
           className="flex items-center justify-between py-6 border-b border-[#1a3a5c]"
         >
-          <p className="text-[#94a3b8] text-sm">
+          <p className="text-[#e4e4e7] text-sm">
             Showing{" "}
             <span className="text-white font-medium">
               {filteredProperties.length}
@@ -262,7 +262,7 @@ export default function PropertiesPage() {
                 <h3 className="text-lg font-semibold text-white">Filters</h3>
                 <button
                   onClick={() => setMobileFilterOpen(false)}
-                  className="text-[#94a3b8] hover:text-white"
+                  className="text-[#e4e4e7] hover:text-white"
                 >
                   <X className="h-5 w-5" />
                 </button>

@@ -83,7 +83,7 @@ const AIChatWidget: React.FC = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 1.3 }}
         onClick={() => setIsOpen((o) => !o)}
-        className="fixed bottom-24 right-4 sm:right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#a8861e] text-[#0B1F3A] shadow-lg shadow-[#C9A227]/25 transition-transform hover:scale-110 cursor-pointer"
+        className="fixed bottom-28 right-4 sm:right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#C9A227] to-[#a8861e] text-[#0B1F3A] shadow-lg shadow-[#C9A227]/25 transition-transform hover:scale-110 cursor-pointer"
         aria-label="Open AI chat"
       >
         <Bot className="h-6 w-6" />
@@ -115,7 +115,7 @@ const AIChatWidget: React.FC = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="rounded-md p-1 text-[#94a3b8] transition-colors hover:bg-[#1a3a5c] hover:text-[#fafafa] cursor-pointer"
+                className="rounded-md p-1 text-[#e4e4e7] transition-colors hover:bg-[#1a3a5c] hover:text-[#fafafa] cursor-pointer"
                 aria-label="Close chat"
               >
                 <X className="h-4 w-4" />
@@ -172,7 +172,7 @@ const AIChatWidget: React.FC = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Type a message…"
-                  className="flex-1 rounded-lg border border-[#1a3a5c] bg-[#0f2847] px-3 py-2 text-sm text-[#fafafa] placeholder:text-[#94a3b8] outline-none transition-colors focus:border-[#C9A227]/50"
+                  className="flex-1 rounded-lg border border-[#1a3a5c] bg-[#0f2847] px-3 py-2 text-sm text-[#fafafa] placeholder:text-[#e4e4e7] outline-none transition-colors focus:border-[#C9A227]/50"
                 />
                 <Button
                   size="icon"

@@ -66,7 +66,7 @@ export default function PropertyGrid({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="mx-auto mt-3 max-w-2xl text-[#94a3b8]"
+              className="mx-auto mt-3 max-w-2xl text-[#e4e4e7]"
             >
               {subtitle}
             </motion.p>

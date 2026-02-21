@@ -130,7 +130,7 @@ export default function HomePage() {
           <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-4 text-white">
             Our Services
           </h2>
-          <p className="text-[#94a3b8] max-w-2xl mx-auto">
+          <p className="text-[#e4e4e7] max-w-2xl mx-auto">
             End-to-end real estate services for NRIs and local buyers — from
             acquisition and construction to loan consulting.
           </p>
@@ -170,7 +170,7 @@ export default function HomePage() {
                     <h3 className="text-sm font-semibold text-white group-hover:text-[#C9A227] transition-colors line-clamp-1">
                       {svc.title}
                     </h3>
-                    <p className="text-[#94a3b8] text-xs leading-relaxed line-clamp-2">
+                    <p className="text-[#e4e4e7] text-xs leading-relaxed line-clamp-2">
                       {svc.description}
                     </p>
                   </CardContent>
@@ -217,7 +217,7 @@ export default function HomePage() {
               <p className="text-4xl sm:text-5xl font-bold text-[#C9A227]">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </p>
-              <p className="text-[#94a3b8] mt-2 text-sm uppercase tracking-wider">
+              <p className="text-[#e4e4e7] mt-2 text-sm uppercase tracking-wider">
                 {stat.label}
               </p>
             </motion.div>

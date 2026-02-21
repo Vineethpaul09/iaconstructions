@@ -109,7 +109,7 @@ function ServiceRow({
         <h3 className="text-2xl sm:text-3xl font-bold text-white">
           {service.title}
         </h3>
-        <p className="text-[#94a3b8] leading-relaxed">{service.description}</p>
+        <p className="text-[#e4e4e7] leading-relaxed">{service.description}</p>
         <ul className="space-y-3 pt-2">
           {service.features.map((feat) => (
             <li key={feat} className="flex items-center gap-3 text-[#b0c4d8]">
@@ -195,7 +195,7 @@ export default function ServicesPage() {
               Building Dreams in{" "}
               <span className="text-[#C9A227]">Hyderabad</span>
             </h1>
-            <p className="text-[#94a3b8] max-w-2xl mx-auto text-lg mb-10">
+            <p className="text-[#e4e4e7] max-w-2xl mx-auto text-lg mb-10">
               From G+3 apartments to land acquisition and GHMC approvals — your
               complete real estate partner in Hyderabad.
             </p>
@@ -252,7 +252,7 @@ export default function ServicesPage() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white mt-3">
               Government Approvals
             </h2>
-            <p className="text-[#94a3b8] max-w-xl mx-auto mt-4">
+            <p className="text-[#e4e4e7] max-w-xl mx-auto mt-4">
               Hassle-free permits and clearances for your construction projects
               in Hyderabad.
             </p>
@@ -294,7 +294,7 @@ export default function ServicesPage() {
                 <div className="text-4xl font-bold text-[#C9A227] mb-2">
                   {stat.value}
                 </div>
-                <p className="text-[#94a3b8] text-sm">{stat.label}</p>
+                <p className="text-[#e4e4e7] text-sm">{stat.label}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -313,7 +313,7 @@ export default function ServicesPage() {
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Start Your Project Today
           </h2>
-          <p className="text-[#94a3b8] mb-8 max-w-lg mx-auto">
+          <p className="text-[#e4e4e7] mb-8 max-w-lg mx-auto">
             Ready to build your dream home or need help with approvals? Get a
             free consultation from our Hyderabad experts.
           </p>

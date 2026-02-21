@@ -64,7 +64,7 @@ const DialogContent = React.forwardRef<
       {onClose && (
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-sm text-[#94a3b8] opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:ring-offset-2 focus:ring-offset-[#0f2847] cursor-pointer"
+          className="absolute right-4 top-4 rounded-sm text-[#e4e4e7] opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:ring-offset-2 focus:ring-offset-[#0f2847] cursor-pointer"
           aria-label="Close"
         >
           <svg
@@ -121,7 +121,7 @@ const DialogDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn("text-sm text-[#94a3b8]", className)} {...props} />
+  <p ref={ref} className={cn("text-sm text-[#e4e4e7]", className)} {...props} />
 ));
 DialogDescription.displayName = "DialogDescription";
 

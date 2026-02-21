@@ -54,7 +54,7 @@ const CTASection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
           viewport={{ once: true }}
-          className="mx-auto mt-4 max-w-xl text-[#94a3b8] md:text-lg"
+          className="mx-auto mt-4 max-w-xl text-[#e4e4e7] md:text-lg"
         >
           Let our experts guide you through every step of your property journey.
         </motion.p>

@@ -54,7 +54,7 @@ const TestimonialCard: React.FC<{
         <p className="text-sm font-semibold text-[#fafafa]">
           {testimonial.name}
         </p>
-        <p className="text-xs text-[#94a3b8]">{testimonial.designation}</p>
+        <p className="text-xs text-[#e4e4e7]">{testimonial.designation}</p>
       </div>
     </div>
 
@@ -126,7 +126,7 @@ const TestimonialSection: React.FC = () => {
             What Our Clients Say
           </h2>
           <div className="mx-auto mt-3 h-1 w-20 rounded-full bg-gradient-to-r from-[#C9A227] to-[#d4b94e]" />
-          <p className="mt-4 text-[#94a3b8]">
+          <p className="mt-4 text-[#e4e4e7]">
             Real stories from families who found their dream home with IAC
           </p>
         </motion.div>
@@ -136,14 +136,14 @@ const TestimonialSection: React.FC = () => {
           {/* Nav arrows */}
           <button
             onClick={handlePrev}
-            className="absolute -left-2 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-[#1a3a5c] bg-[#0f2847]/90 text-[#94a3b8] backdrop-blur transition-colors hover:border-[#C9A227] hover:text-[#C9A227] cursor-pointer max-md:hidden"
+            className="absolute -left-2 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-[#1a3a5c] bg-[#0f2847]/90 text-[#e4e4e7] backdrop-blur transition-colors hover:border-[#C9A227] hover:text-[#C9A227] cursor-pointer max-md:hidden"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={handleNext}
-            className="absolute -right-2 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-[#1a3a5c] bg-[#0f2847]/90 text-[#94a3b8] backdrop-blur transition-colors hover:border-[#C9A227] hover:text-[#C9A227] cursor-pointer max-md:hidden"
+            className="absolute -right-2 top-1/2 z-10 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-[#1a3a5c] bg-[#0f2847]/90 text-[#e4e4e7] backdrop-blur transition-colors hover:border-[#C9A227] hover:text-[#C9A227] cursor-pointer max-md:hidden"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-5 w-5" />

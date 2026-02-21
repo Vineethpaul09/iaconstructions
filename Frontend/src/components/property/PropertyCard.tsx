@@ -178,7 +178,7 @@ export default function PropertyCard({
             <TypeIcon className="h-4 w-4 text-[#C9A227]" />
             <Badge
               variant="outline"
-              className="border-white/10 bg-white/5 text-xs text-[#94a3b8]"
+              className="border-white/10 bg-white/5 text-xs text-[#e4e4e7]"
             >
               {typeLabels[property.type]}
             </Badge>
@@ -190,7 +190,7 @@ export default function PropertyCard({
           </h3>
 
           {/* Location */}
-          <div className="flex items-center gap-1.5 text-sm text-[#94a3b8]">
+          <div className="flex items-center gap-1.5 text-sm text-[#e4e4e7]">
             <MapPin className="h-3.5 w-3.5 shrink-0 text-[#C9A227]/70" />
             <span className="line-clamp-1">
               {property.location.address}, {property.location.city}

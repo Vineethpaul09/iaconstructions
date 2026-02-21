@@ -30,7 +30,7 @@ const contactInfo = [
   },
   {
     Icon: Phone,
-    text: "+17787645123",
+    text: "+1 (778)764-5123",
     href: "tel:+17787645123",
   },
   {
@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#071428] text-[#94a3b8]">
+    <footer className="relative bg-[#071428] text-[#e4e4e7]">
       {/* gold separator */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#C9A227]/60 to-transparent" />
 
@@ -71,11 +71,11 @@ const Footer: React.FC = () => {
                   <span className="text-2xl font-extrabold bg-gradient-to-r from-[#C9A227] via-[#d4b94e] to-[#C9A227] bg-clip-text text-transparent italic">
                     iA
                   </span>
-                  <span className="text-lg font-semibold text-[#fafafa] tracking-tight">
+                  <span className="text-xl font-semibold text-[#fafafa] tracking-tight">
                     Constructions
                   </span>
                 </div>
-                <span className="text-[9px] font-medium uppercase tracking-[0.2em] text-[#94a3b8] mt-0.5">
+                <span className="text-[9.5px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
                   Builders &amp; Developers
                 </span>
               </div>
@@ -92,7 +92,7 @@ const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[#1a3a5c] text-[#94a3b8] transition-all duration-200 hover:border-[#C9A227] hover:text-[#C9A227] hover:bg-[#C9A227]/10"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-[#1a3a5c] text-[#e4e4e7] transition-all duration-200 hover:border-[#C9A227] hover:text-[#C9A227] hover:bg-[#C9A227]/10"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -103,7 +103,7 @@ const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#1a3a5c] text-[#94a3b8] transition-all duration-200 hover:border-[#C9A227] hover:text-[#C9A227] hover:bg-[#C9A227]/10"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#1a3a5c] text-[#e4e4e7] transition-all duration-200 hover:border-[#C9A227] hover:text-[#C9A227] hover:bg-[#C9A227]/10"
               >
                 <svg
                   className="h-4 w-4"

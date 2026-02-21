@@ -145,7 +145,7 @@ const AccordionTrigger = React.forwardRef<
           strokeLinecap="round"
           strokeLinejoin="round"
           className={cn(
-            "shrink-0 text-[#94a3b8] transition-transform duration-200",
+            "shrink-0 text-[#e4e4e7] transition-transform duration-200",
             isOpen && "rotate-45",
           )}
         >
@@ -193,7 +193,7 @@ const AccordionContent = React.forwardRef<
     >
       <div
         ref={contentRef}
-        className={cn("pb-4 text-sm text-[#94a3b8]", className)}
+        className={cn("pb-4 text-sm text-[#e4e4e7]", className)}
       >
         {children}
       </div>

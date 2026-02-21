@@ -70,7 +70,7 @@ const StatCard: React.FC<{
         {count.toLocaleString()}
         {stat.suffix}
       </span>
-      <span className="relative mt-2 text-sm font-medium text-[#94a3b8] md:text-base">
+      <span className="relative mt-2 text-sm font-medium text-[#e4e4e7] md:text-base">
         {stat.label}
       </span>
     </motion.div>

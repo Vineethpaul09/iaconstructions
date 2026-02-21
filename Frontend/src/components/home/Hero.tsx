@@ -40,7 +40,7 @@ const slides: HeroSlide[] = [
     title: "Luxury Living in Hyderabad",
     subtitle:
       "We build premium 2, 3 & 4 BHK apartments crafted for modern families",
-    location: "Bandlaguda · Attapur · Kokapet",
+    location: "Hyderabad · Telangana",
     cta: "View Projects",
     link: "/projects",
   },
@@ -52,8 +52,8 @@ const slides: HeroSlide[] = [
     title: "Your Dream Villa Awaits",
     subtitle:
       "Spacious villas with world-class amenities and serene surroundings",
-    location: "Bandlaguda Jagir · Gandipet",
-    cta: "Explore Villas",
+    location: "Hyderabad · Telangana",
+    cta: "View Projects",
     link: "/projects",
   },
   {
@@ -76,7 +76,7 @@ const slides: HeroSlide[] = [
     title: "We Build Your Vision",
     subtitle:
       "Custom construction on your plot with transparent pricing and quality assurance",
-    location: "In & Around Hyderabad",
+    location: "Hyderabad · Telangana",
     cta: "Our Services",
     link: "/services",
   },
@@ -154,7 +154,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative h-screen w-full overflow-hidden"
+      className="relative h-[89vh] w-full overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

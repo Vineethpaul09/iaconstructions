@@ -86,7 +86,7 @@ function EMICalculator({ price }: { price: number }) {
       {/* Loan amount */}
       <div>
         <div className="flex justify-between text-sm mb-2">
-          <span className="text-[#94a3b8]">Loan Amount</span>
+          <span className="text-[#e4e4e7]">Loan Amount</span>
           <span className="text-white font-medium">
             {formatPrice(loanAmount)}
           </span>
@@ -105,7 +105,7 @@ function EMICalculator({ price }: { price: number }) {
       {/* Tenure */}
       <div>
         <div className="flex justify-between text-sm mb-2">
-          <span className="text-[#94a3b8]">Tenure</span>
+          <span className="text-[#e4e4e7]">Tenure</span>
           <span className="text-white font-medium">{tenure} years</span>
         </div>
         <input
@@ -122,7 +122,7 @@ function EMICalculator({ price }: { price: number }) {
       {/* Interest rate */}
       <div>
         <div className="flex justify-between text-sm mb-2">
-          <span className="text-[#94a3b8]">Interest Rate</span>
+          <span className="text-[#e4e4e7]">Interest Rate</span>
           <span className="text-white font-medium">{interestRate}%</span>
         </div>
         <input
@@ -139,7 +139,7 @@ function EMICalculator({ price }: { price: number }) {
       <Separator className="bg-[#122d4d]" />
 
       <div className="text-center py-2">
-        <p className="text-[#94a3b8] text-sm">Estimated Monthly EMI</p>
+        <p className="text-[#e4e4e7] text-sm">Estimated Monthly EMI</p>
         <p className="text-3xl font-bold text-[#C9A227] mt-1">
           {formatPrice(Math.round(monthlyEmi))}
           <span className="text-sm text-[#7a8fa6] font-normal">/month</span>
@@ -249,7 +249,7 @@ export default function PropertyDetailPage() {
       <main className="min-h-screen bg-[#0B1F3A] text-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-2">Property Not Found</h1>
-          <p className="text-[#94a3b8] mb-6">
+          <p className="text-[#e4e4e7] mb-6">
             The property you're looking for doesn't exist.
           </p>
           <Link to="/projects">
@@ -378,7 +378,7 @@ export default function PropertyDetailPage() {
               <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
                 {property.title}
               </h1>
-              <div className="flex items-center gap-2 text-[#94a3b8] text-sm mb-6">
+              <div className="flex items-center gap-2 text-[#e4e4e7] text-sm mb-6">
                 <MapPin className="h-4 w-4 text-[#C9A227]" />
                 {property.location.address}, {property.location.city},{" "}
                 {property.location.state} – {property.location.pincode}
@@ -421,15 +421,15 @@ export default function PropertyDetailPage() {
 
               {/* Info badges */}
               <div className="flex flex-wrap gap-3 mb-8">
-                <div className="flex items-center gap-2 text-sm text-[#94a3b8] bg-[#0f2847]/60 border border-[#1a3a5c] rounded-full px-4 py-2">
+                <div className="flex items-center gap-2 text-sm text-[#e4e4e7] bg-[#0f2847]/60 border border-[#1a3a5c] rounded-full px-4 py-2">
                   <Compass className="h-4 w-4 text-[#C9A227]" />
                   {property.facing} Facing
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[#94a3b8] bg-[#0f2847]/60 border border-[#1a3a5c] rounded-full px-4 py-2">
+                <div className="flex items-center gap-2 text-sm text-[#e4e4e7] bg-[#0f2847]/60 border border-[#1a3a5c] rounded-full px-4 py-2">
                   <ShieldCheck className="h-4 w-4 text-[#C9A227]" />
                   RERA: {property.reraNumber}
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[#94a3b8] bg-[#0f2847]/60 border border-[#1a3a5c] rounded-full px-4 py-2">
+                <div className="flex items-center gap-2 text-sm text-[#e4e4e7] bg-[#0f2847]/60 border border-[#1a3a5c] rounded-full px-4 py-2">
                   <CalendarDays className="h-4 w-4 text-[#C9A227]" />
                   Possession: {property.possessionDate}
                 </div>
@@ -455,7 +455,7 @@ export default function PropertyDetailPage() {
                     <TabsTrigger
                       key={tab}
                       value={tab.toLowerCase().replace(" ", "-")}
-                      className="data-[state=active]:bg-[#C9A227]/20 data-[state=active]:text-[#C9A227] text-[#94a3b8]"
+                      className="data-[state=active]:bg-[#C9A227]/20 data-[state=active]:text-[#C9A227] text-[#e4e4e7]"
                     >
                       {tab}
                     </TabsTrigger>
@@ -469,7 +469,7 @@ export default function PropertyDetailPage() {
                       <h3 className="text-lg font-semibold text-white mb-3">
                         About This Property
                       </h3>
-                      <p className="text-[#94a3b8] leading-relaxed whitespace-pre-line">
+                      <p className="text-[#e4e4e7] leading-relaxed whitespace-pre-line">
                         {property.description}
                       </p>
 
@@ -660,7 +660,7 @@ export default function PropertyDetailPage() {
                     <Button
                       variant="outline"
                       size="icon"
-                      className="border-[#1a3a5c] text-[#94a3b8] hover:text-red-400"
+                      className="border-[#1a3a5c] text-[#e4e4e7] hover:text-red-400"
                     >
                       <Heart className="h-4 w-4" />
                     </Button>
@@ -678,7 +678,7 @@ export default function PropertyDetailPage() {
                   <div className="flex items-center gap-2">
                     <span className="text-[#7a8fa6] text-sm">Share:</span>
                     <button
-                      className="p-2 rounded-lg bg-[#122d4d] text-[#94a3b8] hover:text-[#C9A227] transition-colors"
+                      className="p-2 rounded-lg bg-[#122d4d] text-[#e4e4e7] hover:text-[#C9A227] transition-colors"
                       onClick={() =>
                         navigator.clipboard.writeText(window.location.href)
                       }

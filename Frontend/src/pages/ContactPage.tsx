@@ -46,7 +46,7 @@ const contactInfo = [
   {
     icon: <Phone className="h-6 w-6" />,
     title: "Call Us",
-    lines: ["+17787645123"],
+    lines: ["+1 (778)764-5123"],
   },
   {
     icon: <Mail className="h-6 w-6" />,
@@ -66,8 +66,9 @@ const offices = [
   {
     city: "Hyderabad",
     state: "Telangana",
-    address: "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072",
-    phone: "+17787645123",
+    address:
+      "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072",
+    phone: "+1 (778)764-5123",
   },
 ];
 
@@ -98,7 +99,7 @@ export default function ContactPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -133,7 +134,7 @@ export default function ContactPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
               Get In <span className="text-[#C9A227]">Touch</span>
             </h1>
-            <p className="text-[#94a3b8] max-w-2xl text-lg">
+            <p className="text-[#e4e4e7] max-w-2xl text-lg">
               Have a question or ready to find your dream property? We'd love to
               hear from you. Reach out and our team will get back to you within
               24 hours.
@@ -169,7 +170,7 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-[#94a3b8] text-sm mb-2">
+                      <label className="block text-[#e4e4e7] text-sm mb-2">
                         Full Name *
                       </label>
                       <Input
@@ -182,7 +183,7 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-[#94a3b8] text-sm mb-2">
+                      <label className="block text-[#e4e4e7] text-sm mb-2">
                         Email Address *
                       </label>
                       <Input
@@ -199,7 +200,7 @@ export default function ContactPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-[#94a3b8] text-sm mb-2">
+                      <label className="block text-[#e4e4e7] text-sm mb-2">
                         Phone Number *
                       </label>
                       <Input
@@ -213,7 +214,7 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-[#94a3b8] text-sm mb-2">
+                      <label className="block text-[#e4e4e7] text-sm mb-2">
                         Subject *
                       </label>
                       <select
@@ -236,7 +237,7 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[#94a3b8] text-sm mb-2">
+                    <label className="block text-[#e4e4e7] text-sm mb-2">
                       Message *
                     </label>
                     <Textarea
@@ -282,7 +283,7 @@ export default function ContactPage() {
                         {info.title}
                       </h3>
                       {info.lines.map((line) => (
-                        <p key={line} className="text-[#94a3b8] text-sm">
+                        <p key={line} className="text-[#e4e4e7] text-sm">
                           {line}
                         </p>
                       ))}
@@ -370,7 +371,7 @@ export default function ContactPage() {
                       <p className="text-[#7a8fa6] text-xs">{office.state}</p>
                     </div>
                   </div>
-                  <p className="text-[#94a3b8] text-sm mb-2">
+                  <p className="text-[#e4e4e7] text-sm mb-2">
                     {office.address}
                   </p>
                   <p className="text-[#C9A227] text-sm font-medium">

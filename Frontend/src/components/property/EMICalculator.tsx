@@ -75,7 +75,7 @@ const EMICalculator: React.FC<EMICalculatorProps> = ({
         {/* Property Price */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-[#94a3b8]">
+            <label className="text-sm font-medium text-[#e4e4e7]">
               Property Price
             </label>
             <span className="text-sm font-semibold text-[#C9A227]">
@@ -99,7 +99,7 @@ const EMICalculator: React.FC<EMICalculatorProps> = ({
         {/* Down Payment */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-[#94a3b8]">
+            <label className="text-sm font-medium text-[#e4e4e7]">
               Down Payment
             </label>
             <span className="text-sm font-semibold text-[#fafafa]">
@@ -123,7 +123,7 @@ const EMICalculator: React.FC<EMICalculatorProps> = ({
         {/* Loan Tenure */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-[#94a3b8]">
+            <label className="text-sm font-medium text-[#e4e4e7]">
               Loan Tenure
             </label>
             <span className="text-sm font-semibold text-[#fafafa]">
@@ -147,7 +147,7 @@ const EMICalculator: React.FC<EMICalculatorProps> = ({
         {/* Interest Rate */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium text-[#94a3b8]">
+            <label className="text-sm font-medium text-[#e4e4e7]">
               Interest Rate
             </label>
             <span className="text-sm font-semibold text-[#fafafa]">
@@ -181,7 +181,7 @@ const EMICalculator: React.FC<EMICalculatorProps> = ({
         >
           {/* EMI highlight */}
           <div className="rounded-xl border border-[#C9A227]/30 bg-gradient-to-r from-[#C9A227]/10 to-[#C9A227]/5 p-4 text-center">
-            <p className="text-xs font-medium uppercase tracking-wider text-[#94a3b8]">
+            <p className="text-xs font-medium uppercase tracking-wider text-[#e4e4e7]">
               Monthly EMI
             </p>
             <p className="mt-1 flex items-center justify-center gap-1 text-3xl font-extrabold text-[#C9A227]">

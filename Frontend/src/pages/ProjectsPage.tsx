@@ -98,13 +98,13 @@ function ProjectCard({ project }: { project: ProjectGroup }) {
               {project.title}
             </h3>
 
-            <div className="flex items-center gap-1.5 text-[#94a3b8] text-sm">
+            <div className="flex items-center gap-1.5 text-[#e4e4e7] text-sm">
               <MapPin className="h-3.5 w-3.5 text-[#C9A227]" />
               {project.location}
             </div>
 
             <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-1.5 text-[#94a3b8]">
+              <div className="flex items-center gap-1.5 text-[#e4e4e7]">
                 <Home className="h-3.5 w-3.5 text-[#C9A227]" />
                 <span className="capitalize">{project.types.join(", ")}</span>
               </div>
@@ -168,7 +168,7 @@ export default function ProjectsPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
               Our <span className="text-[#C9A227]">Projects</span>
             </h1>
-            <p className="text-[#94a3b8] max-w-2xl text-lg">
+            <p className="text-[#e4e4e7] max-w-2xl text-lg">
               From ongoing developments to completed landmarks — explore our
               portfolio of premium real estate projects in and around Hyderabad.
             </p>
@@ -203,7 +203,7 @@ export default function ProjectsPage() {
                 <TabsTrigger
                   key={value}
                   value={value}
-                  className="data-[state=active]:bg-[#C9A227]/20 data-[state=active]:text-[#C9A227] text-[#94a3b8]"
+                  className="data-[state=active]:bg-[#C9A227]/20 data-[state=active]:text-[#C9A227] text-[#e4e4e7]"
                 >
                   {label}
                   <span className="ml-1.5 px-1.5 py-0.5 rounded text-[10px] bg-[#122d4d] text-[#7a8fa6]">
