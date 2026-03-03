@@ -69,31 +69,39 @@ const milestones = [
     year: "2017",
     title: "The Beginning",
     description:
-      "iA Constructions was founded by Dinesh Reddy Basani in Hyderabad, Telangana with a vision to build quality homes accessible to every family.",
+      "Founded with a clear mission — to build quality homes that every family can call their own, rooted in trust and transparency.",
   },
   {
     year: "2019",
-    title: "First Major Project",
+    title: "Major Projects",
     description:
-      "Delivered our first residential township — IAC Heritage Homes — setting new quality benchmarks in Hyderabad.",
+      "Successfully delivered our apartments and buildings, setting new benchmarks for quality and customer satisfaction in the region.",
   },
   {
     year: "2021",
-    title: "Expanding Across Hyderabad",
+    title: "Expanding Horizons",
     description:
-      "Expanded operations across Hyderabad, launching IAC Skyline Residences and establishing a strong presence in the luxury market.",
+      "Broadened operations with new luxury and mid-segment projects, establishing a strong market presence and growing client base.",
   },
   {
     year: "2023",
     title: "Growing Portfolio",
+    highlight: false,
     description:
-      "Established presence in Secunderabad with premium apartment projects and continued expansion across Hyderabad.",
+      "Diversified into premium apartments and rental income properties — delivering high-yield investment opportunities for buyers seeking steady returns, while strengthening our footprint across multiple sought-after locations.",
+  },
+  {
+    year: "2024",
+    title: "Commercial & PG Ventures",
+    highlight: false,
+    description:
+      "Expanded into commercial construction and delivered purpose-built Paying Guest (PG) accommodation buildings — offering modern, fully-equipped living spaces for working professionals and students.",
   },
   {
     year: "2025",
-    title: "Growing Strong",
+    title: "Going Strong",
     description:
-      "Celebrated delivery of 23+ projects across Hyderabad. Expanding NRI services for overseas buyers in USA, Canada, Australia & UK.",
+      "Crossed 23+ completed projects spanning residential, commercial, and PG segments. Extended dedicated property services for NRI buyers across the globe.",
   },
 ];
 
@@ -131,18 +139,18 @@ const coreValues = [
 const team = [
   {
     name: "Dinesh Reddy Basani",
+    role: "Founder & Managing Director, Head of Marketing",
+    bio: "Dinesh leads iA Constructions with a passion for quality and customer-first values, and he also heads marketing—overseeing brand strategy, communications, and customer engagement.",
+  },
+  {
+    name: "Srujith Reddy Gayam",
     role: "Founder & Managing Director",
-    bio: "With 9+ years of experience in real estate development, Dinesh leads iA Constructions with a passion for quality and customer-first values.",
+    bio: "Srujith has sales experience, leading client relations, partnerships, and NRI outreach to deliver personalised, end-to-end service from first enquiry to handover.",
   },
   {
-    name: "Priya Sharma",
-    role: "Chief Architect",
-    bio: "An award-winning architect specialising in sustainable luxury design, Priya brings global aesthetics with local sensibility to every project.",
-  },
-  {
-    name: "Arjun Menon",
-    role: "VP – Sales & Marketing",
-    bio: "Arjun's decade of experience in premium property sales ensures that every buyer receives a personalised, seamless experience from enquiry to handover.",
+    name: "Inna Reddy Gayam",
+    role: "Founder & Managing Director",
+    bio: "With 9+ years of experience in sustainable luxury design, Inna leads our design practice—combining global aesthetics, local sensibility, and technical rigor to deliver innovative, eco-friendly homes that prioritize form, function, and lasting value.",
   },
 ];
 
@@ -216,19 +224,40 @@ export default function AboutPage() {
               )}
             >
               {/* Dot */}
-              <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#C9A227] border-4 border-[#0B1F3A] z-10 mt-1" />
+              <div
+                className={cn(
+                  "absolute left-4 sm:left-1/2 -translate-x-1/2 rounded-full border-4 border-[#0B1F3A] z-10 mt-1",
+                  ms.highlight
+                    ? "w-5 h-5 bg-[#C9A227] ring-2 ring-[#C9A227]/40"
+                    : "w-4 h-4 bg-[#C9A227]",
+                )}
+              />
 
               {/* Content */}
               <div
                 className={cn(
                   "ml-10 sm:ml-0 sm:w-1/2",
                   idx % 2 === 0 ? "sm:pr-12" : "sm:pl-12",
+                  ms.highlight &&
+                    "rounded-lg border border-[#C9A227]/30 bg-[#C9A227]/5 p-4",
                 )}
               >
-                <span className="text-[#C9A227] font-bold text-lg">
+                <span
+                  className={cn(
+                    "font-bold text-lg",
+                    ms.highlight ? "text-[#C9A227] text-xl" : "text-[#C9A227]",
+                  )}
+                >
                   {ms.year}
                 </span>
-                <h3 className="text-white font-semibold text-lg mt-1">
+                <h3
+                  className={cn(
+                    "font-semibold mt-1",
+                    ms.highlight
+                      ? "text-[#C9A227] text-xl"
+                      : "text-white text-lg",
+                  )}
+                >
                   {ms.title}
                 </h3>
                 <p className="text-[#e4e4e7] text-sm mt-2 leading-relaxed">

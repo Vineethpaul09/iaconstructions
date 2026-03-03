@@ -394,15 +394,14 @@ export default function ContactPage() {
           className="w-full aspect-[16/7] rounded-xl border border-[#1a3a5c] overflow-hidden mb-12"
         >
           <iframe
-            title="iA Constructions Location"
-            src="https://www.google.com/maps/d/u/0/embed?mid=1GD-8xkko5d8d9YMRDFZUIliabxy088w&ehbc=2E312F"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.7148008252918!2d78.40137041221254!3d17.490251879710808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91548e5ff957%3A0x268fb3341bc87451!2sSR%20prime%20mens%20pg!5e0!3m2!1sen!2sca!4v1772489835178!5m2!1sen!2sca"
             width="100%"
             height="100%"
-            style={{ border: 0 }}
+            style={{ border: 10 }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-          />
+          ></iframe>
         </motion.div>
 
         {/* Office cards */}
