@@ -21,8 +21,7 @@ export const services: Service[] = [
     description:
       "Custom construction on your plot with premium materials, strict safety standards, and transparent billing across Hyderabad.",
     icon: "HardHat",
-    image:
-      "https://images.pexels.com/photos/5323962/pexels-photo-5323962.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "/images/Construction-Services.jpeg",
     features: [
       "Turnkey construction with material supply",
       "Vastu-compliant planning",

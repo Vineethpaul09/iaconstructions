@@ -35,7 +35,7 @@ const slides: HeroSlide[] = [
   {
     id: 1,
     image:
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80",
+      "https://images.pexels.com/photos/7672060/pexels-photo-7672060.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
     tag: "Premium Apartments",
     title: "Luxury Living in Hyderabad",
     subtitle:
@@ -59,7 +59,7 @@ const slides: HeroSlide[] = [
   {
     id: 3,
     image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80",
+      "https://images.pexels.com/photos/11729105/pexels-photo-11729105.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
     tag: "NRI Investment",
     title: "Invest from Anywhere",
     subtitle:
@@ -71,7 +71,7 @@ const slides: HeroSlide[] = [
   {
     id: 4,
     image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80",
+      "https://images.pexels.com/photos/5323962/pexels-photo-5323962.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
     tag: "Construction Services",
     title: "We Build Your Vision",
     subtitle:
