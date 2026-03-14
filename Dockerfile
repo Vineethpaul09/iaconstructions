@@ -22,15 +22,17 @@ FROM nginx:alpine AS production
 # Limit worker processes to avoid resource exhaustion on Railway
 RUN sed -i 's/worker_processes  auto;/worker_processes 2;/' /etc/nginx/nginx.conf
 
-# Copy custom nginx config as a template (PORT will be substituted at runtime)
-COPY Frontend/nginx.conf /etc/nginx/templates/default.conf.template
+# Copy nginx config template (PORT will be substituted by start.sh)
+COPY Frontend/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy custom start script that handles PORT substitution
+COPY Frontend/start.sh /start.sh
+RUN chmod +x /start.sh
 
 # Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Only substitute $PORT in nginx template (preserve $uri and other nginx vars)
-ENV NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
-ENV NGINX_ENVSUBST_FILTER=PORT
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# Use custom entrypoint to bypass nginx docker entrypoint scripts
+ENTRYPOINT ["/start.sh"]
