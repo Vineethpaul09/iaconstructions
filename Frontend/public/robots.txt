@@ -35,6 +35,3 @@ Disallow: /
 
 User-agent: Google-Extended
 Disallow: /
-
-# Sitemaps
-Sitemap: https://iaconstructions.com/sitemap.xml

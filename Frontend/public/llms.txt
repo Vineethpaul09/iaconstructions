@@ -15,13 +15,13 @@ iA Constructions is a Hyderabad-based construction and real estate development c
 - NRI Services: End-to-end property solutions for Non-Resident Indians
 
 ## Main Pages
-- [Home](https://iaconstructions.com/): Overview of iA Constructions' premium building services
-- [Projects](https://iaconstructions.com/projects): Portfolio of ongoing, completed, and upcoming real estate projects
-- [Services](https://iaconstructions.com/services): Full list of construction, property, and consulting services
-- [About Us](https://iaconstructions.com/about): Company history, milestones, mission, and values
-- [Contact](https://iaconstructions.com/contact): Office location, phone, email, and contact form
-- [Client Stories](https://iaconstructions.com/client-stories): Testimonials and reviews from clients
-- [Properties](https://iaconstructions.com/properties): Browse apartments, villas, and plots for sale
+- [Home](https://iaconstruction-production.up.railway.app/): Overview of iA Constructions' premium building services
+- [Projects](https://iaconstruction-production.up.railway.app/projects): Portfolio of ongoing, completed, and upcoming real estate projects
+- [Services](https://iaconstruction-production.up.railway.app/services): Full list of construction, property, and consulting services
+- [About Us](https://iaconstruction-production.up.railway.app/about): Company history, milestones, mission, and values
+- [Contact](https://iaconstruction-production.up.railway.app/contact): Office location, phone, email, and contact form
+- [Client Stories](https://iaconstruction-production.up.railway.app/client-stories): Testimonials and reviews from clients
+- [Properties](https://iaconstruction-production.up.railway.app/properties): Browse apartments, villas, and plots for sale
 
 ## Services Offered
 - Building & Development: G+3 to G+5 residential apartment buildings

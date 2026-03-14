@@ -129,8 +129,7 @@ export default function HomePage() {
 
   usePageSEO({
     title: "Premium Builders & Developers in Hyderabad",
-    description:
-      `${SITE.name} — Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. RERA approved. Trusted by NRIs across USA, Canada, Australia & UK since ${SITE.foundingDate}.`,
+    description: `${SITE.name} — Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. RERA approved. Trusted by NRIs across USA, Canada, Australia & UK since ${SITE.foundingDate}.`,
     canonical: siteUrl("/"),
     ogImageAlt: `${SITE.name} — Premium apartments and villas in Hyderabad`,
     jsonLd: homeJsonLd,
@@ -138,7 +137,8 @@ export default function HomePage() {
 
   const allServices = services.slice(0, 4);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { testimonials: dbTestimonials, loading: testimonialsLoading } = useTestimonials();
+  const { testimonials: dbTestimonials, loading: testimonialsLoading } =
+    useTestimonials();
 
   const testimonials = dbTestimonials.map((t) => ({
     id: t.id,
@@ -276,81 +276,85 @@ export default function HomePage() {
 
       {/* ── Testimonials ─────────────────────────────────────────── */}
       {!testimonialsLoading && testimonials.length > 0 && (
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="text-center mb-14"
-        >
-          <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
-            Client Stories
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-4 text-white">
-            What Our Clients Say
-          </h2>
-        </motion.div>
+        <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            className="text-center mb-14"
+          >
+            <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
+              Client Stories
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-4 text-white">
+              What Our Clients Say
+            </h2>
+          </motion.div>
 
-        <div className="relative">
-          <button
-            onClick={() => scrollTestimonials("left")}
-            className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[#122d4d] border border-[#1a3a5c] hover:border-[#C9A227] text-[#b0c4d8] hover:text-[#C9A227] transition-colors hidden md:flex"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={() => scrollTestimonials("right")}
-            className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[#122d4d] border border-[#1a3a5c] hover:border-[#C9A227] text-[#b0c4d8] hover:text-[#C9A227] transition-colors hidden md:flex"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => scrollTestimonials("left")}
+              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[#122d4d] border border-[#1a3a5c] hover:border-[#C9A227] text-[#b0c4d8] hover:text-[#C9A227] transition-colors hidden md:flex"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => scrollTestimonials("right")}
+              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-[#122d4d] border border-[#1a3a5c] hover:border-[#C9A227] text-[#b0c4d8] hover:text-[#C9A227] transition-colors hidden md:flex"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
 
-          <div
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory"
-          >
-            {testimonials.map((t) => (
-              <motion.div
-                key={t.id}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="min-w-[340px] max-w-[400px] snap-start"
-              >
-                <Card className="bg-[#0f2847]/60 border-[#1a3a5c] h-full">
-                  <CardContent className="p-6 flex flex-col gap-4">
-                    <Quote className="h-8 w-8 text-[#C9A227]/40" />
-                    <p className="text-[#b0c4d8] text-sm leading-relaxed line-clamp-5">
-                      {t.comment}
-                    </p>
-                    <div className="flex items-center gap-1 mt-1">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={cn(
-                            "h-4 w-4",
-                            i < t.rating
-                              ? "fill-[#C9A227] text-[#C9A227]"
-                              : "text-[#7a8fa6]",
-                          )}
-                        />
-                      ))}
-                    </div>
-                    <Separator className="bg-[#122d4d]" />
-                    <div>
-                      <p className="text-white font-medium">{t.name}</p>
-                      <p className="text-[#7a8fa6] text-xs">{t.designation}</p>
-                      <p className="text-[#C9A227] text-xs mt-1">{t.project}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            <div
+              ref={scrollRef}
+              className="flex gap-6 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory"
+            >
+              {testimonials.map((t) => (
+                <motion.div
+                  key={t.id}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="min-w-[340px] max-w-[400px] snap-start"
+                >
+                  <Card className="bg-[#0f2847]/60 border-[#1a3a5c] h-full">
+                    <CardContent className="p-6 flex flex-col gap-4">
+                      <Quote className="h-8 w-8 text-[#C9A227]/40" />
+                      <p className="text-[#b0c4d8] text-sm leading-relaxed line-clamp-5">
+                        {t.comment}
+                      </p>
+                      <div className="flex items-center gap-1 mt-1">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={cn(
+                              "h-4 w-4",
+                              i < t.rating
+                                ? "fill-[#C9A227] text-[#C9A227]"
+                                : "text-[#7a8fa6]",
+                            )}
+                          />
+                        ))}
+                      </div>
+                      <Separator className="bg-[#122d4d]" />
+                      <div>
+                        <p className="text-white font-medium">{t.name}</p>
+                        <p className="text-[#7a8fa6] text-xs">
+                          {t.designation}
+                        </p>
+                        <p className="text-[#C9A227] text-xs mt-1">
+                          {t.project}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
     </main>
   );
