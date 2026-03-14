@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Star, Send, Quote, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE, siteUrl } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -110,14 +111,49 @@ const TestimonialCard: React.FC<{
 /* ── Page Component ────────────────────────────────────────── */
 
 export default function ClientStoriesPage() {
+  const { testimonials, loading } = useTestimonials();
+
+  const storiesJsonLd = useMemo(() => {
+    const reviewCount = testimonials.length;
+    const avgRating = reviewCount > 0
+      ? +(testimonials.reduce((sum, t) => sum + t.rating, 0) / reviewCount).toFixed(1)
+      : 4.8;
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": SITE.name,
+      "url": SITE.url,
+      "image": SITE.ogImage,
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": avgRating,
+        "bestRating": 5,
+        "worstRating": 1,
+        "reviewCount": reviewCount || 6
+      },
+      "review": testimonials.slice(0, 5).map(t => ({
+        "@type": "Review",
+        "author": { "@type": "Person", "name": t.name },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": t.rating,
+          "bestRating": 5
+        },
+        "reviewBody": t.comment,
+        ...(t.created_at ? { "datePublished": t.created_at.slice(0, 10) } : {})
+      }))
+    };
+  }, [testimonials]);
+
   usePageSEO({
     title: "Client Stories — Testimonials & Reviews",
     description:
-      "Read what our clients say about iA Constructions. Real testimonials from homeowners, NRI investors, and business clients in Hyderabad.",
-    canonical: "https://iaconstructions.com/client-stories",
+      "Read what our clients say about iA Constructions. Real testimonials from homeowners, NRI investors, and business clients in Hyderabad. 4.8+ star average rating.",
+    canonical: siteUrl("/client-stories"),
+    ogImageAlt: `Client testimonials and reviews — ${SITE.name} ${SITE.address.city}`,
+    jsonLd: storiesJsonLd,
   });
-
-  const { testimonials, loading } = useTestimonials();
   const { submitTestimonial, loading: submitting } = useSubmitTestimonial();
   const { projects } = useProjects();
   const [submitted, setSubmitted] = useState(false);

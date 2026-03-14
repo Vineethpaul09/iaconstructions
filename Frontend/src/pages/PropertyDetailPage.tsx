@@ -2,6 +2,8 @@
 import { useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE, siteUrl } from "@/config/site";
 import {
   ChevronRight,
   BedDouble,
@@ -269,6 +271,39 @@ export default function PropertyDetailPage() {
     sold: "bg-red-500/90",
     upcoming: "bg-blue-500/90",
   };
+
+  const propertyJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: property.title,
+      description:
+        property.description ||
+        `${property.title} - ${property.type} in ${property.location?.area || "Hyderabad"}`,
+      url: siteUrl(`/properties/${property.slug}`),
+      image: property.images?.[0],
+      brand: { "@type": "Organization", name: SITE.name },
+      offers: {
+        "@type": "Offer",
+        price: property.price,
+        priceCurrency: "INR",
+        availability:
+          property.status === "available"
+            ? "https://schema.org/InStock"
+            : "https://schema.org/OutOfStock",
+      },
+    }),
+    [property],
+  );
+
+  usePageSEO({
+    title: `${property.title} — ${property.type} in ${property.location?.area || "Hyderabad"}`,
+    description: `${property.title} by iA Constructions. ${property.type} in ${property.location?.area || "Hyderabad"}, Telangana. ${property.bedrooms ? property.bedrooms + " BHK" : ""} starting at ₹${(property.price / 100000).toFixed(0)}L. RERA approved.`,
+    canonical: siteUrl(`/properties/${property.slug}`),
+    ogImage: property.images?.[0],
+    ogImageAlt: `${property.title} — property by ${SITE.name}`,
+    jsonLd: propertyJsonLd,
+  });
 
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">

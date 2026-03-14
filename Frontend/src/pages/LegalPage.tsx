@@ -1,6 +1,26 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE, siteUrl } from "@/config/site";
+
+const legalSEO: Record<string, { title: string; description: string }> = {
+  "/privacy": {
+    title: "Privacy Policy",
+    description:
+      "iA Constructions privacy policy. Learn how we collect, use, and protect your personal information when you interact with our website and services.",
+  },
+  "/terms": {
+    title: "Terms & Conditions",
+    description:
+      "Terms and conditions for using the iA Constructions website. Read about property information disclaimers, bookings, and governing law.",
+  },
+  "/rera": {
+    title: "RERA Information & Compliance",
+    description:
+      "iA Constructions RERA compliance information. All projects registered with Telangana State RERA. Know your buyer rights under RERA.",
+  },
+};
 
 const legalContent: Record<
   string,
@@ -27,7 +47,7 @@ const legalContent: Record<
       },
       {
         heading: "Contact Us",
-        body: "If you have any questions about our privacy practices, please contact us at dinesh@iaconstructions.com or call +91 91544 50123.",
+        body: `If you have any questions about our privacy practices, please contact us at ${SITE.email} or call ${SITE.phone}.`,
       },
     ],
   },
@@ -82,6 +102,13 @@ const legalContent: Record<
 export default function LegalPage() {
   const { pathname } = useLocation();
   const content = legalContent[pathname];
+  const seo = legalSEO[pathname];
+
+  usePageSEO({
+    title: seo?.title ?? "Legal",
+    description: seo?.description ?? "Legal information for iA Constructions.",
+    canonical: siteUrl(pathname),
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);

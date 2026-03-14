@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
+import { SITE, siteUrl } from "@/config/site";
 import {
   ChevronRight,
   MapPin,
@@ -41,11 +42,10 @@ const stagger = {
 /* ── Contact defaults ──────────────────────────────────────────────── */
 
 const DEFAULTS = {
-  phone: "+91 91544 50123",
-  email: "dinesh@iaconstructions.com",
-  whatsapp: "919154450123",
-  address:
-    "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072",
+  phone: SITE.phone,
+  email: SITE.email,
+  whatsapp: SITE.whatsapp,
+  address: SITE.address.full,
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.7148008252918!2d78.40137041221254!3d17.490251879710808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91548e5ff957%3A0x268fb3341bc87451!2sSR%20prime%20mens%20pg!5e0!3m2!1sen!2sca!4v1772489835178!5m2!1sen!2sca",
 };
@@ -66,11 +66,37 @@ const subjects = [
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function ContactPage() {
+  const contactJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      name: `Contact ${SITE.name}`,
+      url: siteUrl("/contact"),
+      mainEntity: {
+        "@type": "Organization",
+        name: SITE.name,
+        telephone: SITE.phoneTel,
+        email: SITE.email,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: SITE.address.street,
+          addressLocality: SITE.address.city,
+          addressRegion: SITE.address.region,
+          postalCode: SITE.address.postalCode,
+          addressCountry: SITE.address.country,
+        },
+      },
+    }),
+    [],
+  );
+
   usePageSEO({
     title: "Contact Us — Get In Touch",
     description:
-      "Contact iA Constructions for premium apartments, villas, and commercial spaces in Hyderabad. Call +91 91544 50123 or visit our office in KPHB Colony, Kukatpally.",
-    canonical: "https://iaconstructions.com/contact",
+      `Contact ${SITE.name} for premium apartments, villas, and commercial spaces in ${SITE.address.city}. Call ${SITE.phone} or visit our KPHB Colony office. Free consultation available.`,
+    canonical: siteUrl("/contact"),
+    ogImageAlt: `Contact ${SITE.name} — ${SITE.address.city} builders and developers`,
+    jsonLd: contactJsonLd,
   });
 
   const { settings } = useSiteSettings();

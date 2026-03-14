@@ -14,15 +14,16 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { navigation } from "@/data/navigation";
 import { useSiteSettings } from "@/hooks/useSupabase";
+import { SITE } from "@/config/site";
 import type { NavItem } from "@/types";
 
 // ─────────────── defaults
 const DEFAULTS = {
-  phone: "+91 91544 50123",
-  email: "dinesh@iaconstructions.com",
-  whatsapp: "919154450123",
-  address: "Hyderabad, Telangana",
-  instagram: "https://www.instagram.com/iaconstructions.in",
+  phone: SITE.phone,
+  email: SITE.email,
+  whatsapp: SITE.whatsapp,
+  address: SITE.address.city + ", " + SITE.address.region,
+  instagram: SITE.instagram,
 };
 
 // ───────────────────────────── animation variants

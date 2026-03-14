@@ -1,41 +1,73 @@
 <!doctype html>
+<!--
+  DOMAIN CONFIG: If you change the site domain, update:
+  1. src/config/site.ts  (SITE_URL — updates all React components automatically)
+  2. This file            (index.html — static meta/JSON-LD below)
+  3. public/sitemap.xml   (static URLs)
+  4. public/robots.txt    (Sitemap URL)
+  5. public/llms.txt      (static URLs)
+  6. scripts/submit-indexnow.mjs (HOST constant)
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="theme-color" content="#0B1F3A" />
+    <meta name="author" content="iA Constructions" />
+    <meta name="geo.region" content="IN-TG" />
+    <meta name="geo.placename" content="Hyderabad" />
+    <meta name="geo.position" content="17.4933;78.3989" />
+    <meta name="ICBM" content="17.4933, 78.3989" />
+    <link rel="canonical" href="https://iaconstructions.com/" />
+
+    <!-- hreflang tags for NRI audiences -->
+    <link rel="alternate" hreflang="en-IN" href="https://iaconstructions.com/" />
+    <link rel="alternate" hreflang="en-US" href="https://iaconstructions.com/" />
+    <link rel="alternate" hreflang="en-CA" href="https://iaconstructions.com/" />
+    <link rel="alternate" hreflang="en-AU" href="https://iaconstructions.com/" />
+    <link rel="alternate" hreflang="en-GB" href="https://iaconstructions.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://iaconstructions.com/" />
+
+    <!-- LCP hero image preload for performance -->
+    <link rel="preload" as="image" href="/images/hero-modern-building.jpeg" fetchpriority="high" />
 
     <!-- Open Graph defaults (overridden per-page by usePageSEO) -->
     <meta property="og:site_name" content="iA Constructions" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_IN" />
+    <meta property="og:url" content="https://iaconstructions.com/" />
     <meta
       property="og:title"
-      content="iA Constructions — Builders & Developers | Hyderabad"
+      content="iA Constructions — Premium Builders & Developers | Hyderabad"
     />
     <meta
       property="og:description"
-      content="Premium residential and commercial construction in and around Hyderabad. Trusted by NRIs across USA, Canada, Australia & UK."
+      content="Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. RERA approved. Trusted by NRIs across USA, Canada, Australia & UK."
     />
-    <meta property="og:image" content="/images/og-default.jpg" />
+    <meta property="og:image" content="https://iaconstructions.com/images/og-default.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="iA Constructions — Premium Builders & Developers in Hyderabad" />
 
     <!-- Twitter Card defaults -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="iA Constructions — Builders & Developers | Hyderabad"
+      content="iA Constructions — Premium Builders & Developers | Hyderabad"
     />
     <meta
       name="twitter:description"
-      content="Premium residential and commercial construction in and around Hyderabad."
+      content="Premium 2, 3 & 4 BHK apartments, villas & commercial spaces in Hyderabad. RERA approved. Trusted by NRIs worldwide."
     />
+    <meta name="twitter:image" content="https://iaconstructions.com/images/og-default.jpg" />
+    <meta name="twitter:image:alt" content="iA Constructions — Premium Builders & Developers in Hyderabad" />
 
     <!-- SEO keywords -->
     <meta
       name="keywords"
-      content="Hyderabad builders, premium apartments Hyderabad, villas Hyderabad, NRI investment India, iA Constructions, residential construction Telangana, RERA approved projects Hyderabad"
+      content="Hyderabad builders, premium apartments Hyderabad, villas Hyderabad, NRI investment India, iA Constructions, residential construction Telangana, RERA approved projects Hyderabad, 2 BHK apartments Hyderabad, 3 BHK flats Kukatpally, builders near KPHB, real estate developers Hyderabad"
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,13 +76,50 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>iA Constructions — Builders &amp; Developers | Hyderabad</title>
+    <title>iA Constructions — Premium Builders &amp; Developers | Hyderabad</title>
     <meta
       name="description"
-      content="iA Constructions — Premium residential and commercial construction in and around Hyderabad. Builders & Developers. Trusted by NRIs across USA, Canada, Australia & UK."
+      content="iA Constructions is a trusted Hyderabad-based builder delivering premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces. RERA approved projects. Serving NRIs across USA, Canada, Australia & UK since 2017."
     />
 
-    <!-- Structured Data: LocalBusiness -->
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "iA Constructions",
+        "alternateName": "iA Constructions Builders & Developers",
+        "url": "https://iaconstructions.com",
+        "logo": "https://iaconstructions.com/images/og-default.jpg",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-91544-50123",
+          "contactType": "customer service",
+          "email": "dinesh@iaconstructions.com",
+          "areaServed": "IN",
+          "availableLanguage": ["English", "Hindi", "Telugu"]
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally",
+          "addressLocality": "Hyderabad",
+          "addressRegion": "Telangana",
+          "postalCode": "500072",
+          "addressCountry": "IN"
+        },
+        "sameAs": [
+          "https://www.instagram.com/iaconstructions.in"
+        ],
+        "foundingDate": "2017",
+        "numberOfEmployees": {
+          "@type": "QuantitativeValue",
+          "minValue": 10,
+          "maxValue": 50
+        }
+      }
+    </script>
+
+    <!-- Structured Data: RealEstateAgent (LocalBusiness) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -60,6 +129,7 @@
         "url": "https://iaconstructions.com",
         "telephone": "+91-91544-50123",
         "email": "dinesh@iaconstructions.com",
+        "description": "Premium residential and commercial construction company in Hyderabad. Specializing in 2, 3 & 4 BHK apartments, independent villas, and NRI investment properties since 2017.",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally",
@@ -73,9 +143,78 @@
           "latitude": "17.4933",
           "longitude": "78.3989"
         },
-        "areaServed": "Hyderabad",
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Hyderabad",
+            "sameAs": "https://en.wikipedia.org/wiki/Hyderabad"
+          }
+        ],
         "priceRange": "₹₹₹",
-        "sameAs": ["https://www.instagram.com/iaconstructions.in"]
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        "sameAs": [
+          "https://www.instagram.com/iaconstructions.in"
+        ]
+      }
+    </script>
+
+    <!-- Structured Data: WebSite with SearchAction -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "iA Constructions",
+        "url": "https://iaconstructions.com",
+        "description": "Premium residential and commercial construction in Hyderabad",
+        "publisher": {
+          "@type": "Organization",
+          "name": "iA Constructions"
+        }
+      }
+    </script>
+
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://iaconstructions.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Projects",
+            "item": "https://iaconstructions.com/projects"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Services",
+            "item": "https://iaconstructions.com/services"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "About Us",
+            "item": "https://iaconstructions.com/about"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Contact",
+            "item": "https://iaconstructions.com/contact"
+          }
+        ]
       }
     </script>
   </head>

@@ -38,7 +38,9 @@ export const footerNavigation = {
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Projects", href: "/projects" },
+    { label: "Properties", href: "/properties" },
     { label: "Services", href: "/services" },
+    { label: "Client Stories", href: "/client-stories" },
     { label: "Contact", href: "/contact" },
   ],
 

@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { siteUrl } from "@/config/site";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutGrid,
@@ -52,7 +53,7 @@ export default function PropertiesPage() {
     title: "Properties — Premium Apartments & Villas for Sale",
     description:
       "Browse premium apartments, villas, and plots for sale in Hyderabad by iA Constructions. Filter by location, budget, and property type.",
-    canonical: "https://iaconstructions.com/properties",
+    canonical: siteUrl("/properties"),
   });
 
   const [searchParams] = useSearchParams();

@@ -7,6 +7,7 @@ import {
   Target,
   Eye,
   ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -14,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE, siteUrl } from "@/config/site";
 import { statCounters } from "@/data/navigation";
 import React, { useRef, useEffect, useState } from "react";
 import { useInView } from "framer-motion";
@@ -158,11 +160,29 @@ const team = [
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function AboutPage() {
+  const aboutJsonLd = React.useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": `About ${SITE.name}`,
+    "description": `Learn about ${SITE.name} — a trusted ${SITE.address.city}-based builder delivering premium residential and commercial projects since ${SITE.foundingDate}.`,
+    "url": siteUrl("/about"),
+    "mainEntity": {
+      "@type": "Organization",
+      "name": SITE.name,
+      "foundingDate": SITE.foundingDate,
+      "foundingLocation": `${SITE.address.city}, ${SITE.address.region}, India`,
+      "description": `Premium residential and commercial construction company in ${SITE.address.city} specializing in apartments, villas, and NRI investment properties.`,
+      "areaServed": { "@type": "City", "name": SITE.address.city }
+    }
+  }), []);
+
   usePageSEO({
     title: "About Us — Our Story & Values",
     description:
-      "Learn about iA Constructions — a trusted Hyderabad-based builder delivering premium residential and commercial projects. Our mission, values, and commitment to quality.",
-    canonical: "https://iaconstructions.com/about",
+      `Learn about ${SITE.name} — a trusted ${SITE.address.city}-based builder delivering premium residential and commercial projects since ${SITE.foundingDate}. Our mission, values, and commitment to quality construction.`,
+    canonical: siteUrl("/about"),
+    ogImageAlt: `About ${SITE.name} — ${SITE.tagline} since ${SITE.foundingDate}`,
+    jsonLd: aboutJsonLd,
   });
 
   return (
@@ -447,6 +467,25 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </motion.div>
+      </section>
+
+      {/* ── Internal Linking CTA ─────────────────────────────────── */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Explore More</h2>
+          <p className="text-[#e4e4e7] mb-8">Discover our projects, services, and hear from our happy clients.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button size="lg" asChild>
+              <Link to="/projects">View Our Projects <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+            <Button variant="outline" size="lg" className="border-[#C9A227]/40 text-[#C9A227] hover:bg-[#C9A227]/10" asChild>
+              <Link to="/services">Our Services</Link>
+            </Button>
+            <Button variant="outline" size="lg" className="border-[#fafafa]/20 text-[#fafafa] hover:bg-[#fafafa]/10" asChild>
+              <Link to="/client-stories">Client Stories</Link>
+            </Button>
+          </div>
+        </div>
       </section>
     </main>
   );

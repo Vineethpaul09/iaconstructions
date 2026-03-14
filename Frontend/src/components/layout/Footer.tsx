@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { footerNavigation } from "@/data/navigation";
 import { useNewsletterSubscribe, useSiteSettings } from "@/hooks/useSupabase";
+import { SITE } from "@/config/site";
 
 // ───────────────────────────── types
 interface SocialLink {
@@ -15,14 +16,13 @@ interface SocialLink {
 
 // ───────────────────────────── defaults
 const DEFAULTS = {
-  phone: "+91 91544 50123",
-  email: "dinesh@iaconstructions.com",
-  whatsapp: "919154450123",
-  address:
-    "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072",
+  phone: SITE.phone,
+  email: SITE.email,
+  whatsapp: SITE.whatsapp,
+  address: SITE.address.full,
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.7148008252918!2d78.40137041221254!3d17.490251879710808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91548e5ff957%3A0x268fb3341bc87451!2sSR%20prime%20mens%20pg!5e0!3m2!1sen!2sca!4v1772489835178!5m2!1sen!2sca",
-  instagram: "https://www.instagram.com/iaconstructions.in",
+  instagram: SITE.instagram,
 };
 
 const Footer: React.FC = () => {

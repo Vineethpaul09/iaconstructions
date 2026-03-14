@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
+import { SITE, siteUrl } from "@/config/site";
 import {
   Building2,
   MapPinHouse,
@@ -102,11 +103,37 @@ import React from "react";
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function HomePage() {
+  const homeJsonLd = React.useMemo(
+    () => [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: `${SITE.name} — Premium Builders & Developers in Hyderabad`,
+        description:
+          "Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. RERA approved. Trusted by NRIs worldwide.",
+        url: siteUrl("/"),
+        isPartOf: {
+          "@type": "WebSite",
+          name: SITE.name,
+          url: SITE.url,
+        },
+        about: { "@type": "Organization", name: SITE.name },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: ["h1", "h2", ".hero-subtitle"],
+        },
+      },
+    ],
+    [],
+  );
+
   usePageSEO({
     title: "Premium Builders & Developers in Hyderabad",
     description:
-      "iA Constructions — Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. Trusted by NRIs across USA, Canada, Australia & UK.",
-    canonical: "https://iaconstructions.com/",
+      `${SITE.name} — Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. RERA approved. Trusted by NRIs across USA, Canada, Australia & UK since ${SITE.foundingDate}.`,
+    canonical: siteUrl("/"),
+    ogImageAlt: `${SITE.name} — Premium apartments and villas in Hyderabad`,
+    jsonLd: homeJsonLd,
   });
 
   const allServices = services.slice(0, 4);

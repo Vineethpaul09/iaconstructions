@@ -1,5 +1,7 @@
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE, siteUrl } from "@/config/site";
 import {
   Building2,
   MapPinHouse,
@@ -83,8 +85,12 @@ function ServiceRow({
         <div className="relative rounded-2xl overflow-hidden shadow-2xl">
           <img
             src={service.image}
-            alt={service.title}
+            alt={`${service.title} — iA Constructions service in Hyderabad`}
             className="w-full h-64 sm:h-80 object-cover"
+            width={800}
+            height={320}
+            loading="lazy"
+            decoding="async"
             onError={(e) => {
               (e.target as HTMLImageElement).src =
                 "https://images.pexels.com/photos/7672058/pexels-photo-7672058.jpeg?auto=compress&cs=tinysrgb&w=800";
@@ -169,11 +175,39 @@ function QuickServiceIcons() {
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function ServicesPage() {
+  const servicesJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: `Construction Services | ${SITE.name}`,
+      url: siteUrl("/services"),
+      mainEntity: {
+        "@type": "ItemList",
+        name: "Construction & Real Estate Services",
+        itemListElement: services.map((s, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Service",
+            name: s.title,
+            description: s.description,
+            provider: { "@type": "Organization", name: SITE.name },
+            areaServed: { "@type": "City", name: SITE.address.city },
+          },
+        })),
+      },
+    }),
+    [],
+  );
+
   usePageSEO({
     title: "Our Services — Building, Construction & Loan Consulting",
     description:
-      "Explore iA Constructions' services — residential development, custom construction, property acquisition, loan consulting, and government approvals in Hyderabad.",
-    canonical: "https://iaconstructions.com/services",
+      `Explore ${SITE.name}'s 8+ services — residential apartment development, custom construction on your plot, property acquisition, home loan consulting, and GHMC government approvals in ${SITE.address.city}.`,
+    canonical: siteUrl("/services"),
+    ogImageAlt:
+      `Construction and real estate services by ${SITE.name} ${SITE.address.city}`,
+    jsonLd: servicesJsonLd,
   });
 
   // Split services into categories

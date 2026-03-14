@@ -170,8 +170,11 @@ export default function Hero() {
         >
           <img
             src={slide.image}
-            alt={slide.title}
+            alt={`${slide.title} — ${slide.subtitle} | iA Constructions Hyderabad`}
             className="h-full w-full object-cover"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
           />
         </motion.div>
       </AnimatePresence>

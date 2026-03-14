@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronRight, MapPin, Home, Loader2, Phone } from "lucide-react";
 import { usePageSEO } from "@/hooks/usePageSEO";
+import { SITE, siteUrl } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -76,8 +77,12 @@ function ProjectCardItem({
           <div className="relative aspect-[16/10] overflow-hidden">
             <img
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} — ${project.status} project in ${project.location} by iA Constructions`}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              width={600}
+              height={375}
+              loading="lazy"
+              decoding="async"
               onError={(e) => {
                 (e.target as HTMLImageElement).src =
                   "https://placehold.co/600x375/0B1F3A/C9A227?text=Project";
@@ -131,11 +136,30 @@ function ProjectCardItem({
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function ProjectsPage() {
+  const projectsJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: `Real Estate Projects | ${SITE.name}`,
+      url: siteUrl("/projects"),
+      description:
+        `Portfolio of premium residential and commercial real estate projects by ${SITE.name} in ${SITE.address.city}.`,
+      isPartOf: {
+        "@type": "WebSite",
+        name: SITE.name,
+        url: SITE.url,
+      },
+    }),
+    [],
+  );
+
   usePageSEO({
-    title: "Our Projects — Premium Apartments, Villas & Commercial",
+    title: "Our Projects — Premium Apartments, Villas & Commercial Spaces",
     description:
-      "Explore iA Constructions' portfolio of ongoing and completed residential and commercial projects across Hyderabad. RERA approved developments.",
-    canonical: "https://iaconstructions.com/projects",
+      `Explore ${SITE.name}' portfolio of ongoing, completed, and upcoming residential & commercial projects across ${SITE.address.city}. RERA approved developments with transparent pricing.`,
+    canonical: siteUrl("/projects"),
+    ogImageAlt: `Premium real estate projects in ${SITE.address.city} by ${SITE.name}`,
+    jsonLd: projectsJsonLd,
   });
 
   const [activeTab, setActiveTab] = useState("all");
