@@ -1,16 +1,16 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-// Removed navigation to property detail pages from project cards
-import { ChevronRight, MapPin, Home, ArrowRight } from "lucide-react";
+import { ChevronRight, MapPin, Home, Loader2, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { properties } from "@/data/properties";
-import type { Property } from "@/types";
+import { useProjects } from "@/hooks/useSupabase";
+import LeadCaptureModal from "@/components/lead/LeadCaptureModal";
+import type { Project } from "@/types";
 
 /* ── Animation helpers ─────────────────────────────────────────────── */
 
@@ -32,42 +32,41 @@ const statusBadgeStyles: Record<string, string> = {
   upcoming: "bg-blue-500/20 text-blue-400 border-blue-500/30",
 };
 
-/* ── Group properties into "projects" by grouping on projectStatus ── */
+/* ── Project card display data ─────────────────────────────────────── */
 
-interface ProjectGroup {
+interface ProjectCard {
   id: string;
   title: string;
   slug: string;
   location: string;
-  city: string;
   image: string;
   status: string;
-  totalUnits: number;
-  priceMin: number;
-  priceMax: number;
+  price: number;
   types: string[];
 }
 
-function groupProjects(props: Property[]): ProjectGroup[] {
-  // Use slug as a proxy for project grouping; each property is a "project card"
-  return props.map((p) => ({
+function toProjectCards(projects: Project[]): ProjectCard[] {
+  return projects.map((p) => ({
     id: p.id,
-    title: p.title,
+    title: p.name,
     slug: p.slug,
-    location: `${p.location.city}, ${p.location.state}`,
-    city: p.location.city,
+    location: p.location,
     image: p.images[0] ?? "",
-    status: p.projectStatus,
-    totalUnits: 1,
-    priceMin: p.price,
-    priceMax: p.price,
+    status: p.status,
+    price: p.price,
     types: [p.type],
   }));
 }
 
 /* ── Project Card ──────────────────────────────────────────────────── */
 
-function ProjectCard({ project }: { project: ProjectGroup }) {
+function ProjectCardItem({
+  project,
+  onEnquire,
+}: {
+  project: ProjectCard;
+  onEnquire: (id: string) => void;
+}) {
   return (
     <motion.div variants={fadeUp}>
       <div>
@@ -109,15 +108,18 @@ function ProjectCard({ project }: { project: ProjectGroup }) {
                 <span className="capitalize">{project.types.join(", ")}</span>
               </div>
               <span className="text-[#C9A227] font-semibold">
-                {formatPrice(project.priceMin)}
-                {project.priceMax > project.priceMin &&
-                  ` – ${formatPrice(project.priceMax)}`}
+                {formatPrice(project.price)}
               </span>
             </div>
 
-            <div className="pt-2 flex items-center gap-1 text-[#C9A227] text-sm font-medium group-hover:gap-2 transition-all">
-              View Details <ArrowRight className="h-3.5 w-3.5" />
-            </div>
+            <Button
+              size="sm"
+              onClick={() => onEnquire(project.id)}
+              className="w-full bg-[#C9A227] hover:bg-[#a8861e] text-[#0B1F3A] font-semibold mt-1"
+            >
+              <Phone className="h-3.5 w-3.5 mr-1.5" />
+              Enquire Now
+            </Button>
           </CardContent>
         </Card>
       </div>
@@ -129,22 +131,32 @@ function ProjectCard({ project }: { project: ProjectGroup }) {
 
 export default function ProjectsPage() {
   const [activeTab, setActiveTab] = useState("all");
+  const { projects, loading } = useProjects();
+  const [leadOpen, setLeadOpen] = useState(false);
+  const [selectedProjectId, setSelectedProjectId] = useState<
+    string | undefined
+  >();
 
-  const allProjects = useMemo(() => groupProjects(properties), []);
+  const handleEnquire = (projectId: string) => {
+    setSelectedProjectId(projectId);
+    setLeadOpen(true);
+  };
+
+  const allProjectCards = useMemo(() => toProjectCards(projects), [projects]);
 
   const filteredProjects = useMemo(() => {
-    if (activeTab === "all") return allProjects;
-    return allProjects.filter((p) => p.status === activeTab);
-  }, [activeTab, allProjects]);
+    if (activeTab === "all") return allProjectCards;
+    return allProjectCards.filter((p) => p.status === activeTab);
+  }, [activeTab, allProjectCards]);
 
   const tabCounts = useMemo(() => {
     return {
-      all: allProjects.length,
-      ongoing: allProjects.filter((p) => p.status === "ongoing").length,
-      completed: allProjects.filter((p) => p.status === "completed").length,
-      upcoming: allProjects.filter((p) => p.status === "upcoming").length,
+      all: allProjectCards.length,
+      ongoing: allProjectCards.filter((p) => p.status === "ongoing").length,
+      completed: allProjectCards.filter((p) => p.status === "completed").length,
+      upcoming: allProjectCards.filter((p) => p.status === "upcoming").length,
     };
-  }, [allProjects]);
+  }, [allProjectCards]);
 
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">
@@ -178,68 +190,86 @@ export default function ProjectsPage() {
 
       {/* ── Tabs + Grid ──────────────────────────────────────────── */}
       <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <Tabs
-          defaultValue="all"
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="w-full"
-        >
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mb-10"
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="h-8 w-8 text-[#C9A227] animate-spin" />
+          </div>
+        ) : (
+          <Tabs
+            defaultValue="all"
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full"
           >
-            <TabsList className="bg-[#0f2847] border border-[#1a3a5c] p-1 flex-wrap h-auto gap-1">
-              {(
-                [
-                  ["all", "All"],
-                  ["ongoing", "Ongoing"],
-                  ["completed", "Completed"],
-                  ["upcoming", "Upcoming"],
-                ] as const
-              ).map(([value, label]) => (
-                <TabsTrigger
-                  key={value}
-                  value={value}
-                  className="data-[state=active]:bg-[#C9A227]/20 data-[state=active]:text-[#C9A227] text-[#e4e4e7]"
-                >
-                  {label}
-                  <span className="ml-1.5 px-1.5 py-0.5 rounded text-[10px] bg-[#122d4d] text-[#7a8fa6]">
-                    {tabCounts[value]}
-                  </span>
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </motion.div>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="mb-10"
+            >
+              <TabsList className="bg-[#0f2847] border border-[#1a3a5c] p-1 flex-wrap h-auto gap-1">
+                {(
+                  [
+                    ["all", "All"],
+                    ["ongoing", "Ongoing"],
+                    ["completed", "Completed"],
+                    ["upcoming", "Upcoming"],
+                  ] as const
+                ).map(([value, label]) => (
+                  <TabsTrigger
+                    key={value}
+                    value={value}
+                    className="data-[state=active]:bg-[#C9A227]/20 data-[state=active]:text-[#C9A227] text-[#e4e4e7]"
+                  >
+                    {label}
+                    <span className="ml-1.5 px-1.5 py-0.5 rounded text-[10px] bg-[#122d4d] text-[#7a8fa6]">
+                      {tabCounts[value]}
+                    </span>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </motion.div>
 
-          {/* Content for each tab (we use a single TabsContent since filter is state-driven) */}
-          {(["all", "ongoing", "completed", "upcoming"] as const).map((tab) => (
-            <TabsContent key={tab} value={tab}>
-              {filteredProjects.length === 0 ? (
-                <div className="text-center py-20">
-                  <p className="text-[#7a8fa6] text-lg">
-                    No {tab === "all" ? "" : tab} projects found.
-                  </p>
-                </div>
-              ) : (
-                <motion.div
-                  variants={stagger}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                >
-                  {filteredProjects.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
-                </motion.div>
-              )}
-            </TabsContent>
-          ))}
-        </Tabs>
+            {/* Content for each tab (we use a single TabsContent since filter is state-driven) */}
+            {(["all", "ongoing", "completed", "upcoming"] as const).map(
+              (tab) => (
+                <TabsContent key={tab} value={tab}>
+                  {filteredProjects.length === 0 ? (
+                    <div className="text-center py-20">
+                      <p className="text-[#7a8fa6] text-lg">
+                        No {tab === "all" ? "" : tab} projects found.
+                      </p>
+                    </div>
+                  ) : (
+                    <motion.div
+                      variants={stagger}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                    >
+                      {filteredProjects.map((project) => (
+                        <ProjectCardItem
+                          key={project.id}
+                          project={project}
+                          onEnquire={handleEnquire}
+                        />
+                      ))}
+                    </motion.div>
+                  )}
+                </TabsContent>
+              ),
+            )}
+          </Tabs>
+        )}
       </section>
+
+      <LeadCaptureModal
+        open={leadOpen}
+        onOpenChange={setLeadOpen}
+        propertyId={selectedProjectId}
+      />
     </main>
   );
 }

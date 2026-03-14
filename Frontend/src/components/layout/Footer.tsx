@@ -4,6 +4,7 @@ import { Instagram, Phone, Mail, MapPin, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { footerNavigation } from "@/data/navigation";
+import { useNewsletterSubscribe, useSiteSettings } from "@/hooks/useSupabase";
 
 // ───────────────────────────── types
 interface SocialLink {
@@ -12,42 +13,68 @@ interface SocialLink {
   label: string;
 }
 
-// ───────────────────────────── constants
-const socialLinks: SocialLink[] = [
-  { Icon: Mail, href: "mailto:dinesh@iaconstructions.com", label: "Email" },
-  {
-    Icon: Instagram,
-    href: "https://www.instagram.com/iaconstructions.in",
-    label: "Instagram",
-  },
-];
-
-const contactInfo = [
-  {
-    Icon: MapPin,
-    text: "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072",
-    href: undefined,
-  },
-  {
-    Icon: Phone,
-    text: "+1 (778)764-5123",
-    href: "tel:+17787645123",
-  },
-  {
-    Icon: Mail,
-    text: "dinesh@iaconstructions.com",
-    href: "mailto:dinesh@iaconstructions.com",
-  },
-] as const;
+// ───────────────────────────── defaults
+const DEFAULTS = {
+  phone: "+91 91544 50123",
+  email: "dinesh@iaconstructions.com",
+  whatsapp: "919154450123",
+  address:
+    "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072",
+  mapEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.7148008252918!2d78.40137041221254!3d17.490251879710808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91548e5ff957%3A0x268fb3341bc87451!2sSR%20prime%20mens%20pg!5e0!3m2!1sen!2sca!4v1772489835178!5m2!1sen!2sca",
+  instagram: "https://www.instagram.com/iaconstructions.in",
+};
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const { subscribe } = useNewsletterSubscribe();
+  const { settings } = useSiteSettings();
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const company = settings.company as
+    | {
+        phone?: string;
+        email?: string;
+        whatsapp?: string;
+        address?: string;
+        mapEmbedUrl?: string;
+        logoUrl?: string;
+      }
+    | undefined;
+  const social = settings.social as
+    | {
+        instagram?: string;
+        facebook?: string;
+        twitter?: string;
+        youtube?: string;
+      }
+    | undefined;
+
+  const phone = company?.phone || DEFAULTS.phone;
+  const emailAddr = company?.email || DEFAULTS.email;
+  const whatsapp = company?.whatsapp || DEFAULTS.whatsapp;
+  const address = company?.address || DEFAULTS.address;
+  const mapEmbedUrl = company?.mapEmbedUrl || DEFAULTS.mapEmbedUrl;
+  const logoUrl = company?.logoUrl || "";
+  const instagramUrl = social?.instagram || DEFAULTS.instagram;
+
+  const phoneTel = `tel:${phone.replace(/[^+\d]/g, "")}`;
+
+  const contactInfo = [
+    { Icon: MapPin, text: address, href: undefined as string | undefined },
+    { Icon: Phone, text: phone, href: phoneTel },
+    { Icon: Mail, text: emailAddr, href: `mailto:${emailAddr}` },
+  ];
+
+  const socialLinks: SocialLink[] = [
+    { Icon: Mail, href: `mailto:${emailAddr}`, label: "Email" },
+    { Icon: Instagram, href: instagramUrl, label: "Instagram" },
+  ];
+
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    // TODO: integrate newsletter API
+    await subscribe(email);
     setSubscribed(true);
     setEmail("");
     setTimeout(() => setSubscribed(false), 4000);
@@ -66,19 +93,27 @@ const Footer: React.FC = () => {
           {/* Column 1 – Company Info */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
-              <div className="flex flex-col leading-none">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-2xl font-extrabold bg-gradient-to-r from-[#C9A227] via-[#d4b94e] to-[#C9A227] bg-clip-text text-transparent italic">
-                    iA
-                  </span>
-                  <span className="text-xl font-semibold text-[#fafafa] tracking-tight">
-                    Constructions
+              {logoUrl ? (
+                <img
+                  src={logoUrl}
+                  alt="iA Constructions"
+                  className="h-12 w-auto object-contain"
+                />
+              ) : (
+                <div className="flex flex-col leading-none">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-2xl font-extrabold bg-gradient-to-r from-[#C9A227] via-[#d4b94e] to-[#C9A227] bg-clip-text text-transparent italic">
+                      iA
+                    </span>
+                    <span className="text-xl font-semibold text-[#fafafa] tracking-tight">
+                      Constructions
+                    </span>
+                  </div>
+                  <span className="text-[9.5px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
+                    Builders &amp; Developers
                   </span>
                 </div>
-                <span className="text-[9.5px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
-                  Builders &amp; Developers
-                </span>
-              </div>
+              )}
             </Link>
             <p className="text-sm leading-relaxed mb-6 max-w-xs">
               Crafting quality living spaces in and around Hyderabad. Trusted by
@@ -99,7 +134,7 @@ const Footer: React.FC = () => {
               ))}
               {/* WhatsApp */}
               <a
-                href="https://wa.me/919154450123"
+                href={`https://wa.me/${whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -142,7 +177,7 @@ const Footer: React.FC = () => {
             </h4>
             <div className="rounded-lg overflow-hidden border border-[#1a3a5c]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.7148008252918!2d78.40137041221254!3d17.490251879710808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91548e5ff957%3A0x268fb3341bc87451!2sSR%20prime%20mens%20pg!5e0!3m2!1sen!2sca!4v1772489835178!5m2!1sen!2sca"
+                src={mapEmbedUrl}
                 width="100%"
                 height="180"
                 style={{ border: 0 }}

@@ -1,7 +1,8 @@
 ﻿import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import { testimonials } from "@/data/testimonials";
+import { Star, ChevronLeft, ChevronRight, Quote, Loader2 } from "lucide-react";
+import { useTestimonials } from "@/hooks/useSupabase";
+import { testimonials as fallbackTestimonials } from "@/data/testimonials";
 import type { Testimonial } from "@/types";
 
 /* ─── Star rating ───────────────────────────────────── */
@@ -70,6 +71,23 @@ const TestimonialCard: React.FC<{
 /* ─── Section ───────────────────────────────────────── */
 
 const TestimonialSection: React.FC = () => {
+  const { testimonials: dbTestimonials, loading } = useTestimonials();
+
+  // Map DB rows to component Testimonial shape, fallback to static data
+  const testimonials: Testimonial[] =
+    !loading && dbTestimonials.length > 0
+      ? dbTestimonials.map((t) => ({
+          id: t.id,
+          name: t.name,
+          designation: t.designation || "",
+          avatar: "",
+          rating: t.rating,
+          comment: t.comment,
+          project: t.project || "",
+          date: t.created_at,
+        }))
+      : fallbackTestimonials;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);

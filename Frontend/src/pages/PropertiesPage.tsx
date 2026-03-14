@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import PropertyGrid from "@/components/property/PropertyGrid";
 import PropertyCard from "@/components/property/PropertyCard";
 import PropertyFilter from "@/components/property/PropertyFilter";
-import { properties } from "@/data/properties";
+import { staticProjects as properties } from "@/data/properties";
 import type { FilterState, Property } from "@/types";
 import { Link } from "react-router-dom";
 
@@ -34,7 +34,7 @@ function sortProperties(list: Property[], sortBy: string): Property[] {
     case "price-desc":
       return sorted.sort((a, b) => b.price - a.price);
     case "area":
-      return sorted.sort((a, b) => b.area - a.area);
+      return sorted.sort((a, b) => b.areaSqft - a.areaSqft);
     case "newest":
     default:
       return sorted.sort(
@@ -74,8 +74,8 @@ export default function PropertiesPage() {
         result = result.filter((p) =>
           locs.some(
             (l) =>
-              p.location.city.toLowerCase().includes(l) ||
-              p.location.address.toLowerCase().includes(l),
+              p.location.toLowerCase().includes(l) ||
+              p.address.toLowerCase().includes(l),
           ),
         );
       }

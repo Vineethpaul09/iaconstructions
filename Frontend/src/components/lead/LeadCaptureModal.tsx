@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Select, type SelectOption } from "@/components/ui/select";
+import { useSubmitLead, useProjects } from "@/hooks/useSupabase";
 
 /* ─── Types ─────────────────────────────────────────── */
 
@@ -39,6 +40,7 @@ interface FormState {
   intent: Intent | null;
   propertyType: string;
   location: string;
+  projectId: string;
   budgetRange: [number, number];
   name: string;
   email: string;
@@ -139,14 +141,17 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
     intent: null,
     propertyType: "",
     location: "",
+    projectId: propertyId ?? "",
     budgetRange: [2000000, 15000000],
     name: "",
     email: "",
-    countryCode: "+1",
+    countryCode: "+91",
     phone: "",
   });
 
   const [phoneError, setPhoneError] = useState<string | null>(null);
+  const { submitLead } = useSubmitLead();
+  const { projects } = useProjects();
 
   const {
     register,
@@ -178,7 +183,7 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
     goNext();
   };
 
-  const handleFinalSubmit = (data: ContactFormValues) => {
+  const handleFinalSubmit = async (data: ContactFormValues) => {
     // Validate phone for selected country
     const error = validatePhoneNumber(data.phone, formState.countryCode);
     if (error) {
@@ -186,15 +191,18 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       return;
     }
     setPhoneError(null);
-    const completeData = {
-      ...formState,
-      ...data,
+    await submitLead({
+      name: data.name,
+      email: data.email,
+      countryCode: formState.countryCode,
       phone: stripNonDigits(data.phone),
-      propertyId: propertyId ?? null,
-      submittedAt: new Date().toISOString(),
-    };
-    // eslint-disable-next-line no-console
-    console.log("Lead captured:", completeData);
+      intent: formState.intent ?? "buy",
+      propertyType: formState.propertyType,
+      location: formState.location,
+      budgetMin: formState.budgetRange[0],
+      budgetMax: formState.budgetRange[1],
+      propertyId: formState.projectId || propertyId || null,
+    });
     goNext(); // go to success step
   };
 
@@ -207,10 +215,11 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
         intent: null,
         propertyType: "",
         location: "",
+        projectId: propertyId ?? "",
         budgetRange: [2000000, 15000000],
         name: "",
         email: "",
-        countryCode: "+1",
+        countryCode: "+91",
         phone: "",
       });
       resetForm();
@@ -293,6 +302,22 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
           }
         />
       </div>
+
+      {projects.length > 0 && (
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-[#e4e4e7]">
+            Interested Project
+          </label>
+          <Select
+            options={projects.map((p) => ({ value: p.id, label: p.name }))}
+            placeholder="Select a project (optional)"
+            value={formState.projectId}
+            onValueChange={(v) =>
+              setFormState((prev) => ({ ...prev, projectId: v }))
+            }
+          />
+        </div>
+      )}
 
       <div className="space-y-3">
         <label className="text-sm font-medium text-[#e4e4e7]">

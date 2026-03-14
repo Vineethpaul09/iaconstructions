@@ -1,17 +1,22 @@
 ﻿import React from "react";
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSupabase";
 
-const WHATSAPP_NUMBER = "919154450123"; // India number (kept per request)
+const DEFAULT_NUMBER = "919154450123";
 const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hello! I'm interested in your properties. Could you share more details and availability? — Regards, [Name]"
+  "Hello! I'm interested in your properties. Could you share more details and availability? — Regards, [Name]",
 );
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
 
 const WhatsAppButton: React.FC = () => {
+  const { settings } = useSiteSettings();
+  const company = settings.company as { whatsapp?: string } | undefined;
+  const number = company?.whatsapp || DEFAULT_NUMBER;
+  const url = `https://wa.me/${number}?text=${WHATSAPP_MESSAGE}`;
+
   return (
     <motion.a
-      href={WHATSAPP_URL}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ scale: 0, opacity: 0 }}

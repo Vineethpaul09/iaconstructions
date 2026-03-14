@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const CTASection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -66,18 +67,23 @@ const CTASection: React.FC = () => {
           viewport={{ once: true }}
           className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4"
         >
-          <Button size="lg" className="min-w-[180px]">
-            Browse Properties
-            <ArrowRight className="ml-2 h-4 w-4" />
+          <Button size="lg" className="min-w-[180px]" asChild>
+            <Link to="/projects">
+              Browse Projects
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </Button>
 
           <Button
             variant="outline"
             size="lg"
             className="min-w-[180px] border-[#fafafa]/20 text-[#fafafa] hover:bg-[#fafafa]/10"
+            asChild
           >
-            <Phone className="mr-2 h-4 w-4" />
-            Talk to an Expert
+            <a href="tel:+919154450123">
+              <Phone className="mr-2 h-4 w-4" />
+              Talk to an Expert
+            </a>
           </Button>
         </motion.div>
       </motion.div>

@@ -13,7 +13,17 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { navigation } from "@/data/navigation";
+import { useSiteSettings } from "@/hooks/useSupabase";
 import type { NavItem } from "@/types";
+
+// ─────────────── defaults
+const DEFAULTS = {
+  phone: "+91 91544 50123",
+  email: "dinesh@iaconstructions.com",
+  whatsapp: "919154450123",
+  address: "Hyderabad, Telangana",
+  instagram: "https://www.instagram.com/iaconstructions.in",
+};
 
 // ───────────────────────────── animation variants
 const dropdownVariants = {
@@ -51,42 +61,58 @@ const overlayVariants = {
 };
 
 // ───────────────────────────── Top Bar
-const TopBar: React.FC = () => (
+interface TopBarProps {
+  phone: string;
+  phoneTel: string;
+  email: string;
+  whatsapp: string;
+  address: string;
+  instagram: string;
+}
+
+const TopBar: React.FC<TopBarProps> = ({
+  phone,
+  phoneTel,
+  email,
+  whatsapp,
+  address,
+  instagram,
+}) => (
   <div className="hidden md:block w-full bg-[#0B1F3A] border-b border-[#C9A227]/15 text-xs text-[#e4e4e7]">
     <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-9">
       {/* left */}
       <div className="flex items-center gap-5">
         <a
-          href="tel:+17787645123"
+          href={phoneTel}
           className="flex items-center gap-1.5 hover:text-[#C9A227] transition-colors"
         >
           <Phone className="h-3 w-3 text-[#C9A227]" />
-          +1 (778)764-5123
+          {phone}
         </a>
         <a
-          href="mailto:dinesh@iaconstructions.com"
+          href={`mailto:${email}`}
           className="flex items-center gap-1.5 hover:text-[#C9A227] transition-colors"
         >
           <Mail className="h-3 w-3 text-[#C9A227]" />
-          dinesh@iaconstructions.com
+          {email}
         </a>
         <span className="flex items-center gap-1.5">
           <MapPin className="h-3 w-3 text-[#C9A227]" />
-          Hyderabad, Telangana
+          {address}
         </span>
       </div>
 
       {/* right – social */}
       <div className="flex items-center gap-3">
         <a
-          href="mailto:dinesh@iaconstructions.com"
+          href={`mailto:${email}`}
           className="hover:text-[#C9A227] transition-colors"
           title="Email"
         >
           <Mail className="h-3.5 w-3.5" />
         </a>
         <a
-          href="https://www.instagram.com/iaconstructions.in"
+          href={instagram}
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-[#C9A227] transition-colors"
@@ -95,7 +121,7 @@ const TopBar: React.FC = () => (
           <Instagram className="h-3.5 w-3.5" />
         </a>
         <a
-          href="https://wa.me/919154450123"
+          href={`https://wa.me/${whatsapp}`}
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-[#C9A227] transition-colors"
@@ -278,6 +304,28 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const location = useLocation();
+  const { settings } = useSiteSettings();
+
+  const company = settings.company as
+    | {
+        phone?: string;
+        headerPhone?: string;
+        email?: string;
+        whatsapp?: string;
+        address?: string;
+        logoUrl?: string;
+      }
+    | undefined;
+  const social = settings.social as { instagram?: string } | undefined;
+
+  const phone = company?.headerPhone || company?.phone || DEFAULTS.phone;
+  const logoUrl = company?.logoUrl || "";
+  const emailAddr = company?.email || DEFAULTS.email;
+  const whatsapp = company?.whatsapp || DEFAULTS.whatsapp;
+  const address =
+    company?.address?.split(",").slice(-2).join(",").trim() || DEFAULTS.address;
+  const instagram = social?.instagram || DEFAULTS.instagram;
+  const phoneTel = `tel:${phone.replace(/[^+\d]/g, "")}`;
 
   // lock body scroll when drawer is open
   useEffect(() => {
@@ -304,7 +352,14 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* ── Top info bar ── */}
-      <TopBar />
+      <TopBar
+        phone={phone}
+        phoneTel={phoneTel}
+        email={emailAddr}
+        whatsapp={whatsapp}
+        address={address}
+        instagram={instagram}
+      />
 
       {/* ── Main navbar ── */}
       <header
@@ -318,19 +373,27 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-16 lg:h-[72px]">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <div className="flex flex-col leading-none">
-              <div className="flex items-baseline gap-1">
-                <span className="text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-[#C9A227] via-[#d4b94e] to-[#C9A227] bg-clip-text text-transparent italic">
-                  iA
-                </span>
-                <span className="text-lg lg:text-xl font-semibold text-[#fafafa] tracking-tight">
-                  Constructions
+            {logoUrl ? (
+              <img
+                src={logoUrl}
+                alt="iA Constructions"
+                className="h-10 lg:h-12 w-auto object-contain"
+              />
+            ) : (
+              <div className="flex flex-col leading-none">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-2xl lg:text-3xl font-extrabold bg-gradient-to-r from-[#C9A227] via-[#d4b94e] to-[#C9A227] bg-clip-text text-transparent italic">
+                    iA
+                  </span>
+                  <span className="text-lg lg:text-xl font-semibold text-[#fafafa] tracking-tight">
+                    Constructions
+                  </span>
+                </div>
+                <span className="text-[9px] lg:text-[10px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
+                  Builders &amp; Developers
                 </span>
               </div>
-              <span className="text-[9px] lg:text-[10px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
-                Builders &amp; Developers
-              </span>
-            </div>
+            )}
           </Link>
 
           {/* Desktop nav */}
@@ -393,19 +456,27 @@ const Navbar: React.FC = () => {
             >
               {/* drawer header */}
               <div className="flex items-center justify-between px-4 h-16 border-b border-[#1a3a5c]">
-                <div className="flex flex-col leading-none">
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-xl font-extrabold bg-gradient-to-r from-[#C9A227] via-[#d4b94e] to-[#C9A227] bg-clip-text text-transparent italic">
-                      iA
-                    </span>
-                    <span className="text-sm font-semibold text-[#fafafa] tracking-tight">
-                      Constructions
+                {logoUrl ? (
+                  <img
+                    src={logoUrl}
+                    alt="iA Constructions"
+                    className="h-9 w-auto object-contain"
+                  />
+                ) : (
+                  <div className="flex flex-col leading-none">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-xl font-extrabold bg-gradient-to-r from-[#C9A227] via-[#d4b94e] to-[#C9A227] bg-clip-text text-transparent italic">
+                        iA
+                      </span>
+                      <span className="text-sm font-semibold text-[#fafafa] tracking-tight">
+                        Constructions
+                      </span>
+                    </div>
+                    <span className="text-[8px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
+                      Builders &amp; Developers
                     </span>
                   </div>
-                  <span className="text-[8px] font-medium uppercase tracking-[0.2em] text-[#e4e4e7] mt-0.5">
-                    Builders &amp; Developers
-                  </span>
-                </div>
+                )}
                 <button
                   onClick={() => setDrawerOpen(false)}
                   className="p-2 text-[#e4e4e7] hover:text-[#C9A227] transition-colors"
@@ -435,31 +506,31 @@ const Navbar: React.FC = () => {
                 {/* contact info in drawer */}
                 <div className="mt-6 space-y-3 text-sm text-[#e4e4e7]">
                   <a
-                    href="tel:+17787645123"
+                    href={phoneTel}
                     className="flex items-center gap-2 hover:text-[#C9A227] transition-colors"
                   >
                     <Phone className="h-4 w-4 text-[#C9A227]" />
-                    +1 (778)764-5123
+                    {phone}
                   </a>
                   <a
-                    href="mailto:dinesh@iaconstructions.com"
+                    href={`mailto:${emailAddr}`}
                     className="flex items-center gap-2 hover:text-[#C9A227] transition-colors"
                   >
                     <Mail className="h-4 w-4 text-[#C9A227]" />
-                    dinesh@iaconstructions.com
+                    {emailAddr}
                   </a>
                 </div>
 
                 {/* social */}
                 <div className="flex items-center gap-4 mt-6">
                   <a
-                    href="mailto:dinesh@iaconstructions.com"
+                    href={`mailto:${emailAddr}`}
                     className="text-[#e4e4e7] hover:text-[#C9A227] transition-colors"
                   >
                     <Mail className="h-5 w-5" />
                   </a>
                   <a
-                    href="https://www.instagram.com/iaconstructions.in"
+                    href={instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#e4e4e7] hover:text-[#C9A227] transition-colors"
@@ -467,7 +538,7 @@ const Navbar: React.FC = () => {
                     <Instagram className="h-5 w-5" />
                   </a>
                   <a
-                    href="https://wa.me/919154450123"
+                    href={`https://wa.me/${whatsapp}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#e4e4e7] hover:text-[#C9A227] transition-colors"

@@ -25,7 +25,7 @@ const BOT_RESPONSES: Record<string, string> = {
   "What's your best deal?":
     "Our current best deal is the IAC Skyline 3 BHK apartments in Gachibowli, Hyderabad — offered at a special pre-launch price of ₹89 L with no GST, free modular kitchen, and a 0% booking amount scheme. Limited units left!",
   "Schedule a visit":
-    "I'd love to arrange a site visit for you! Please share your preferred date, time, and the project you're interested in. Alternatively, you can call us at +17787645123 to book instantly.",
+    "I'd love to arrange a site visit for you! Please share your preferred date, time, and the project you're interested in. Alternatively, you can call us at +91 91544 50123 to book instantly.",
 };
 
 const INITIAL_MESSAGE: ChatMessage = {
@@ -35,7 +35,7 @@ const INITIAL_MESSAGE: ChatMessage = {
 };
 
 const FALLBACK_RESPONSE =
-  "Thanks for your question! Our team will get back to you shortly. In the meantime, you can call us at +17787645123 for immediate assistance.";
+  "Thanks for your question! Our team will get back to you shortly. In the meantime, you can call us at +91 91544 50123 for immediate assistance.";
 
 /* ─── Component ─────────────────────────────────────── */
 

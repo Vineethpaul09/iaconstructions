@@ -23,6 +23,7 @@ import CountryCodeSelect, {
   getCountryByCode,
   stripNonDigits,
 } from "@/components/ui/CountryCodeSelect";
+import { useSubmitContact, useSiteSettings } from "@/hooks/useSupabase";
 
 /* ── Animation helpers ─────────────────────────────────────────────── */
 
@@ -36,47 +37,17 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.12 } },
 };
 
-/* ── Contact info data ─────────────────────────────────────────────── */
+/* ── Contact defaults ──────────────────────────────────────────────── */
 
-const contactInfo = [
-  {
-    icon: <MapPin className="h-6 w-6" />,
-    title: "Visit Us",
-    lines: [
-      "iA Constructions Head Office",
-      "VASAVI NILAYAM, MIG 59, Road No 1,",
-      "KPHB Colony, Kukatpally,",
-      "Hyderabad, 500072",
-    ],
-  },
-  {
-    icon: <Phone className="h-6 w-6" />,
-    title: "Call Us",
-    lines: ["+1 (778)764-5123"],
-  },
-  {
-    icon: <Mail className="h-6 w-6" />,
-    title: "Email Us",
-    lines: ["dinesh@iaconstructions.com"],
-  },
-  {
-    icon: <Clock className="h-6 w-6" />,
-    title: "Working Hours",
-    lines: ["Mon – Sat: 9:00 AM – 7:00 PM", "Sunday: By Appointment"],
-  },
-];
-
-/* ── Office locations ──────────────────────────────────────────────── */
-
-const offices = [
-  {
-    city: "Hyderabad",
-    state: "Telangana",
-    address:
-      "MIG 59, Rd Number 1, near YSR Statue, Kukatpally Housing Board Colony, Phase 1, KPHB Phase 1, Kukatpally, Hyderabad, Telangana 500072, India",
-    phone: "+1 (778)764-5123",
-  },
-];
+const DEFAULTS = {
+  phone: "+91 91544 50123",
+  email: "dinesh@iaconstructions.com",
+  whatsapp: "919154450123",
+  address:
+    "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072",
+  mapEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.7148008252918!2d78.40137041221254!3d17.490251879710808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91548e5ff957%3A0x268fb3341bc87451!2sSR%20prime%20mens%20pg!5e0!3m2!1sen!2sca!4v1772489835178!5m2!1sen!2sca",
+};
 
 /* ── Subject options ───────────────────────────────────────────────── */
 
@@ -94,16 +65,87 @@ const subjects = [
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function ContactPage() {
+  const { settings } = useSiteSettings();
+
+  const company = settings.company as
+    | {
+        phone?: string;
+        headerPhone?: string;
+        email?: string;
+        whatsapp?: string;
+        address?: string;
+        mapEmbedUrl?: string;
+      }
+    | undefined;
+
+  const phone = company?.phone || DEFAULTS.phone;
+  const emailAddr = company?.email || DEFAULTS.email;
+  const whatsapp = company?.whatsapp || DEFAULTS.whatsapp;
+  const address = company?.address || DEFAULTS.address;
+  const mapEmbedUrl = company?.mapEmbedUrl || DEFAULTS.mapEmbedUrl;
+  const phoneTel = `tel:${phone.replace(/[^+\d]/g, "")}`;
+
+  // Split address into display lines (chunks of ~2 comma segments)
+  const addressParts = address.split(",").map((s) => s.trim());
+  const addressLines = [
+    "iA Constructions Head Office",
+    ...(addressParts.length <= 2
+      ? [addressParts.join(", ")]
+      : [
+          addressParts.slice(0, Math.ceil(addressParts.length / 2)).join(", ") +
+            ",",
+          addressParts.slice(Math.ceil(addressParts.length / 2)).join(", "),
+        ]),
+  ];
+
+  const contactInfo = [
+    {
+      icon: <MapPin className="h-6 w-6" />,
+      title: "Visit Us",
+      lines: addressLines,
+    },
+    {
+      icon: <Phone className="h-6 w-6" />,
+      title: "Call Us",
+      lines: [phone],
+      href: phoneTel,
+    },
+    {
+      icon: <Mail className="h-6 w-6" />,
+      title: "Email Us",
+      lines: [emailAddr],
+      href: `mailto:${emailAddr}`,
+    },
+    {
+      icon: <Clock className="h-6 w-6" />,
+      title: "Working Hours",
+      lines: [
+        "Mon \u2013 Sat: 9:00 AM \u2013 7:00 PM",
+        "Sunday: By Appointment",
+      ],
+    },
+  ];
+
+  const offices = [
+    {
+      city: addressParts.slice(-3, -1).join(", ") || "Hyderabad",
+      state: addressParts.slice(-2, -1).join("") || "Telangana",
+      address,
+      phone,
+    },
+  ];
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    countryCode: "+1",
+    countryCode: "+91",
     phone: "",
     subject: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [phoneError, setPhoneError] = useState<string | null>(null);
+  const { submitContact } = useSubmitContact();
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -129,7 +171,7 @@ export default function ContactPage() {
     setPhoneError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Validate phone
     const error = validatePhoneNumber(formData.phone, formData.countryCode);
@@ -137,13 +179,20 @@ export default function ContactPage() {
       setPhoneError(error);
       return;
     }
-    // In production, submit to API
+    await submitContact({
+      name: formData.name,
+      email: formData.email,
+      countryCode: formData.countryCode,
+      phone: formData.phone,
+      subject: formData.subject,
+      message: formData.message,
+    });
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 4000);
     setFormData({
       name: "",
       email: "",
-      countryCode: "+1",
+      countryCode: "+91",
       phone: "",
       subject: "",
       message: "",
@@ -348,7 +397,7 @@ export default function ContactPage() {
             {/* WhatsApp CTA */}
             <motion.div variants={fadeUp}>
               <a
-                href="https://wa.me/919154450123"
+                href={`https://wa.me/${whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 hover:bg-emerald-500/20 transition-colors"
@@ -394,7 +443,7 @@ export default function ContactPage() {
           className="w-full aspect-[16/7] rounded-xl border border-[#1a3a5c] overflow-hidden mb-12"
         >
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.7148008252918!2d78.40137041221254!3d17.490251879710808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91548e5ff957%3A0x268fb3341bc87451!2sSR%20prime%20mens%20pg!5e0!3m2!1sen!2sca!4v1772489835178!5m2!1sen!2sca"
+            src={mapEmbedUrl}
             width="100%"
             height="100%"
             style={{ border: 10 }}

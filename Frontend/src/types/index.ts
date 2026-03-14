@@ -1,73 +1,49 @@
-export interface Property {
-  id: string;
-  title: string;
-  slug: string;
-  description: string;
-  type:
-    | "apartment"
-    | "villa"
-    | "bungalow"
-    | "plot"
-    | "commercial"
-    | "penthouse";
-  status: "available" | "sold" | "reserved" | "upcoming";
-  projectStatus: "ongoing" | "completed" | "upcoming";
-  price: number;
-  pricePerSqFt: number;
-  area: number;
-  bedrooms: number;
-  bathrooms: number;
-  balconies: number;
-  floor: number;
-  totalFloors: number;
-  facing: string;
-  location: PropertyLocation;
-  amenities: string[];
-  specifications: PropertySpecification[];
-  images: string[];
-  floorPlanImage: string;
-  has3DTour: boolean;
-  hasVideo: boolean;
-  reraNumber: string;
-  possessionDate: string;
-  builder: string;
-  featured: boolean;
-  createdAt: string;
-}
+/* ── Project types (simplified V2 schema) ─────────────────────── */
 
-export interface PropertyLocation {
-  address: string;
-  city: string;
-  state: string;
-  pincode: string;
-  latitude: number;
-  longitude: number;
-  landmark: string;
-}
+export type ProjectType =
+  | "villa"
+  | "home"
+  | "apartment"
+  | "commercial"
+  | "bungalow"
+  | "penthouse"
+  | "plot";
 
-export interface PropertySpecification {
-  category: string;
-  items: { label: string; value: string }[];
-}
+export type ProjectStatus = "ongoing" | "completed" | "upcoming";
 
 export interface Project {
   id: string;
   name: string;
   slug: string;
   description: string;
-  status: "ongoing" | "completed" | "upcoming";
-  location: PropertyLocation;
-  totalUnits: number;
-  availableUnits: number;
-  priceRange: { min: number; max: number };
-  areaRange: { min: number; max: number };
-  types: string[];
-  amenities: string[];
+  type: ProjectType;
+  status: ProjectStatus;
+  price: number;
+  areaSqft: number;
+  location: string;
+  address: string;
+  bedrooms: number;
+  bathrooms: number;
   images: string[];
-  heroImage: string;
-  completionDate: string;
+  featured: boolean;
   reraNumber: string;
-  properties: Property[];
+  possessionDate: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** @deprecated – Use Project instead */
+export type Property = Project;
+
+export interface SiteSettings {
+  hero: { title: string; subtitle: string };
+  company: { phone: string; email: string; whatsapp: string; address: string };
+  social: {
+    facebook: string;
+    instagram: string;
+    twitter: string;
+    youtube: string;
+  };
 }
 
 export interface Testimonial {

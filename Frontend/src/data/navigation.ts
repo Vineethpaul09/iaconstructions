@@ -24,6 +24,10 @@ export const navigation: NavItem[] = [
     href: "/about",
   },
   {
+    label: "Client Stories",
+    href: "/client-stories",
+  },
+  {
     label: "Contact",
     href: "/contact",
   },
@@ -54,7 +58,6 @@ export const footerNavigation = {
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms & Conditions", href: "/terms" },
     { label: "RERA Information", href: "/rera" },
-    { label: "Sitemap", href: "/sitemap" },
   ],
 };
 

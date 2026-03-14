@@ -32,17 +32,13 @@ const statusConfig: Record<
   Property["status"],
   { label: string; className: string }
 > = {
-  available: {
-    label: "Available",
-    className: "bg-emerald-500/90 text-white border-emerald-400",
-  },
-  reserved: {
-    label: "Reserved",
+  ongoing: {
+    label: "Ongoing",
     className: "bg-amber-500/90 text-white border-amber-400",
   },
-  sold: {
-    label: "Sold",
-    className: "bg-red-500/90 text-white border-red-400",
+  completed: {
+    label: "Completed",
+    className: "bg-emerald-500/90 text-white border-emerald-400",
   },
   upcoming: {
     label: "Upcoming",
@@ -53,6 +49,7 @@ const statusConfig: Record<
 const typeIcons: Record<Property["type"], React.ElementType> = {
   apartment: Building2,
   villa: Home,
+  home: Home,
   bungalow: Landmark,
   plot: LandPlot,
   commercial: Store,
@@ -62,6 +59,7 @@ const typeIcons: Record<Property["type"], React.ElementType> = {
 const typeLabels: Record<Property["type"], string> = {
   apartment: "Apartment",
   villa: "Villa",
+  home: "Home",
   bungalow: "Bungalow",
   plot: "Plot",
   commercial: "Commercial",
@@ -80,7 +78,7 @@ export default function PropertyCard({
   const heroImage = property.images?.[0];
 
   const whatsappMessage = encodeURIComponent(
-    `Hi, I'm interested in "${property.title}" (${formatPrice(property.price)}). Please share more details.`,
+    `Hi, I'm interested in "${property.name}" (${formatPrice(property.price)}). Please share more details.`,
   );
   const whatsappLink = `https://wa.me/919154450123?text=${whatsappMessage}`;
 
@@ -104,7 +102,7 @@ export default function PropertyCard({
           {heroImage ? (
             <img
               src={heroImage}
-              alt={property.title}
+              alt={property.name}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
           ) : (
@@ -186,14 +184,14 @@ export default function PropertyCard({
 
           {/* Title */}
           <h3 className="line-clamp-1 text-lg font-semibold text-white">
-            {property.title}
+            {property.name}
           </h3>
 
           {/* Location */}
           <div className="flex items-center gap-1.5 text-sm text-[#e4e4e7]">
             <MapPin className="h-3.5 w-3.5 shrink-0 text-[#C9A227]/70" />
             <span className="line-clamp-1">
-              {property.location.address}, {property.location.city}
+              {property.address}, {property.location}
             </span>
           </div>
 
@@ -210,7 +208,7 @@ export default function PropertyCard({
               </div>
               <div className="flex items-center gap-1.5" title="Area">
                 <Maximize className="h-4 w-4 text-[#7a8fa6]" />
-                <span>{formatArea(property.area)}</span>
+                <span>{formatArea(property.areaSqft)}</span>
               </div>
             </div>
           )}
@@ -219,7 +217,7 @@ export default function PropertyCard({
             <div className="flex items-center gap-4 border-y border-white/5 py-3 text-sm text-[#b0c4d8]">
               <div className="flex items-center gap-1.5" title="Area">
                 <Maximize className="h-4 w-4 text-[#7a8fa6]" />
-                <span>{formatArea(property.area)}</span>
+                <span>{formatArea(property.areaSqft)}</span>
               </div>
             </div>
           )}
@@ -230,7 +228,7 @@ export default function PropertyCard({
               {formatPrice(property.price)}
             </p>
             <p className="text-xs text-[#7a8fa6]">
-              {formatPrice(property.pricePerSqFt)}/sq.ft
+              {formatArea(property.areaSqft)}
             </p>
           </div>
 
