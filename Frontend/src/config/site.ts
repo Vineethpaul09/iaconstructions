@@ -4,7 +4,7 @@
  * JSON-LD schemas, canonical URLs, and OG meta will update automatically.
  */
 
-export const SITE_URL = "https://iaconstructions.com";
+export const SITE_URL = "https://iaconstruction-production.up.railway.app";
 
 export const SITE = {
   name: "iA Constructions",
