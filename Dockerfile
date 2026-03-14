@@ -27,7 +27,7 @@ COPY Frontend/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy custom start script that handles PORT substitution
 COPY Frontend/start.sh /start.sh
-RUN chmod +x /start.sh
+RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 
 # Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
