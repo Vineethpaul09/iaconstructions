@@ -26,8 +26,8 @@ import Hero from "@/components/home/Hero";
 import { usePageSEO } from "@/hooks/usePageSEO";
 
 import { services } from "@/data/services";
-import { testimonials } from "@/data/testimonials";
 import { statCounters } from "@/data/navigation";
+import { useTestimonials } from "@/hooks/useSupabase";
 
 /* ── Icon map ──────────────────────────────────────────────────────── */
 
@@ -138,6 +138,18 @@ export default function HomePage() {
 
   const allServices = services.slice(0, 4);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { testimonials: dbTestimonials, loading: testimonialsLoading } = useTestimonials();
+
+  const testimonials = dbTestimonials.map((t) => ({
+    id: t.id,
+    name: t.name,
+    designation: t.designation || "",
+    avatar: "",
+    rating: t.rating,
+    comment: t.comment,
+    project: t.project || "",
+    date: t.created_at,
+  }));
 
   const scrollTestimonials = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -263,6 +275,7 @@ export default function HomePage() {
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 
       {/* ── Testimonials ─────────────────────────────────────────── */}
+      {!testimonialsLoading && testimonials.length > 0 && (
       <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
@@ -338,6 +351,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      )}
     </main>
   );
 }
