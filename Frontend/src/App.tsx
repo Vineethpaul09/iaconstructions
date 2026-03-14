@@ -23,6 +23,8 @@ const AdminContacts = lazy(() => import("@/pages/admin/AdminContacts"));
 const AdminSubscribers = lazy(() => import("@/pages/admin/AdminSubscribers"));
 const AdminSettings = lazy(() => import("@/pages/admin/AdminSettings"));
 const AdminTestimonials = lazy(() => import("@/pages/admin/AdminTestimonials"));
+const PropertiesPage = lazy(() => import("@/pages/PropertiesPage"));
+const PropertyDetailPage = lazy(() => import("@/pages/PropertyDetailPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 const ForbiddenPage = lazy(() => import("@/pages/ForbiddenPage"));
 const ServerErrorPage = lazy(() => import("@/pages/ServerErrorPage"));
@@ -90,6 +92,14 @@ function App() {
                       <Route
                         path="/client-stories"
                         element={<ClientStoriesPage />}
+                      />
+                      <Route
+                        path="/properties"
+                        element={<PropertiesPage />}
+                      />
+                      <Route
+                        path="/properties/:id"
+                        element={<PropertyDetailPage />}
                       />
                       <Route path="/forbidden" element={<ForbiddenPage />} />
                       <Route path="*" element={<NotFoundPage />} />

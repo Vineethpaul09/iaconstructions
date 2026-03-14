@@ -12,7 +12,8 @@ RUN npm ci
 # Copy source code from Frontend
 COPY Frontend/ .
 
-# Build the application
+# Build the application (skip prerender — no Chrome in Alpine)
+ENV SKIP_PRERENDER=true
 RUN npm run build
 
 # Production stage
