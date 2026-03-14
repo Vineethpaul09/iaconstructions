@@ -108,9 +108,9 @@ export default function HomePage() {
       {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: `${SITE.name} — Premium Builders & Developers in Hyderabad`,
+        name: `${SITE.name} — Premium Builders & Developers | Hyderabad`,
         description:
-          "Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. RERA approved. Trusted by NRIs worldwide.",
+          "Premium 2, 3 & 4 BHK apartments, villas & commercial spaces in Hyderabad. RERA approved projects. Trusted by NRIs worldwide.",
         url: siteUrl("/"),
         isPartOf: {
           "@type": "WebSite",
@@ -128,8 +128,8 @@ export default function HomePage() {
   );
 
   usePageSEO({
-    title: "Premium Builders & Developers in Hyderabad",
-    description: `${SITE.name} — Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. RERA approved. Trusted by NRIs across USA, Canada, Australia & UK since ${SITE.foundingDate}.`,
+    title: "Premium Builders & Developers | Hyderabad",
+    description: `Premium 2, 3 & 4 BHK apartments, villas & commercial spaces in Hyderabad. RERA approved projects. Trusted by NRIs since ${SITE.foundingDate}.`,
     canonical: siteUrl("/"),
     ogImageAlt: `${SITE.name} — Premium apartments and villas in Hyderabad`,
     jsonLd: homeJsonLd,
