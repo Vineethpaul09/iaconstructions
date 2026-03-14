@@ -97,6 +97,7 @@ const Footer: React.FC = () => {
                 <img
                   src={logoUrl}
                   alt="iA Constructions"
+                  title="iA Constructions"
                   className="h-12 w-auto object-contain"
                 />
               ) : (

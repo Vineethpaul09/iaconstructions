@@ -378,6 +378,7 @@ const Navbar: React.FC = () => {
               <img
                 src={logoUrl}
                 alt="iA Constructions"
+                title="iA Constructions"
                 className="h-10 lg:h-12 w-auto object-contain"
               />
             ) : (
@@ -461,6 +462,7 @@ const Navbar: React.FC = () => {
                   <img
                     src={logoUrl}
                     alt="iA Constructions"
+                    title="iA Constructions"
                     className="h-9 w-auto object-contain"
                   />
                 ) : (

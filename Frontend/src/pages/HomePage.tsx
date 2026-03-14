@@ -200,6 +200,7 @@ export default function HomePage() {
                     <img
                       src={svc.image}
                       alt={svc.title}
+                      title={svc.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src =
