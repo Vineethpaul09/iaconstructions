@@ -1,6 +1,10 @@
 # Build stage
 FROM node:20-alpine AS builder
 
+# Accept Supabase env vars at build time (required for Vite to bake them in)
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_ANON_KEY
+
 WORKDIR /app
 
 # Copy package files from Frontend
@@ -14,6 +18,8 @@ COPY Frontend/ .
 
 # Build the application (skip prerender — no Chrome in Alpine)
 ENV SKIP_PRERENDER=true
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 RUN npm run build
 
 # Production stage
