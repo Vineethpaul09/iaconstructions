@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -65,6 +66,13 @@ const subjects = [
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function ContactPage() {
+  usePageSEO({
+    title: "Contact Us — Get In Touch",
+    description:
+      "Contact iA Constructions for premium apartments, villas, and commercial spaces in Hyderabad. Call +91 91544 50123 or visit our office in KPHB Colony, Kukatpally.",
+    canonical: "https://iaconstructions.com/contact",
+  });
+
   const { settings } = useSiteSettings();
 
   const company = settings.company as
@@ -258,11 +266,16 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-[#e4e4e7] text-sm mb-2">
+                      <label
+                        htmlFor="contact-name"
+                        className="block text-[#e4e4e7] text-sm mb-2"
+                      >
                         Full Name *
                       </label>
                       <Input
+                        id="contact-name"
                         name="name"
+                        autoComplete="name"
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="John Doe"
@@ -271,12 +284,17 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-[#e4e4e7] text-sm mb-2">
+                      <label
+                        htmlFor="contact-email"
+                        className="block text-[#e4e4e7] text-sm mb-2"
+                      >
                         Email Address *
                       </label>
                       <Input
+                        id="contact-email"
                         name="email"
                         type="email"
+                        autoComplete="email"
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="john@example.com"
@@ -288,7 +306,10 @@ export default function ContactPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-[#e4e4e7] text-sm mb-2">
+                      <label
+                        htmlFor="contact-phone"
+                        className="block text-[#e4e4e7] text-sm mb-2"
+                      >
                         Phone Number *
                       </label>
                       <div className="flex gap-2">
@@ -297,8 +318,10 @@ export default function ContactPage() {
                           onChange={handleCountryCodeChange}
                         />
                         <Input
+                          id="contact-phone"
                           name="phone"
                           type="tel"
+                          autoComplete="tel"
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder={
@@ -315,10 +338,14 @@ export default function ContactPage() {
                       )}
                     </div>
                     <div>
-                      <label className="block text-[#e4e4e7] text-sm mb-2">
+                      <label
+                        htmlFor="contact-subject"
+                        className="block text-[#e4e4e7] text-sm mb-2"
+                      >
                         Subject *
                       </label>
                       <select
+                        id="contact-subject"
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
@@ -338,10 +365,14 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-[#e4e4e7] text-sm mb-2">
+                    <label
+                      htmlFor="contact-message"
+                      className="block text-[#e4e4e7] text-sm mb-2"
+                    >
                       Message *
                     </label>
                     <Textarea
+                      id="contact-message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
@@ -444,6 +475,7 @@ export default function ContactPage() {
         >
           <iframe
             src={mapEmbedUrl}
+            title="iA Constructions office location on Google Maps"
             width="100%"
             height="100%"
             style={{ border: 10 }}

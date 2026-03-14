@@ -185,7 +185,7 @@ export default function Hero() {
 
       {/* ---- Content Overlay ---- */}
       <div className="relative z-10 flex h-full flex-col justify-end pb-28 sm:justify-center sm:pb-0">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-10 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <AnimatePresence mode="wait">
               <motion.div
@@ -233,7 +233,7 @@ export default function Hero() {
                     },
                     exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
                   }}
-                  className="mb-3 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.5rem]"
+                  className="mb-3 text-[1.65rem] font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.5rem]"
                 >
                   {slide.title}
                 </motion.h1>
@@ -316,17 +316,17 @@ export default function Hero() {
       {/* ---- Slide Navigation Arrows ---- */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/30 p-2.5 text-white/70 backdrop-blur-sm transition-all hover:border-[#C9A227]/40 hover:bg-black/50 hover:text-white sm:left-6 sm:p-3"
+        className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/30 p-2 text-white/70 backdrop-blur-sm transition-all hover:border-[#C9A227]/40 hover:bg-black/50 hover:text-white sm:left-6 sm:p-3"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="h-5 w-5" />
+        <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/30 p-2.5 text-white/70 backdrop-blur-sm transition-all hover:border-[#C9A227]/40 hover:bg-black/50 hover:text-white sm:right-6 sm:p-3"
+        className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/30 p-2 text-white/70 backdrop-blur-sm transition-all hover:border-[#C9A227]/40 hover:bg-black/50 hover:text-white sm:right-6 sm:p-3"
         aria-label="Next slide"
       >
-        <ChevronRight className="h-5 w-5" />
+        <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
       </button>
 
       {/* ---- Bottom Bar: Progress + Dots + NRI Badge ---- */}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Star, Send, Quote, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -109,6 +110,13 @@ const TestimonialCard: React.FC<{
 /* ── Page Component ────────────────────────────────────────── */
 
 export default function ClientStoriesPage() {
+  usePageSEO({
+    title: "Client Stories — Testimonials & Reviews",
+    description:
+      "Read what our clients say about iA Constructions. Real testimonials from homeowners, NRI investors, and business clients in Hyderabad.",
+    canonical: "https://iaconstructions.com/client-stories",
+  });
+
   const { testimonials, loading } = useTestimonials();
   const { submitTestimonial, loading: submitting } = useSubmitTestimonial();
   const { projects } = useProjects();
@@ -221,11 +229,16 @@ export default function ClientStoriesPage() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-[#e4e4e7] text-sm mb-2">
+                        <label
+                          htmlFor="testimonial-name"
+                          className="block text-[#e4e4e7] text-sm mb-2"
+                        >
                           Your Name *
                         </label>
                         <Input
+                          id="testimonial-name"
                           name="name"
+                          autoComplete="name"
                           value={formData.name}
                           onChange={handleChange}
                           placeholder="John Doe"
@@ -234,10 +247,14 @@ export default function ClientStoriesPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-[#e4e4e7] text-sm mb-2">
+                        <label
+                          htmlFor="testimonial-designation"
+                          className="block text-[#e4e4e7] text-sm mb-2"
+                        >
                           Designation / Title
                         </label>
                         <Input
+                          id="testimonial-designation"
                           name="designation"
                           value={formData.designation}
                           onChange={handleChange}
@@ -248,10 +265,14 @@ export default function ClientStoriesPage() {
                     </div>
 
                     <div>
-                      <label className="block text-[#e4e4e7] text-sm mb-2">
+                      <label
+                        htmlFor="testimonial-project"
+                        className="block text-[#e4e4e7] text-sm mb-2"
+                      >
                         Project
                       </label>
                       <select
+                        id="testimonial-project"
                         name="project"
                         value={formData.project}
                         onChange={handleChange}
@@ -279,10 +300,14 @@ export default function ClientStoriesPage() {
                     </div>
 
                     <div>
-                      <label className="block text-[#e4e4e7] text-sm mb-2">
+                      <label
+                        htmlFor="testimonial-comment"
+                        className="block text-[#e4e4e7] text-sm mb-2"
+                      >
                         Your Story *
                       </label>
                       <Textarea
+                        id="testimonial-comment"
                         name="comment"
                         value={formData.comment}
                         onChange={handleChange}

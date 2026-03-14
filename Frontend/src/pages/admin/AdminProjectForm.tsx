@@ -139,6 +139,7 @@ export default function AdminProjectForm() {
             type="button"
             onClick={() => navigate("/admin/projects")}
             className="p-2 rounded-lg hover:bg-[#0f2847] text-[#7a8fa6] hover:text-white transition-colors"
+            aria-label="Back to projects"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
@@ -175,10 +176,15 @@ export default function AdminProjectForm() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-name"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Project Name *
               </label>
               <input
+                id="project-name"
+                name="name"
                 type="text"
                 value={form.name}
                 onChange={(e) => handleChange("name", e.target.value)}
@@ -189,11 +195,16 @@ export default function AdminProjectForm() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-slug"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Slug *
               </label>
               <div className="flex items-center gap-2">
                 <input
+                  id="project-slug"
+                  name="slug"
                   type="text"
                   value={form.slug}
                   onChange={(e) => {
@@ -220,10 +231,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-description"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Description
               </label>
               <textarea
+                id="project-description"
+                name="description"
                 value={form.description}
                 onChange={(e) => handleChange("description", e.target.value)}
                 rows={4}
@@ -233,10 +249,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-type"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Type *
               </label>
               <select
+                id="project-type"
+                name="type"
                 value={form.type}
                 onChange={(e) => handleChange("type", e.target.value)}
                 className="w-full px-3 py-2.5 bg-[#071428] border border-[#1a3a5c] rounded-lg text-white text-sm focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227] transition-colors"
@@ -250,10 +271,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-status"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Status *
               </label>
               <select
+                id="project-status"
+                name="status"
                 value={form.status}
                 onChange={(e) => handleChange("status", e.target.value)}
                 className="w-full px-3 py-2.5 bg-[#071428] border border-[#1a3a5c] rounded-lg text-white text-sm focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227] transition-colors"
@@ -274,10 +300,15 @@ export default function AdminProjectForm() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-price"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Price (₹)
               </label>
               <input
+                id="project-price"
+                name="price"
                 type="number"
                 value={form.price || ""}
                 onChange={(e) => handleChange("price", Number(e.target.value))}
@@ -287,10 +318,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-area"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Area (sq.ft)
               </label>
               <input
+                id="project-area"
+                name="area_sqft"
                 type="number"
                 value={form.area_sqft || ""}
                 onChange={(e) =>
@@ -302,10 +338,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-bedrooms"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Bedrooms
               </label>
               <input
+                id="project-bedrooms"
+                name="bedrooms"
                 type="number"
                 value={form.bedrooms || ""}
                 onChange={(e) =>
@@ -317,10 +358,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-bathrooms"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Bathrooms
               </label>
               <input
+                id="project-bathrooms"
+                name="bathrooms"
                 type="number"
                 value={form.bathrooms || ""}
                 onChange={(e) =>
@@ -334,10 +380,15 @@ export default function AdminProjectForm() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-location"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Location
               </label>
               <input
+                id="project-location"
+                name="location"
                 type="text"
                 value={form.location}
                 onChange={(e) => handleChange("location", e.target.value)}
@@ -347,10 +398,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-address"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Full Address
               </label>
               <input
+                id="project-address"
+                name="address"
                 type="text"
                 value={form.address}
                 onChange={(e) => handleChange("address", e.target.value)}
@@ -360,10 +416,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-rera"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 RERA Number
               </label>
               <input
+                id="project-rera"
+                name="rera_number"
                 type="text"
                 value={form.rera_number}
                 onChange={(e) => handleChange("rera_number", e.target.value)}
@@ -373,10 +434,15 @@ export default function AdminProjectForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+              <label
+                htmlFor="project-possession"
+                className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+              >
                 Possession Date
               </label>
               <input
+                id="project-possession"
+                name="possession_date"
                 type="date"
                 value={form.possession_date}
                 onChange={(e) =>
@@ -389,6 +455,8 @@ export default function AdminProjectForm() {
 
           <label className="flex items-center gap-2 cursor-pointer">
             <input
+              id="project-featured"
+              name="featured"
               type="checkbox"
               checked={form.featured}
               onChange={(e) => handleChange("featured", e.target.checked)}

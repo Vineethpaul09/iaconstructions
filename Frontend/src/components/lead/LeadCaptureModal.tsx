@@ -368,8 +368,15 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </h3>
 
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-[#e4e4e7]">Full Name</label>
+        <label
+          htmlFor="lead-name"
+          className="text-sm font-medium text-[#e4e4e7]"
+        >
+          Full Name
+        </label>
         <Input
+          id="lead-name"
+          autoComplete="name"
           placeholder="John Doe"
           {...register("name")}
           onChange={(e) => {
@@ -383,9 +390,16 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </div>
 
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-[#e4e4e7]">Email</label>
+        <label
+          htmlFor="lead-email"
+          className="text-sm font-medium text-[#e4e4e7]"
+        >
+          Email
+        </label>
         <Input
+          id="lead-email"
           type="email"
+          autoComplete="email"
           placeholder="john@example.com"
           {...register("email")}
           onChange={(e) => {
@@ -399,7 +413,10 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
       </div>
 
       <div className="space-y-1.5">
-        <label className="text-sm font-medium text-[#e4e4e7]">
+        <label
+          htmlFor="lead-phone"
+          className="text-sm font-medium text-[#e4e4e7]"
+        >
           Phone Number
         </label>
         <div className="flex gap-2">
@@ -418,7 +435,9 @@ const LeadCaptureModal: React.FC<LeadCaptureModalProps> = ({
             }}
           />
           <Input
+            id="lead-phone"
             type="tel"
+            autoComplete="tel"
             placeholder={getCountryByCode(formState.countryCode).placeholder}
             className="flex-1"
             {...register("phone")}

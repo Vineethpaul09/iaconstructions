@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutGrid,
@@ -47,6 +48,13 @@ function sortProperties(list: Property[], sortBy: string): Property[] {
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function PropertiesPage() {
+  usePageSEO({
+    title: "Properties — Premium Apartments & Villas for Sale",
+    description:
+      "Browse premium apartments, villas, and plots for sale in Hyderabad by iA Constructions. Filter by location, budget, and property type.",
+    canonical: "https://iaconstructions.com/properties",
+  });
+
   const [searchParams] = useSearchParams();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);

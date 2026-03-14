@@ -12,8 +12,18 @@ export async function uploadProjectImage(
 ): Promise<string> {
   if (!supabase) throw new Error("Supabase not configured");
 
-  const ext = file.name.split(".").pop() ?? "jpg";
-  const safeName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const MIME_TO_EXT: Record<string, string> = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+    "image/gif": "gif",
+  };
+  const ext = MIME_TO_EXT[file.type] || "jpg";
+  const randomBytes = crypto.getRandomValues(new Uint8Array(8));
+  const randomStr = Array.from(randomBytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  const safeName = `${Date.now()}-${randomStr}.${ext}`;
   const path = `${projectSlug}/${safeName}`;
 
   const { error } = await supabase.storage.from(BUCKET).upload(path, file, {
@@ -60,7 +70,15 @@ export async function uploadSiteAsset(
 ): Promise<string> {
   if (!supabase) throw new Error("Supabase not configured");
 
-  const ext = file.name.split(".").pop() ?? "png";
+  const MIME_TO_EXT: Record<string, string> = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+    "image/gif": "gif",
+    "image/svg+xml": "svg",
+    "image/x-icon": "ico",
+  };
+  const ext = MIME_TO_EXT[file.type] || "png";
   const safeName = `${name}-${Date.now()}.${ext}`;
   const path = `site-assets/${safeName}`;
 

@@ -21,8 +21,25 @@ export default function ImageUploader({
   const [dragIdx, setDragIdx] = useState<number | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+  const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
   const handleUpload = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
+
+    for (const file of Array.from(files)) {
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        alert(
+          `"${file.name}" is not a supported image format. Use JPEG, PNG, WebP, or GIF.`,
+        );
+        return;
+      }
+      if (file.size > MAX_FILE_SIZE) {
+        alert(`"${file.name}" exceeds the 10MB size limit.`);
+        return;
+      }
+    }
+
     setUploading(true);
 
     const newUrls: string[] = [];
@@ -31,7 +48,7 @@ export default function ImageUploader({
         const url = await uploadProjectImage(file, projectSlug || "temp");
         newUrls.push(url);
       } catch (err) {
-        console.error("Upload failed:", err);
+        if (import.meta.env.DEV) console.error("Upload failed:", err);
       }
     }
 
@@ -47,7 +64,7 @@ export default function ImageUploader({
       try {
         await deleteProjectImage(url);
       } catch (err) {
-        console.error("Failed to delete from storage:", err);
+        if (import.meta.env.DEV) console.error("Failed to delete from storage:", err);
       }
     }
     onChange(images.filter((_, i) => i !== index));
@@ -141,6 +158,7 @@ export default function ImageUploader({
           type="button"
           onClick={() => fileRef.current?.click()}
           disabled={uploading}
+          aria-label="Upload project images"
           className="flex items-center gap-2 px-4 py-2.5 border-2 border-dashed border-[#1a3a5c] hover:border-[#C9A227]/50 rounded-lg text-sm text-[#e4e4e7] hover:text-[#C9A227] transition-colors w-full justify-center"
         >
           {uploading ? (

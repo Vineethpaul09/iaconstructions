@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronRight, MapPin, Home, Loader2, Phone } from "lucide-react";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -130,6 +131,13 @@ function ProjectCardItem({
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function ProjectsPage() {
+  usePageSEO({
+    title: "Our Projects — Premium Apartments, Villas & Commercial",
+    description:
+      "Explore iA Constructions' portfolio of ongoing and completed residential and commercial projects across Hyderabad. RERA approved developments.",
+    canonical: "https://iaconstructions.com/projects",
+  });
+
   const [activeTab, setActiveTab] = useState("all");
   const { projects, loading } = useProjects();
   const [leadOpen, setLeadOpen] = useState(false);

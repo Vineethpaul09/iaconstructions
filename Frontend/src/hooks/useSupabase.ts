@@ -53,10 +53,8 @@ export function useProjects() {
 
         setProjects(data ? data.map(mapRowToProject) : []);
       } catch (err) {
-        console.warn("Supabase fetch failed:", err);
-        setError(
-          err instanceof Error ? err.message : "Failed to fetch projects",
-        );
+        if (import.meta.env.DEV) console.warn("Supabase fetch failed:", err);
+        setError("Failed to load projects. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -137,8 +135,8 @@ export function useSubmitContact() {
       if (insertError) throw insertError;
       return true;
     } catch (err) {
-      console.error("Failed to submit contact:", err);
-      setError(err instanceof Error ? err.message : "Failed to submit");
+      if (import.meta.env.DEV) console.error("Failed to submit contact:", err);
+      setError("Failed to send your message. Please try again.");
       return false;
     } finally {
       setLoading(false);
@@ -190,8 +188,8 @@ export function useSubmitLead() {
       if (insertError) throw insertError;
       return true;
     } catch (err) {
-      console.error("Failed to submit lead:", err);
-      setError(err instanceof Error ? err.message : "Failed to submit");
+      if (import.meta.env.DEV) console.error("Failed to submit lead:", err);
+      setError("Failed to submit your inquiry. Please try again.");
       return false;
     } finally {
       setLoading(false);
@@ -223,8 +221,8 @@ export function useNewsletterSubscribe() {
       if (insertError) throw insertError;
       return true;
     } catch (err) {
-      console.error("Failed to subscribe:", err);
-      setError(err instanceof Error ? err.message : "Failed to subscribe");
+      if (import.meta.env.DEV) console.error("Failed to subscribe:", err);
+      setError("Failed to subscribe. Please try again.");
       return false;
     } finally {
       setLoading(false);
@@ -294,8 +292,8 @@ export function useSubmitTestimonial() {
       if (insertError) throw insertError;
       return true;
     } catch (err) {
-      console.error("Failed to submit testimonial:", err);
-      setError(err instanceof Error ? err.message : "Failed to submit");
+      if (import.meta.env.DEV) console.error("Failed to submit testimonial:", err);
+      setError("Failed to submit your story. Please try again.");
       return false;
     } finally {
       setLoading(false);

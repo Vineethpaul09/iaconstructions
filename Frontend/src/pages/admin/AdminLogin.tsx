@@ -27,8 +27,8 @@ export default function AdminLogin() {
     try {
       await signIn(email, password);
       navigate("/admin", { replace: true });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed");
+    } catch {
+      setError("Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -58,11 +58,17 @@ export default function AdminLogin() {
           )}
 
           <div>
-            <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+            <label
+              htmlFor="admin-email"
+              className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+            >
               Email
             </label>
             <input
+              id="admin-email"
+              name="email"
               type="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -73,12 +79,18 @@ export default function AdminLogin() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+            <label
+              htmlFor="admin-password"
+              className="block text-sm font-medium text-[#e4e4e7] mb-1.5"
+            >
               Password
             </label>
             <div className="relative">
               <input
+                id="admin-password"
+                name="password"
                 type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -89,6 +101,7 @@ export default function AdminLogin() {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7a8fa6] hover:text-white"
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
                   <EyeOff className="h-4 w-4" />

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import {
   Building2,
   MapPinHouse,
@@ -168,6 +169,13 @@ function QuickServiceIcons() {
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function ServicesPage() {
+  usePageSEO({
+    title: "Our Services — Building, Construction & Loan Consulting",
+    description:
+      "Explore iA Constructions' services — residential development, custom construction, property acquisition, loan consulting, and government approvals in Hyderabad.",
+    canonical: "https://iaconstructions.com/services",
+  });
+
   // Split services into categories
   const coreServices = services.slice(0, 4);
   const governmentServices = services.slice(4);

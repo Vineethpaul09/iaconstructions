@@ -22,6 +22,7 @@ import { Card, CardContent } from "@/components/ui/card";
 // Accordion removed
 import { Separator } from "@/components/ui/separator";
 import Hero from "@/components/home/Hero";
+import { usePageSEO } from "@/hooks/usePageSEO";
 
 import { services } from "@/data/services";
 import { testimonials } from "@/data/testimonials";
@@ -101,6 +102,13 @@ import React from "react";
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function HomePage() {
+  usePageSEO({
+    title: "Premium Builders & Developers in Hyderabad",
+    description:
+      "iA Constructions — Premium 2, 3 & 4 BHK apartments, independent villas, and commercial spaces in Hyderabad. Trusted by NRIs across USA, Canada, Australia & UK.",
+    canonical: "https://iaconstructions.com/",
+  });
+
   const allServices = services.slice(0, 4);
   const scrollRef = useRef<HTMLDivElement>(null);
 

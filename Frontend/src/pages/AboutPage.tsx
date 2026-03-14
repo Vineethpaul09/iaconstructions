@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { usePageSEO } from "@/hooks/usePageSEO";
 import { statCounters } from "@/data/navigation";
 import React, { useRef, useEffect, useState } from "react";
 import { useInView } from "framer-motion";
@@ -157,6 +158,13 @@ const team = [
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function AboutPage() {
+  usePageSEO({
+    title: "About Us — Our Story & Values",
+    description:
+      "Learn about iA Constructions — a trusted Hyderabad-based builder delivering premium residential and commercial projects. Our mission, values, and commitment to quality.",
+    canonical: "https://iaconstructions.com/about",
+  });
+
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">
       {/* ── Hero Banner ──────────────────────────────────────────── */}

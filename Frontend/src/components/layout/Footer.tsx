@@ -178,6 +178,7 @@ const Footer: React.FC = () => {
             <div className="rounded-lg overflow-hidden border border-[#1a3a5c]">
               <iframe
                 src={mapEmbedUrl}
+                title="iA Constructions office location on Google Maps"
                 width="100%"
                 height="180"
                 style={{ border: 0 }}
@@ -238,11 +239,15 @@ const Footer: React.FC = () => {
               className="flex w-full md:w-auto items-center gap-2"
             >
               <input
+                id="newsletter-email"
+                name="email"
                 type="email"
+                autoComplete="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
+                aria-label="Email address for newsletter"
                 className={cn(
                   "h-10 w-full md:w-64 rounded-md border border-[#1a3a5c] bg-[#0f2847] px-3 text-sm text-[#fafafa] placeholder:text-[#7a8fa6]",
                   "focus:outline-none focus:ring-2 focus:ring-[#C9A227]/50 focus:border-[#C9A227]/40 transition-all",
