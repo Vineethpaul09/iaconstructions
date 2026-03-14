@@ -19,14 +19,17 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine AS production
 
-# Copy custom nginx config
-COPY Frontend/nginx.conf /etc/nginx/conf.d/default.conf
+# Copy custom nginx config as a template (PORT will be substituted at runtime)
+COPY Frontend/nginx.conf /etc/nginx/templates/default.conf.template
 
 # Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Railway provides PORT env var; default to 80 for local Docker
+ENV PORT=80
+# Only substitute $PORT in nginx template (preserve $uri and other nginx vars)
+ENV NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
+EXPOSE ${PORT}
 
-# Start nginx
+# nginx:alpine auto-runs envsubst on .template files in /etc/nginx/templates/
 CMD ["nginx", "-g", "daemon off;"]
