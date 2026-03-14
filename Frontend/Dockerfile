@@ -19,6 +19,9 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine AS production
 
+# Limit worker processes to avoid resource exhaustion on Railway
+RUN sed -i 's/worker_processes  auto;/worker_processes 2;/' /etc/nginx/nginx.conf
+
 # Copy custom nginx config as a template (PORT will be substituted at runtime)
 COPY Frontend/nginx.conf /etc/nginx/templates/default.conf.template
 
@@ -29,6 +32,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 ENV PORT=80
 # Only substitute $PORT in nginx template (preserve $uri and other nginx vars)
 ENV NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx/conf.d
+ENV NGINX_ENVSUBST_FILTER=PORT
 EXPOSE ${PORT}
 
 # nginx:alpine auto-runs envsubst on .template files in /etc/nginx/templates/
