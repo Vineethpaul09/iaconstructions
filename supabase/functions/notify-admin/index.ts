@@ -91,6 +91,15 @@ function escapeMarkdown(text: string): string {
   return text.replace(/([_*\[\]()~`>#+\-=|{}.!])/g, "\\$1");
 }
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 /* ── Email HTML builder ──────────────────────────────────────── */
 
 function buildEmailHtml(payload: NotificationPayload): { subject: string; html: string } {
@@ -107,7 +116,7 @@ function buildEmailHtml(payload: NotificationPayload): { subject: string; html: 
         : "Not specified";
 
     return {
-      subject: `🏠 New Lead: ${payload.name} – ${payload.intent}`,
+      subject: `🏠 New Lead: ${payload.name.replace(/[\r\n]/g, '')} – ${payload.intent.replace(/[\r\n]/g, '')}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;background:#f9f9f9;">
           <div style="background:#1a1a2e;color:#C9A227;padding:16px 24px;border-radius:8px 8px 0 0;">
@@ -115,13 +124,13 @@ function buildEmailHtml(payload: NotificationPayload): { subject: string; html: 
           </div>
           <div style="background:#fff;padding:24px;border-radius:0 0 8px 8px;border:1px solid #e0e0e0;">
             <table style="width:100%;border-collapse:collapse;">
-              <tr><td style="padding:8px 0;color:#666;width:120px;">Name</td><td style="padding:8px 0;font-weight:600;">${payload.name}</td></tr>
-              <tr><td style="padding:8px 0;color:#666;">Email</td><td style="padding:8px 0;"><a href="mailto:${payload.email}">${payload.email}</a></td></tr>
-              <tr><td style="padding:8px 0;color:#666;">Phone</td><td style="padding:8px 0;"><a href="tel:${payload.phone}">${payload.phone}</a></td></tr>
-              <tr><td style="padding:8px 0;color:#666;">Intent</td><td style="padding:8px 0;">${payload.intent}</td></tr>
-              <tr><td style="padding:8px 0;color:#666;">Property Type</td><td style="padding:8px 0;">${payload.propertyType || "Any"}</td></tr>
-              <tr><td style="padding:8px 0;color:#666;">Location</td><td style="padding:8px 0;">${payload.location || "Not specified"}</td></tr>
-              <tr><td style="padding:8px 0;color:#666;">Budget</td><td style="padding:8px 0;font-weight:600;color:#C9A227;">${budget}</td></tr>
+              <tr><td style="padding:8px 0;color:#666;width:120px;">Name</td><td style="padding:8px 0;font-weight:600;">${escapeHtml(payload.name)}</td></tr>
+              <tr><td style="padding:8px 0;color:#666;">Email</td><td style="padding:8px 0;"><a href="mailto:${escapeHtml(payload.email)}">${escapeHtml(payload.email)}</a></td></tr>
+              <tr><td style="padding:8px 0;color:#666;">Phone</td><td style="padding:8px 0;"><a href="tel:${escapeHtml(payload.phone)}">${escapeHtml(payload.phone)}</a></td></tr>
+              <tr><td style="padding:8px 0;color:#666;">Intent</td><td style="padding:8px 0;">${escapeHtml(payload.intent)}</td></tr>
+              <tr><td style="padding:8px 0;color:#666;">Property Type</td><td style="padding:8px 0;">${escapeHtml(payload.propertyType || "Any")}</td></tr>
+              <tr><td style="padding:8px 0;color:#666;">Location</td><td style="padding:8px 0;">${escapeHtml(payload.location || "Not specified")}</td></tr>
+              <tr><td style="padding:8px 0;color:#666;">Budget</td><td style="padding:8px 0;font-weight:600;color:#C9A227;">${escapeHtml(budget)}</td></tr>
             </table>
             <hr style="margin:16px 0;border:none;border-top:1px solid #eee;">
             <p style="color:#999;font-size:12px;margin:0;">Received on ${timestamp} via iA Constructions website</p>
@@ -132,7 +141,7 @@ function buildEmailHtml(payload: NotificationPayload): { subject: string; html: 
   }
 
   return {
-    subject: `📩 New Contact: ${payload.name} – ${payload.subject}`,
+    subject: `📩 New Contact: ${payload.name.replace(/[\r\n]/g, '')} – ${payload.subject.replace(/[\r\n]/g, '')}`,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;background:#f9f9f9;">
         <div style="background:#1a1a2e;color:#C9A227;padding:16px 24px;border-radius:8px 8px 0 0;">
@@ -140,13 +149,13 @@ function buildEmailHtml(payload: NotificationPayload): { subject: string; html: 
         </div>
         <div style="background:#fff;padding:24px;border-radius:0 0 8px 8px;border:1px solid #e0e0e0;">
           <table style="width:100%;border-collapse:collapse;">
-            <tr><td style="padding:8px 0;color:#666;width:120px;">Name</td><td style="padding:8px 0;font-weight:600;">${payload.name}</td></tr>
-            <tr><td style="padding:8px 0;color:#666;">Email</td><td style="padding:8px 0;"><a href="mailto:${payload.email}">${payload.email}</a></td></tr>
-            <tr><td style="padding:8px 0;color:#666;">Phone</td><td style="padding:8px 0;"><a href="tel:${payload.phone}">${payload.phone}</a></td></tr>
-            <tr><td style="padding:8px 0;color:#666;">Subject</td><td style="padding:8px 0;font-weight:600;">${payload.subject}</td></tr>
+            <tr><td style="padding:8px 0;color:#666;width:120px;">Name</td><td style="padding:8px 0;font-weight:600;">${escapeHtml(payload.name)}</td></tr>
+            <tr><td style="padding:8px 0;color:#666;">Email</td><td style="padding:8px 0;"><a href="mailto:${escapeHtml(payload.email)}">${escapeHtml(payload.email)}</a></td></tr>
+            <tr><td style="padding:8px 0;color:#666;">Phone</td><td style="padding:8px 0;"><a href="tel:${escapeHtml(payload.phone)}">${escapeHtml(payload.phone)}</a></td></tr>
+            <tr><td style="padding:8px 0;color:#666;">Subject</td><td style="padding:8px 0;font-weight:600;">${escapeHtml(payload.subject)}</td></tr>
           </table>
           <div style="margin:16px 0;padding:16px;background:#f5f5f5;border-radius:6px;border-left:4px solid #C9A227;">
-            <p style="margin:0;white-space:pre-wrap;">${payload.message}</p>
+            <p style="margin:0;white-space:pre-wrap;">${escapeHtml(payload.message)}</p>
           </div>
           <hr style="margin:16px 0;border:none;border-top:1px solid #eee;">
           <p style="color:#999;font-size:12px;margin:0;">Received on ${timestamp} via iA Constructions website</p>
