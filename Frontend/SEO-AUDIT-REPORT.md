@@ -108,23 +108,23 @@
 
 ### High Priority
 
-3. **Backlinks & Brand Mentions:** Build presence on Google My Business, LinkedIn, YouTube, and local directories. *(External — manual task)*
-4. **Blog / Content Strategy:** Add a blog section for location-specific content. *(Requires new feature development)*
+3. **Backlinks & Brand Mentions:** Build presence on Google My Business, LinkedIn, YouTube, and local directories. _(External — manual task)_
+4. **Blog / Content Strategy:** Add a blog section for location-specific content. _(Requires new feature development)_
 5. ~~**IndexNow:**~~ ✅ Implemented IndexNow protocol with verification key + submission script (`scripts/submit-indexnow.mjs`).
 6. ~~**Performance:**~~ ✅ Added `<link rel="preload">` for LCP hero image with `fetchpriority="high"`.
 
 ### ~~Medium Priority~~ ✅ DONE
 
 7. ~~**AggregateRating Schema:**~~ ✅ Dynamic AggregateRating + Review structured data on ClientStoriesPage.
-8. **Google Business Profile:** Claim and optimize GBP listing. *(External — manual task)*
+8. **Google Business Profile:** Claim and optimize GBP listing. _(External — manual task)_
 9. ~~**Internal Linking:**~~ ✅ Added Properties & Client Stories to footer. Added CTA section on AboutPage.
 10. ~~**Security Headers:**~~ ✅ Added CSP and HSTS preload to nginx.conf.
 
 ### ~~Low Priority~~ ✅ DONE
 
 11. ~~**hreflang:**~~ ✅ Added hreflang tags for en-IN, en-US, en-CA, en-AU, en-GB, and x-default.
-12. **Video Content:** Add video tours of projects. *(Requires video production)*
-13. **Wikipedia/Reddit Presence:** Build entity mentions. *(External — manual task)*
+12. **Video Content:** Add video tours of projects. _(Requires video production)_
+13. **Wikipedia/Reddit Presence:** Build entity mentions. _(External — manual task)_
 
 ---
 
