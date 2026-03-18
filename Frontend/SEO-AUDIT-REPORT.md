@@ -1,7 +1,7 @@
 # iA Constructions — SEO Audit Report
 
 **Date:** March 13, 2026  
-**Site:** https://iaconstructions.com  
+**Site:** https://iaconstructions.in  
 **Framework:** React (Vite) SPA
 
 ---

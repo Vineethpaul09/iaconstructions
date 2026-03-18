@@ -4,7 +4,7 @@
  * JSON-LD schemas, canonical URLs, and OG meta will update automatically.
  */
 
-export const SITE_URL = "https://iaconstruction-production.up.railway.app";
+export const SITE_URL = "https://iaconstructions.in";
 
 export const SITE = {
   name: "iA Constructions",
@@ -12,7 +12,7 @@ export const SITE = {
   tagline: "Builders & Developers",
   url: SITE_URL,
   ogImage: `${SITE_URL}/images/og-default.jpg`,
-  email: "dinesh@iaconstructions.com",
+  email: "info@iaconstructions.in",
   phone: "+91 91544 50123",
   phoneTel: "+91-91544-50123",
   whatsapp: "919154450123",
@@ -30,7 +30,7 @@ export const SITE = {
   languages: ["English", "Hindi", "Telugu"],
 } as const;
 
-/** Build a full canonical URL for a given path, e.g. "/about" → "https://iaconstructions.com/about" */
+/** Build a full canonical URL for a given path, e.g. "/about" → "https://iaconstructions.in/about" */
 export function siteUrl(path: string = "/"): string {
   const cleaned = path.startsWith("/") ? path : `/${path}`;
   return `${SITE_URL}${cleaned}`;

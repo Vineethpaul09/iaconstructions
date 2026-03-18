@@ -6,7 +6,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
-const ADMIN_EMAIL = Deno.env.get("ADMIN_EMAIL") ?? "dinesh@iaconstructions.com";
+const ADMIN_EMAIL = Deno.env.get("ADMIN_EMAIL") ?? "info@iaconstructions.in";
 const TELEGRAM_BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN") ?? "";
 const TELEGRAM_CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID") ?? "";
 
@@ -200,7 +200,7 @@ async function sendEmail(payload: NotificationPayload): Promise<{ ok: boolean; e
       Authorization: `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from: "iA Constructions <notifications@iaconstructions.com>",
+      from: "iA Constructions <notifications@iaconstructions.in>",
       to: [ADMIN_EMAIL],
       subject,
       html,

@@ -10,7 +10,7 @@ async function main() {
 
   // Sign in as admin
   const { error: authErr } = await supabase.auth.signInWithPassword({
-    email: "admin@iaconstructions.com",
+    email: "admin@iaconstructions.in",
     password: "IAconst@2024!",
   });
   if (authErr) {

@@ -6,7 +6,7 @@
  */
 
 const INDEXNOW_KEY = "5447881caec34434a39666ad33b003e9";
-const HOST = "iaconstruction-production.up.railway.app";
+const HOST = "iaconstructions.in";
 const KEY_LOCATION = `https://${HOST}/${INDEXNOW_KEY}.txt`;
 
 const DEFAULT_URLS = [

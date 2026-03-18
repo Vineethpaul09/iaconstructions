@@ -8,20 +8,20 @@ iA Constructions is a Hyderabad-based construction and real estate development c
 - Founded: 2017
 - Location: KPHB Colony, Kukatpally, Hyderabad, Telangana 500072
 - Phone: +91 91544 50123
-- Email: dinesh@iaconstructions.com
+- Email: info@iaconstructions.in
 - Specialization: Premium apartments, villas, commercial construction
 - Service Area: Hyderabad and surrounding areas in Telangana
 - RERA Compliant: All projects registered with Telangana State RERA
 - NRI Services: End-to-end property solutions for Non-Resident Indians
 
 ## Main Pages
-- [Home](https://iaconstruction-production.up.railway.app/): Overview of iA Constructions' premium building services
-- [Projects](https://iaconstruction-production.up.railway.app/projects): Portfolio of ongoing, completed, and upcoming real estate projects
-- [Services](https://iaconstruction-production.up.railway.app/services): Full list of construction, property, and consulting services
-- [About Us](https://iaconstruction-production.up.railway.app/about): Company history, milestones, mission, and values
-- [Contact](https://iaconstruction-production.up.railway.app/contact): Office location, phone, email, and contact form
-- [Client Stories](https://iaconstruction-production.up.railway.app/client-stories): Testimonials and reviews from clients
-- [Properties](https://iaconstruction-production.up.railway.app/properties): Browse apartments, villas, and plots for sale
+- [Home](https://iaconstructions.in/): Overview of iA Constructions' premium building services
+- [Projects](https://iaconstructions.in/projects): Portfolio of ongoing, completed, and upcoming real estate projects
+- [Services](https://iaconstructions.in/services): Full list of construction, property, and consulting services
+- [About Us](https://iaconstructions.in/about): Company history, milestones, mission, and values
+- [Contact](https://iaconstructions.in/contact): Office location, phone, email, and contact form
+- [Client Stories](https://iaconstructions.in/client-stories): Testimonials and reviews from clients
+- [Properties](https://iaconstructions.in/properties): Browse apartments, villas, and plots for sale
 
 ## Services Offered
 - Building & Development: G+3 to G+5 residential apartment buildings
