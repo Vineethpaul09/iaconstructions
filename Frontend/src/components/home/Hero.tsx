@@ -15,6 +15,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useSiteSettings } from "@/hooks/useSupabase";
 
 /* ------------------------------------------------------------------ */
 /*  Hero Slides Data                                                   */
@@ -117,6 +118,8 @@ const SLIDE_DURATION = 6000; // ms
 
 export default function Hero() {
   const navigate = useNavigate();
+  const { settings } = useSiteSettings();
+  const heroSettings = settings.hero as { title?: string; subtitle?: string } | undefined;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -239,7 +242,7 @@ export default function Hero() {
                   }}
                   className="mb-3 text-[1.65rem] font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.5rem]"
                 >
-                  {slide.title}
+                  {heroSettings?.title || slide.title}
                 </motion.h1>
 
                 {/* Subtitle */}
@@ -259,7 +262,7 @@ export default function Hero() {
                   }}
                   className="mb-4 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg"
                 >
-                  {slide.subtitle}
+                  {heroSettings?.subtitle || slide.subtitle}
                 </motion.p>
 
                 {/* Location */}

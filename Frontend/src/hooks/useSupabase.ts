@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import { sendAdminNotification } from "@/lib/notifications";
 import type { Project } from "@/types";
 import type { ProjectRow, TestimonialRow } from "@/types/supabase";
 
@@ -133,6 +134,17 @@ export function useSubmitContact() {
         });
 
       if (insertError) throw insertError;
+
+      // Fire WhatsApp notification (best-effort, non-blocking)
+      sendAdminNotification({
+        type: "contact",
+        name: data.name,
+        email: data.email,
+        phone: `${data.countryCode} ${data.phone}`,
+        subject: data.subject,
+        message: data.message,
+      });
+
       return true;
     } catch (err) {
       if (import.meta.env.DEV) console.error("Failed to submit contact:", err);
@@ -186,6 +198,20 @@ export function useSubmitLead() {
       });
 
       if (insertError) throw insertError;
+
+      // Fire WhatsApp notification (best-effort, non-blocking)
+      sendAdminNotification({
+        type: "lead",
+        name: data.name,
+        email: data.email,
+        phone: `${data.countryCode} ${data.phone}`,
+        intent: data.intent,
+        propertyType: data.propertyType,
+        location: data.location,
+        budgetMin: data.budgetMin,
+        budgetMax: data.budgetMax,
+      });
+
       return true;
     } catch (err) {
       if (import.meta.env.DEV) console.error("Failed to submit lead:", err);

@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
-import { Save, Loader2, Upload, X } from "lucide-react";
+import { Save, Loader2, Upload, X, Bell, Send } from "lucide-react";
 import { useAdminSettings } from "@/hooks/useAdmin";
 import { uploadSiteAsset, deleteSiteAsset, isStorageUrl } from "@/lib/storage";
+import { clearNotificationCache } from "@/lib/notifications";
 import AdminLayout from "@/components/admin/AdminLayout";
 
 export default function AdminSettings() {
@@ -29,6 +30,11 @@ export default function AdminSettings() {
     instagram: string;
     twitter: string;
     youtube: string;
+  } | null>(null);
+  const [notifications, setNotifications] = useState<{
+    enabled: boolean;
+    emailEnabled: boolean;
+    telegramEnabled: boolean;
   } | null>(null);
 
   // Initialize local state from fetched settings
@@ -70,11 +76,26 @@ export default function AdminSettings() {
         }
       | undefined) ?? { facebook: "", instagram: "", twitter: "", youtube: "" };
 
+  const getNotifications = () =>
+    notifications ??
+    (settings.notifications as
+      | {
+          enabled: boolean;
+          emailEnabled: boolean;
+          telegramEnabled: boolean;
+        }
+      | undefined) ?? {
+      enabled: false,
+      emailEnabled: false,
+      telegramEnabled: false,
+    };
+
   const handleSave = async (key: string, value: Record<string, unknown>) => {
     setSaving(key);
     setMsg("");
     try {
       await updateSetting(key, value);
+      if (key === "notifications") clearNotificationCache();
       setMsg(`${key} settings saved!`);
       setTimeout(() => setMsg(""), 3000);
     } catch (err) {
@@ -383,6 +404,181 @@ export default function AdminSettings() {
                 </div>
               ),
             )}
+          </div>
+        </section>
+
+        {/* Notification Settings */}
+        <section className="bg-[#0B1F3A] border border-[#1a3a5c] rounded-xl p-5 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Bell className="h-5 w-5 text-[#C9A227]" />
+              <h2 className="text-lg font-semibold text-white">
+                Notifications
+              </h2>
+            </div>
+            <button
+              onClick={() =>
+                handleSave(
+                  "notifications",
+                  getNotifications() as unknown as Record<string, unknown>,
+                )
+              }
+              disabled={saving === "notifications"}
+              className="flex items-center gap-2 px-3 py-1.5 bg-[#C9A227] hover:bg-[#d4b94e] text-[#0B1F3A] text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
+            >
+              {saving === "notifications" ? (
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              ) : (
+                <Save className="h-3.5 w-3.5" />
+              )}
+              Save
+            </button>
+          </div>
+
+          <p className="text-sm text-[#7a8fa6]">
+            Get instant notifications when new leads or contact messages are
+            submitted.
+          </p>
+
+          {/* Master toggle */}
+          <div className="flex items-center justify-between py-2 border-b border-[#1a3a5c]">
+            <div>
+              <p className="text-sm font-medium text-[#e4e4e7]">
+                Enable Notifications
+              </p>
+              <p className="text-xs text-[#7a8fa6]">
+                Master switch for all notification channels
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                setNotifications({
+                  ...getNotifications(),
+                  enabled: !getNotifications().enabled,
+                })
+              }
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                getNotifications().enabled ? "bg-[#C9A227]" : "bg-[#1a3a5c]"
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                  getNotifications().enabled ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Email channel toggle */}
+          <div className="flex items-center justify-between py-2">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                <Bell className="h-4 w-4 text-blue-400" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-[#e4e4e7]">
+                  Email Notifications
+                </p>
+                <p className="text-xs text-[#7a8fa6]">
+                  Send email alerts via Resend (requires verified domain)
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                setNotifications({
+                  ...getNotifications(),
+                  emailEnabled: !getNotifications().emailEnabled,
+                })
+              }
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                getNotifications().emailEnabled ? "bg-blue-500" : "bg-[#1a3a5c]"
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                  getNotifications().emailEnabled
+                    ? "translate-x-6"
+                    : "translate-x-1"
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Telegram channel toggle */}
+          <div className="flex items-center justify-between py-2">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded-lg bg-sky-500/10 flex items-center justify-center">
+                <Send className="h-4 w-4 text-sky-400" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-[#e4e4e7]">
+                  Telegram Notifications
+                </p>
+                <p className="text-xs text-[#7a8fa6]">
+                  Instant push notifications via Telegram Bot (free)
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                setNotifications({
+                  ...getNotifications(),
+                  telegramEnabled: !getNotifications().telegramEnabled,
+                })
+              }
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                getNotifications().telegramEnabled
+                  ? "bg-sky-500"
+                  : "bg-[#1a3a5c]"
+              }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 rounded-full bg-white transition-transform ${
+                  getNotifications().telegramEnabled
+                    ? "translate-x-6"
+                    : "translate-x-1"
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Setup guide */}
+          <div className="mt-4 rounded-lg bg-[#071428] border border-[#1a3a5c] p-4 space-y-3">
+            <h3 className="text-sm font-semibold text-[#C9A227]">
+              Setup Guide
+            </h3>
+            <div>
+              <p className="text-xs font-medium text-[#e4e4e7] mb-1">
+                Telegram (Recommended — Free)
+              </p>
+              <ol className="text-xs text-[#7a8fa6] space-y-1 list-decimal list-inside">
+                <li>
+                  Open Telegram → search{" "}
+                  <span className="text-[#e4e4e7]">@BotFather</span> → send{" "}
+                  <span className="text-[#e4e4e7]">/newbot</span>
+                </li>
+                <li>Copy the bot token and set it as a Supabase secret</li>
+                <li>Message your bot, then get your chat ID</li>
+                <li>Enable Telegram toggle above and save</li>
+              </ol>
+            </div>
+            <div>
+              <p className="text-xs font-medium text-[#e4e4e7] mb-1">
+                Email (Requires Domain)
+              </p>
+              <ol className="text-xs text-[#7a8fa6] space-y-1 list-decimal list-inside">
+                <li>
+                  Register a domain and verify it in{" "}
+                  <span className="text-[#e4e4e7]">Resend</span>
+                </li>
+                <li>Set your Resend API key as a Supabase secret</li>
+                <li>Enable Email toggle above and save</li>
+              </ol>
+            </div>
           </div>
         </section>
       </div>
