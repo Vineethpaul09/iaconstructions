@@ -5,11 +5,6 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/widgets/WhatsAppButton";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
-import { initGA } from "@/lib/analytics";
-import { useAnalytics } from "@/hooks/useAnalytics";
-
-/* ── Initialize GA4 (production only) ────────────────── */
-initGA();
 
 /* ── Lazy-loaded pages ───────────────────────────────── */
 const HomePage = lazy(() => import("@/pages/HomePage"));
@@ -66,8 +61,6 @@ const PageLoader = () => (
 );
 
 function App() {
-  useAnalytics();
-
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-background text-foreground">
@@ -100,7 +93,10 @@ function App() {
                         path="/client-stories"
                         element={<ClientStoriesPage />}
                       />
-                      <Route path="/properties" element={<PropertiesPage />} />
+                      <Route
+                        path="/properties"
+                        element={<PropertiesPage />}
+                      />
                       <Route
                         path="/properties/:id"
                         element={<PropertyDetailPage />}

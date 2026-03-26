@@ -4,8 +4,6 @@
  * JSON-LD schemas, canonical URLs, and OG meta will update automatically.
  */
 
-export const GA_MEASUREMENT_ID = "G-BCYLXC93J0";
-
 export const SITE_URL = "https://iaconstructions.in";
 
 export const SITE = {
