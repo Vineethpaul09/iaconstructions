@@ -115,34 +115,37 @@ export default function ClientStoriesPage() {
 
   const storiesJsonLd = useMemo(() => {
     const reviewCount = testimonials.length;
-    const avgRating = reviewCount > 0
-      ? +(testimonials.reduce((sum, t) => sum + t.rating, 0) / reviewCount).toFixed(1)
-      : 4.8;
+    const avgRating =
+      reviewCount > 0
+        ? +(
+            testimonials.reduce((sum, t) => sum + t.rating, 0) / reviewCount
+          ).toFixed(1)
+        : 4.8;
 
     return {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": SITE.name,
-      "url": SITE.url,
-      "image": SITE.ogImage,
-      "aggregateRating": {
+      name: SITE.name,
+      url: SITE.url,
+      image: SITE.ogImage,
+      aggregateRating: {
         "@type": "AggregateRating",
-        "ratingValue": avgRating,
-        "bestRating": 5,
-        "worstRating": 1,
-        "reviewCount": reviewCount || 6
+        ratingValue: avgRating,
+        bestRating: 5,
+        worstRating: 1,
+        reviewCount: reviewCount || 6,
       },
-      "review": testimonials.slice(0, 5).map(t => ({
+      review: testimonials.slice(0, 5).map((t) => ({
         "@type": "Review",
-        "author": { "@type": "Person", "name": t.name },
-        "reviewRating": {
+        author: { "@type": "Person", name: t.name },
+        reviewRating: {
           "@type": "Rating",
-          "ratingValue": t.rating,
-          "bestRating": 5
+          ratingValue: t.rating,
+          bestRating: 5,
         },
-        "reviewBody": t.comment,
-        ...(t.created_at ? { "datePublished": t.created_at.slice(0, 10) } : {})
-      }))
+        reviewBody: t.comment,
+        ...(t.created_at ? { datePublished: t.created_at.slice(0, 10) } : {}),
+      })),
     };
   }, [testimonials]);
 
@@ -153,6 +156,8 @@ export default function ClientStoriesPage() {
     canonical: siteUrl("/client-stories"),
     ogImageAlt: `Client testimonials and reviews — ${SITE.name} ${SITE.address.city}`,
     jsonLd: storiesJsonLd,
+    keywords:
+      "iA Constructions reviews, builder reviews Hyderabad, construction company testimonials, NRI investor reviews India, customer feedback Hyderabad builders, trusted builders reviews Telangana",
   });
   const { submitTestimonial, loading: submitting } = useSubmitTestimonial();
   const { projects } = useProjects();

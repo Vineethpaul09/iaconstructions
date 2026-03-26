@@ -10,6 +10,7 @@ interface SEOOptions {
   ogImageAlt?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   noindex?: boolean;
+  keywords?: string;
 }
 
 const SITE_NAME = SITE.name;
@@ -24,6 +25,7 @@ export function usePageSEO({
   ogImageAlt,
   jsonLd,
   noindex = false,
+  keywords,
 }: SEOOptions) {
   useEffect(() => {
     const fullTitle = `${title} | ${SITE_NAME}`;
@@ -43,6 +45,9 @@ export function usePageSEO({
     setMeta("name", "description", description);
     if (noindex) {
       setMeta("name", "robots", "noindex, nofollow");
+    }
+    if (keywords) {
+      setMeta("name", "keywords", keywords);
     }
 
     // Open Graph
@@ -106,5 +111,6 @@ export function usePageSEO({
     ogImageAlt,
     jsonLd,
     noindex,
+    keywords,
   ]);
 }

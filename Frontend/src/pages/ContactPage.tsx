@@ -92,11 +92,12 @@ export default function ContactPage() {
 
   usePageSEO({
     title: "Contact Us — Get In Touch",
-    description:
-      `Contact ${SITE.name} for premium apartments, villas, and commercial spaces in ${SITE.address.city}. Call ${SITE.phone} or visit our KPHB Colony office. Free consultation available.`,
+    description: `Contact ${SITE.name} for premium apartments, villas & commercial spaces in ${SITE.address.city}. Call ${SITE.phone} or visit our office.`,
     canonical: siteUrl("/contact"),
     ogImageAlt: `Contact ${SITE.name} — ${SITE.address.city} builders and developers`,
     jsonLd: contactJsonLd,
+    keywords:
+      "contact builders Hyderabad, construction company phone number, builders office Kukatpally KPHB, real estate enquiry Hyderabad, book site visit Hyderabad, property consultation Hyderabad",
   });
 
   const { settings } = useSiteSettings();

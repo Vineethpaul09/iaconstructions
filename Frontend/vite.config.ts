@@ -18,6 +18,7 @@ export default defineConfig({
             rendererOptions: {
               headless: true,
               renderAfterDocumentEvent: "render-event",
+              args: ["--no-sandbox", "--disable-setuid-sandbox"],
             },
             routes: [
               "/",

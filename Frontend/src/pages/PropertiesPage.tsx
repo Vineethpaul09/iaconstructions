@@ -54,6 +54,8 @@ export default function PropertiesPage() {
     description:
       "Browse premium apartments, villas, and plots for sale in Hyderabad by iA Constructions. Filter by location, budget, and property type.",
     canonical: siteUrl("/properties"),
+    keywords:
+      "flats for sale Hyderabad, apartments for sale Kukatpally, 2 BHK flats Hyderabad, 3 BHK apartments KPHB, villas for sale Hyderabad, plots Hyderabad, property for sale Miyapur, affordable flats Hyderabad, luxury apartments Gachibowli Kondapur, ready to move flats Hyderabad",
   });
 
   const [searchParams] = useSearchParams();

@@ -142,8 +142,7 @@ export default function ProjectsPage() {
       "@type": "CollectionPage",
       name: `Real Estate Projects | ${SITE.name}`,
       url: siteUrl("/projects"),
-      description:
-        `Portfolio of premium residential and commercial real estate projects by ${SITE.name} in ${SITE.address.city}.`,
+      description: `Portfolio of premium residential and commercial real estate projects by ${SITE.name} in ${SITE.address.city}.`,
       isPartOf: {
         "@type": "WebSite",
         name: SITE.name,
@@ -154,12 +153,13 @@ export default function ProjectsPage() {
   );
 
   usePageSEO({
-    title: "Our Projects — Premium Apartments, Villas & Commercial Spaces",
-    description:
-      `Explore ${SITE.name}' portfolio of ongoing, completed, and upcoming residential & commercial projects across ${SITE.address.city}. RERA approved developments with transparent pricing.`,
+    title: "Our Projects — Apartments, Villas & More",
+    description: `Explore ${SITE.name}' portfolio of ongoing, completed & upcoming residential and commercial projects in ${SITE.address.city}. RERA approved.`,
     canonical: siteUrl("/projects"),
     ogImageAlt: `Premium real estate projects in ${SITE.address.city} by ${SITE.name}`,
     jsonLd: projectsJsonLd,
+    keywords:
+      "ongoing projects Hyderabad, completed projects Hyderabad, upcoming apartments Hyderabad, new residential projects Kukatpally, RERA approved projects Telangana, gated community projects Hyderabad, under construction flats Hyderabad, luxury apartment projects KPHB",
   });
 
   const [activeTab, setActiveTab] = useState("all");

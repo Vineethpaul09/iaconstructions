@@ -1,11 +1,33 @@
-# Build stage
-FROM node:20-alpine AS builder
+# Build stage — Debian-slim supports Chromium for prerendering
+FROM node:20-slim AS builder
 
 # Accept Supabase env vars at build time (required for Vite to bake them in)
 ARG VITE_SUPABASE_URL
 ARG VITE_SUPABASE_ANON_KEY
 
 WORKDIR /app
+
+# Install Chromium and dependencies for prerendering
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    chromium \
+    fonts-liberation \
+    libgbm1 \
+    libnss3 \
+    libatk-bridge2.0-0 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libcups2 \
+    libpango-1.0-0 \
+    libcairo2 \
+    libasound2 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Tell Puppeteer to use system Chromium instead of downloading its own
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_SKIP_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # Copy package files from Frontend
 COPY Frontend/package*.json ./
@@ -16,8 +38,7 @@ RUN npm ci
 # Copy source code from Frontend
 COPY Frontend/ .
 
-# Build the application (skip prerender — no Chrome in Alpine)
-ENV SKIP_PRERENDER=true
+# Build the application with prerendering enabled
 ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
 ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 RUN npm run build

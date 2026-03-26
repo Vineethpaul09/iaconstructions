@@ -133,6 +133,8 @@ export default function HomePage() {
     canonical: siteUrl("/"),
     ogImageAlt: `${SITE.name} — Premium apartments and villas in Hyderabad`,
     jsonLd: homeJsonLd,
+    keywords:
+      "best builders in Hyderabad, top construction company Hyderabad, premium apartments Hyderabad, 2 BHK 3 BHK 4 BHK flats Hyderabad, gated community apartments Hyderabad, gated community villas Hyderabad, RERA approved projects Hyderabad, NRI property investment Hyderabad, villas Hyderabad, real estate developers Hyderabad, trusted builders Kukatpally KPHB, luxury apartments Hyderabad, affordable flats Hyderabad, best gated communities Hyderabad, residential projects Hyderabad, flats for sale Hyderabad",
   });
 
   const allServices = services.slice(0, 4);

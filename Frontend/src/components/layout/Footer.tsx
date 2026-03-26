@@ -61,7 +61,11 @@ const Footer: React.FC = () => {
   const phoneTel = `tel:${phone.replace(/[^+\d]/g, "")}`;
 
   const contactInfo = [
-    { Icon: MapPin, text: address, href: undefined as string | undefined },
+    {
+      Icon: MapPin,
+      text: address,
+      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
+    },
     { Icon: Phone, text: phone, href: phoneTel },
     { Icon: Mail, text: emailAddr, href: `mailto:${emailAddr}` },
   ];
@@ -209,7 +213,13 @@ const Footer: React.FC = () => {
                 return (
                   <li key={text}>
                     {href ? (
-                      <a href={href} className="block">
+                      <a
+                        href={href}
+                        className="block"
+                        {...(href.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                      >
                         {content}
                       </a>
                     ) : (

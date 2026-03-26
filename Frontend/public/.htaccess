@@ -1,0 +1,44 @@
+# ── iA Constructions — Apache SPA Config ──────────────────
+# For GreenGeeks hosting (Apache)
+
+# ── Force HTTPS ──
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ── Redirect www to non-www (canonical domain) ──
+RewriteCond %{HTTP_HOST} ^www\.iaconstructions\.in$ [NC]
+RewriteRule ^(.*)$ https://iaconstructions.in/$1 [L,R=301]
+
+# ── SPA fallback — serve index.html for client-side routes ──
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# ── Gzip Compression ──
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml text/xml application/xml
+</IfModule>
+
+# ── Cache Control ──
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Hashed assets (immutable)
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  # HTML — short cache
+  ExpiresByType text/html "access plus 10 minutes"
+</IfModule>
+
+# ── Security Headers ──
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

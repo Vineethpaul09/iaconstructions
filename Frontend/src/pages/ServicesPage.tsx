@@ -201,13 +201,13 @@ export default function ServicesPage() {
   );
 
   usePageSEO({
-    title: "Our Services — Building, Construction & Loan Consulting",
-    description:
-      `Explore ${SITE.name}'s 8+ services — residential apartment development, custom construction on your plot, property acquisition, home loan consulting, and GHMC government approvals in ${SITE.address.city}.`,
+    title: "Our Services — Construction & Consulting",
+    description: `Explore ${SITE.name}'s services — apartment development, custom construction, property acquisition, home loans & GHMC approvals in ${SITE.address.city}.`,
     canonical: siteUrl("/services"),
-    ogImageAlt:
-      `Construction and real estate services by ${SITE.name} ${SITE.address.city}`,
+    ogImageAlt: `Construction and real estate services by ${SITE.name} ${SITE.address.city}`,
     jsonLd: servicesJsonLd,
+    keywords:
+      "construction services Hyderabad, apartment construction Hyderabad, custom home building Hyderabad, home loan assistance Hyderabad, GHMC approval services, building permits Hyderabad, property acquisition Telangana, borewell permission Hyderabad, building contractors near me",
   });
 
   // Split services into categories

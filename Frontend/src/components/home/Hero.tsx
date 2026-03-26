@@ -119,9 +119,7 @@ const SLIDE_DURATION = 6000; // ms
 export default function Hero() {
   const navigate = useNavigate();
   const { settings } = useSiteSettings();
-  const heroSettings = settings.hero as
-    | { title?: string; subtitle?: string }
-    | undefined;
+  const heroSettings = settings.hero as { title?: string; subtitle?: string } | undefined;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
