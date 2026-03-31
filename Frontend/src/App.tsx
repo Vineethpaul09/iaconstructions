@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/widgets/WhatsAppButton";
 import ScrollToTop from "@/components/layout/ScrollToTop";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
+import GTMListener from "@/lib/GTM";
 
 /* ── Lazy-loaded pages ───────────────────────────────── */
 const HomePage = lazy(() => import("@/pages/HomePage"));
@@ -71,6 +72,7 @@ function App() {
           Skip to main content
         </a>
         <ScrollToTop />
+        <GTMListener />
         <Suspense fallback={<PageLoader />}>
           <Routes>
             {/* ── Public routes ──────────────────────────────────── */}
@@ -93,10 +95,7 @@ function App() {
                         path="/client-stories"
                         element={<ClientStoriesPage />}
                       />
-                      <Route
-                        path="/properties"
-                        element={<PropertiesPage />}
-                      />
+                      <Route path="/properties" element={<PropertiesPage />} />
                       <Route
                         path="/properties/:id"
                         element={<PropertyDetailPage />}
