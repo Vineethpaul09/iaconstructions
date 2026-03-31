@@ -146,9 +146,14 @@ const team = [
     bio: "Dinesh leads iA Constructions with a passion for quality and customer-first values, and he also heads marketing—overseeing brand strategy, communications, and customer engagement.",
   },
   {
-    name: "Srujith Reddy Gayam",
+    name: "Sujith Reddy Gayam",
     role: "Founder & Managing Director",
-    bio: "Srujith has sales experience, leading client relations, partnerships, and NRI outreach to deliver personalised, end-to-end service from first enquiry to handover.",
+    bio: "Sujith has sales experience, leading client relations, partnerships, and NRI outreach to deliver personalised, end-to-end service from first enquiry to handover.",
+  },
+  {
+    name: "Karthik Reddy Gayam",
+    role: "Founder & Managing Director, Head of Operations",
+    bio: "With 9+ years of construction and project management expertise, Karthik oversees all operational aspects—ensuring timely delivery, quality standards, and seamless execution across all residential and commercial projects.",
   },
   {
     name: "Inna Reddy Gayam",
