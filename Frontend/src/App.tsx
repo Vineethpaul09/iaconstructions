@@ -16,6 +16,7 @@ const ContactPage = lazy(() => import("@/pages/ContactPage"));
 const LegalPage = lazy(() => import("@/pages/LegalPage"));
 const ClientStoriesPage = lazy(() => import("@/pages/ClientStoriesPage"));
 const AdminLogin = lazy(() => import("@/pages/admin/AdminLogin"));
+const ResetPassword = lazy(() => import("@/pages/ResetPassword"));
 const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard"));
 const AdminProjects = lazy(() => import("@/pages/admin/AdminProjects"));
 const AdminProjectForm = lazy(() => import("@/pages/admin/AdminProjectForm"));
@@ -86,6 +87,10 @@ function App() {
                       <Route path="/" element={<HomePage />} />
                       <Route path="/projects" element={<ProjectsPage />} />
                       <Route path="/about" element={<AboutPage />} />
+                      <Route
+                        path="/reset-password"
+                        element={<ResetPassword />}
+                      />
                       <Route path="/services" element={<ServicesPage />} />
                       <Route path="/contact" element={<ContactPage />} />
                       <Route path="/privacy" element={<LegalPage />} />
