@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 // Removed navigation to individual property pages per request
 import {
@@ -17,6 +17,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogOverlay } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -72,15 +73,31 @@ export default function PropertyCard({
 }: PropertyCardProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [currentIdx, setCurrentIdx] = useState(0);
 
   const TypeIcon = typeIcons[property.type];
   const status = statusConfig[property.status];
   const heroImage = property.images?.[0];
 
   const whatsappMessage = encodeURIComponent(
-    `Hi, I'm interested in "${property.name}" (${formatPrice(property.price)}). Please share more details.`,
+    `Hi, I'm interested in "${property.name}". Please share more details.`,
   );
   const whatsappLink = `https://wa.me/919154450123?text=${whatsappMessage}`;
+  const galleryRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToIndex = (idx: number) => {
+    const container = galleryRef.current;
+    if (!container) return;
+    const child = container.children[idx] as HTMLElement | undefined;
+    if (child)
+      child.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    setCurrentIdx(idx);
+  };
 
   return (
     <motion.div
@@ -103,7 +120,11 @@ export default function PropertyCard({
             <img
               src={heroImage}
               alt={property.name}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 cursor-pointer"
+              onClick={() => {
+                setCurrentIdx(0);
+                setGalleryOpen(true);
+              }}
             />
           ) : (
             <div className="h-full w-full bg-gradient-to-br from-[#122d4d] via-[#163561] to-[#0f2847] transition-transform duration-500 group-hover:scale-110" />
@@ -121,6 +142,7 @@ export default function PropertyCard({
               className="border-[#C9A227] bg-transparent text-[#C9A227] hover:bg-[#C9A227] hover:text-[#0B1F3A]"
               onClick={(e) => {
                 e.preventDefault();
+                setGalleryOpen(true);
               }}
             >
               <Eye className="mr-2 h-4 w-4" />
@@ -222,15 +244,7 @@ export default function PropertyCard({
             </div>
           )}
 
-          {/* Price */}
-          <div>
-            <p className="text-xl font-bold text-[#C9A227]">
-              {formatPrice(property.price)}
-            </p>
-            <p className="text-xs text-[#7a8fa6]">
-              {formatArea(property.areaSqft)}
-            </p>
-          </div>
+          {/* Removed price display as requested */}
 
           {/* Action Buttons */}
           <div className="flex items-center gap-2 pt-1">
@@ -252,6 +266,66 @@ export default function PropertyCard({
           </div>
         </CardContent>
       </Card>
+
+      {/* Gallery Dialog */}
+      <Dialog open={galleryOpen} onOpenChange={setGalleryOpen}>
+        <DialogContent
+          onClose={() => setGalleryOpen(false)}
+          className="max-w-none w-[80vw] h-[80vh] p-4"
+        >
+          <div className="relative h-full w-full">
+            <div
+              ref={galleryRef}
+              className="h-full w-full flex gap-3 overflow-x-auto snap-x snap-mandatory touch-pan-x scrollbar-hide"
+            >
+              {(property.images || []).map((src, i) => (
+                <div
+                  key={i}
+                  className="flex-shrink-0 w-[80%] h-full snap-center rounded overflow-hidden bg-black/10"
+                >
+                  <img
+                    src={src}
+                    alt={`${property.name} ${i + 1}`}
+                    className="w-full h-full object-cover"
+                    onClick={() => {
+                      // advance to next image on click
+                      const next = (i + 1) % (property.images?.length || 1);
+                      scrollToIndex(next);
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Prev / Next controls */}
+            {property.images && property.images.length > 1 && (
+              <>
+                <button
+                  aria-label="Previous"
+                  onClick={() => scrollToIndex(Math.max(0, currentIdx - 1))}
+                  className="absolute left-2 top-1/2 z-50 -translate-y-1/2 rounded-full bg-[#071428]/60 p-2 text-white"
+                >
+                  ‹
+                </button>
+                <button
+                  aria-label="Next"
+                  onClick={() =>
+                    scrollToIndex(
+                      Math.min(
+                        (property.images?.length || 1) - 1,
+                        currentIdx + 1,
+                      ),
+                    )
+                  }
+                  className="absolute right-2 top-1/2 z-50 -translate-y-1/2 rounded-full bg-[#071428]/60 p-2 text-white"
+                >
+                  ›
+                </button>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </motion.div>
   );
 }

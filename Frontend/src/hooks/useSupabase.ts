@@ -52,6 +52,7 @@ export function useProjects() {
 
         if (fetchError) throw fetchError;
 
+        if (import.meta.env.DEV) console.debug("Fetched projects rows:", data);
         setProjects(data ? data.map(mapRowToProject) : []);
       } catch (err) {
         if (import.meta.env.DEV) console.warn("Supabase fetch failed:", err);

@@ -1,7 +1,16 @@
-import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ChevronRight, MapPin, Home, Loader2, Phone } from "lucide-react";
+import {
+  ChevronRight,
+  ChevronLeft,
+  MapPin,
+  Home,
+  Loader2,
+  Phone,
+  X,
+} from "lucide-react";
 import { usePageSEO } from "@/hooks/usePageSEO";
 import { SITE, siteUrl } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -12,6 +21,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useProjects } from "@/hooks/useSupabase";
 import LeadCaptureModal from "@/components/lead/LeadCaptureModal";
+
 import type { Project } from "@/types";
 
 /* ── Animation helpers ─────────────────────────────────────────────── */
@@ -42,6 +52,7 @@ interface ProjectCard {
   slug: string;
   location: string;
   image: string;
+  images: string[];
   status: string;
   price: number;
   types: string[];
@@ -54,10 +65,192 @@ function toProjectCards(projects: Project[]): ProjectCard[] {
     slug: p.slug,
     location: p.location,
     image: p.images[0] ?? "",
+    images: p.images || [],
     status: p.status,
     price: p.price,
     types: [p.type],
   }));
+}
+
+/* ── Project Card ──────────────────────────────────────────────────── */
+
+/* ── Lightbox Gallery ───────────────────────────────────────────────── */
+
+function GalleryLightbox({
+  images,
+  title,
+  open,
+  onClose,
+  initialIndex = 0,
+}: {
+  images: string[];
+  title: string;
+  open: boolean;
+  onClose: () => void;
+  initialIndex?: number;
+}) {
+  const [idx, setIdx] = useState(initialIndex);
+  const touchStartX = useCallback(() => ({ current: 0 }), [])();
+
+  const total = images.length;
+  const hasPrev = idx > 0;
+  const hasNext = idx < total - 1;
+
+  const goPrev = useCallback(() => setIdx((i) => Math.max(0, i - 1)), []);
+  const goNext = useCallback(
+    () => setIdx((i) => Math.min(total - 1, i + 1)),
+    [total],
+  );
+
+  // Reset index when gallery opens with a different initial index
+  useEffect(() => {
+    if (open) setIdx(initialIndex);
+  }, [open, initialIndex]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") goPrev();
+      else if (e.key === "ArrowRight") goNext();
+      else if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [open, goPrev, goNext, onClose]);
+
+  // Lock body scroll
+  useEffect(() => {
+    if (open) document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  if (!open || total === 0) return null;
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          key="gallery-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[100] flex flex-col bg-black/90 backdrop-blur-sm"
+          onClick={onClose}
+        >
+          {/* ─── Top bar ─── */}
+          <div className="flex items-center justify-between px-4 py-3 sm:px-6">
+            <span className="text-white/80 text-sm font-medium truncate max-w-[60%]">
+              {title}
+            </span>
+            <div className="flex items-center gap-3">
+              <span className="text-white/60 text-sm tabular-nums">
+                {idx + 1} / {total}
+              </span>
+              <button
+                aria-label="Close gallery"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClose();
+                }}
+                className="rounded-full p-1.5 text-white/70 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* ─── Main image area ─── */}
+          <div
+            className="relative flex-1 flex items-center justify-center min-h-0 px-2 sm:px-16"
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => {
+              touchStartX.current = e.touches[0].clientX;
+            }}
+            onTouchEnd={(e) => {
+              const dx = e.changedTouches[0].clientX - touchStartX.current;
+              if (Math.abs(dx) > 50) {
+                if (dx < 0) goNext();
+                else goPrev();
+              }
+            }}
+          >
+            {/* Prev button */}
+            {hasPrev && (
+              <button
+                aria-label="Previous image"
+                onClick={goPrev}
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 rounded-full bg-black/50 hover:bg-black/70 border border-white/10 p-2 sm:p-3 text-white transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+              </button>
+            )}
+
+            {/* Image with animation */}
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={images[idx]}
+                src={images[idx]}
+                alt={`${title} — photo ${idx + 1}`}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.2 }}
+                className="max-h-full max-w-full object-contain rounded-lg select-none"
+                draggable={false}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    "https://placehold.co/800x600/0B1F3A/C9A227?text=Image+not+found";
+                }}
+              />
+            </AnimatePresence>
+
+            {/* Next button */}
+            {hasNext && (
+              <button
+                aria-label="Next image"
+                onClick={goNext}
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 rounded-full bg-black/50 hover:bg-black/70 border border-white/10 p-2 sm:p-3 text-white transition-colors cursor-pointer"
+              >
+                <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+              </button>
+            )}
+          </div>
+
+          {/* ─── Thumbnail strip ─── */}
+          {total > 1 && (
+            <div
+              className="flex justify-center gap-2 px-4 py-3 overflow-x-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {images.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setIdx(i)}
+                  className={cn(
+                    "flex-shrink-0 rounded-md overflow-hidden border-2 transition-all cursor-pointer",
+                    i === idx
+                      ? "border-[#C9A227] ring-1 ring-[#C9A227]/40 scale-105"
+                      : "border-transparent opacity-50 hover:opacity-80",
+                  )}
+                >
+                  <img
+                    src={src}
+                    alt={`Thumbnail ${i + 1}`}
+                    className="h-14 w-20 sm:h-16 sm:w-24 object-cover"
+                    draggable={false}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }
 
 /* ── Project Card ──────────────────────────────────────────────────── */
@@ -69,66 +262,78 @@ function ProjectCardItem({
   project: ProjectCard;
   onEnquire: (id: string) => void;
 }) {
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryIdx, setGalleryIdx] = useState(0);
+
   return (
     <motion.div variants={fadeUp}>
-      <div>
-        <Card className="bg-[#0f2847]/60 border-[#1a3a5c] hover:border-[#C9A227]/30 transition-all group overflow-hidden h-full">
-          {/* Image */}
-          <div className="relative aspect-[16/10] overflow-hidden">
-            <img
-              src={project.image}
-              alt={`${project.title} — ${project.status} project in ${project.location} by iA Constructions`}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              width={600}
-              height={375}
-              loading="lazy"
-              decoding="async"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  "https://placehold.co/600x375/0B1F3A/C9A227?text=Project";
-              }}
-            />
-            <Badge
-              className={cn(
-                "absolute top-3 left-3 border capitalize",
-                statusBadgeStyles[project.status] ?? statusBadgeStyles.ongoing,
-              )}
-            >
-              {project.status}
-            </Badge>
+      <Card className="bg-[#0f2847]/60 border-[#1a3a5c] hover:border-[#C9A227]/30 transition-all group overflow-hidden h-full">
+        {/* Image */}
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <img
+            src={project.image}
+            alt={`${project.title} — ${project.status} project in ${project.location} by iA Constructions`}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 cursor-pointer"
+            width={600}
+            height={375}
+            loading="lazy"
+            decoding="async"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src =
+                "https://placehold.co/600x375/0B1F3A/C9A227?text=Project";
+            }}
+            onClick={() => {
+              if (project.images.length > 0) {
+                setGalleryIdx(0);
+                setGalleryOpen(true);
+              }
+            }}
+          />
+          <Badge
+            className={cn(
+              "absolute top-3 left-3 border capitalize",
+              statusBadgeStyles[project.status] ?? statusBadgeStyles.ongoing,
+            )}
+          >
+            {project.status}
+          </Badge>
+        </div>
+
+        <CardContent className="p-5 space-y-3">
+          <h3 className="text-white font-semibold text-lg line-clamp-1 group-hover:text-[#C9A227] transition-colors">
+            {project.title}
+          </h3>
+
+          <div className="flex items-center gap-1.5 text-[#e4e4e7] text-sm">
+            <MapPin className="h-3.5 w-3.5 text-[#C9A227]" />
+            {project.location}
           </div>
 
-          <CardContent className="p-5 space-y-3">
-            <h3 className="text-white font-semibold text-lg line-clamp-1 group-hover:text-[#C9A227] transition-colors">
-              {project.title}
-            </h3>
-
-            <div className="flex items-center gap-1.5 text-[#e4e4e7] text-sm">
-              <MapPin className="h-3.5 w-3.5 text-[#C9A227]" />
-              {project.location}
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-1.5 text-[#e4e4e7]">
+              <Home className="h-3.5 w-3.5 text-[#C9A227]" />
+              <span className="capitalize">{project.types.join(", ")}</span>
             </div>
+          </div>
 
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-1.5 text-[#e4e4e7]">
-                <Home className="h-3.5 w-3.5 text-[#C9A227]" />
-                <span className="capitalize">{project.types.join(", ")}</span>
-              </div>
-              <span className="text-[#C9A227] font-semibold">
-                {formatPrice(project.price)}
-              </span>
-            </div>
+          <Button
+            size="sm"
+            onClick={() => onEnquire(project.id)}
+            className="w-full bg-[#C9A227] hover:bg-[#a8861e] text-[#0B1F3A] font-semibold mt-1"
+          >
+            <Phone className="h-3.5 w-3.5 mr-1.5" />
+            Enquire Now
+          </Button>
+        </CardContent>
+      </Card>
 
-            <Button
-              size="sm"
-              onClick={() => onEnquire(project.id)}
-              className="w-full bg-[#C9A227] hover:bg-[#a8861e] text-[#0B1F3A] font-semibold mt-1"
-            >
-              <Phone className="h-3.5 w-3.5 mr-1.5" />
-              Enquire Now
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
+      <GalleryLightbox
+        images={project.images}
+        title={project.title}
+        open={galleryOpen}
+        onClose={() => setGalleryOpen(false)}
+        initialIndex={galleryIdx}
+      />
     </motion.div>
   );
 }
@@ -163,6 +368,7 @@ export default function ProjectsPage() {
   });
 
   const [activeTab, setActiveTab] = useState("all");
+  const [searchParams, setSearchParams] = useSearchParams();
   const { projects, loading } = useProjects();
   const [leadOpen, setLeadOpen] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState<
@@ -189,6 +395,27 @@ export default function ProjectsPage() {
       upcoming: allProjectCards.filter((p) => p.status === "upcoming").length,
     };
   }, [allProjectCards]);
+
+  // Sync active tab with `status` query param so external links work
+  useEffect(() => {
+    const status = (searchParams.get("status") || "all").toLowerCase();
+    if (["all", "ongoing", "completed", "upcoming"].includes(status)) {
+      if (status !== activeTab) setActiveTab(status);
+    } else if (activeTab !== "all") {
+      setActiveTab("all");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  // When user changes tabs in-page, update the URL so the selection is shareable
+  useEffect(() => {
+    if (activeTab === "all") {
+      setSearchParams({}, { replace: true });
+    } else {
+      setSearchParams({ status: activeTab }, { replace: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab]);
 
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">

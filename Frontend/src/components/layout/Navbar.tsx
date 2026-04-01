@@ -182,7 +182,7 @@ const DesktopDropdown: React.FC<DesktopDropdownProps> = ({
         )}
       </Link>
 
-      {item.children && (
+              {item.children && (
         <AnimatePresence>
           {open && (
             <motion.div
@@ -193,7 +193,12 @@ const DesktopDropdown: React.FC<DesktopDropdownProps> = ({
               className="absolute top-full left-0 mt-1 w-56 rounded-lg border border-[#1a3a5c] bg-[#071428]/95 backdrop-blur-xl shadow-2xl shadow-black/40 overflow-hidden z-50"
             >
               {item.children.map((child) => {
-                const childActive = location.pathname === child.href;
+                // child.href may include query params (e.g. /projects?status=ongoing)
+                const [childPath, childSearch] = child.href.split("?");
+                const childActive =
+                  location.pathname === childPath &&
+                  (childSearch ? location.search === `?${childSearch}` : true);
+
                 return (
                   <Link
                     key={child.href}
@@ -285,21 +290,26 @@ const MobileAccordion: React.FC<MobileAccordionProps> = ({ item, onClose }) => {
               >
                 All {item.label}
               </Link>
-              {item.children.map((child) => (
-                <Link
-                  key={child.href}
-                  to={child.href}
-                  onClick={onClose}
-                  className={cn(
-                    "block px-8 py-2 text-sm transition-colors",
-                    location.pathname === child.href
-                      ? "text-[#C9A227]"
-                      : "text-[#e4e4e7] hover:text-[#C9A227]",
-                  )}
-                >
-                  {child.label}
-                </Link>
-              ))}
+              {item.children.map((child) => {
+                const [childPath, childSearch] = child.href.split("?");
+                const childActive =
+                  location.pathname === childPath &&
+                  (childSearch ? location.search === `?${childSearch}` : true);
+
+                return (
+                  <Link
+                    key={child.href}
+                    to={child.href}
+                    onClick={onClose}
+                    className={cn(
+                      "block px-8 py-2 text-sm transition-colors",
+                      childActive ? "text-[#C9A227]" : "text-[#e4e4e7] hover:text-[#C9A227]",
+                    )}
+                  >
+                    {child.label}
+                  </Link>
+                );
+              })}
             </div>
           </motion.div>
         )}

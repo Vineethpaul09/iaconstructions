@@ -81,10 +81,6 @@ export default function ResetPassword() {
         const { error } = await auth.updateUser({ password });
         if (error) throw error;
         setMessage("Password updated. You can now sign in.");
-      } else if (supabase.auth?.update) {
-        const { error } = await (supabase.auth as any).update({ password });
-        if (error) throw error;
-        setMessage("Password updated (legacy).");
       } else {
         setMessage("Unable to update password: unsupported client version.");
       }

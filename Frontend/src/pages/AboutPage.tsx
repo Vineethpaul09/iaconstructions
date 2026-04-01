@@ -194,6 +194,8 @@ export default function AboutPage() {
       "about iA Constructions, construction company Hyderabad, trusted builders Telangana, Hyderabad real estate developers, residential builders since 2017, NRI trusted builders India, building contractors Hyderabad",
   });
 
+  // Leadership tiles are static — no gallery behavior here
+
   return (
     <main className="min-h-screen bg-[#0B1F3A] text-white">
       {/* ── Hero Banner ──────────────────────────────────────────── */}
@@ -426,33 +428,56 @@ export default function AboutPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {team.map((member) => (
-            <motion.div key={member.name} variants={fadeUp}>
-              <Card className="bg-[#0f2847]/60 border-[#1a3a5c] h-full overflow-hidden group">
-                <div className="aspect-[4/3] bg-[#122d4d] flex items-center justify-center">
-                  <div className="w-24 h-24 rounded-full bg-[#163561] flex items-center justify-center text-3xl font-bold text-[#C9A227]">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </div>
-                </div>
-                <CardContent className="p-6 text-center">
-                  <h3 className="text-lg font-semibold text-white">
-                    {member.name}
-                  </h3>
-                  <p className="text-[#C9A227] text-sm mt-1">{member.role}</p>
-                  <p className="text-[#e4e4e7] text-sm mt-3 leading-relaxed">
-                    {member.bio}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+                {team.map((member, idx) => {
+                  const imgs = (member as any).images || (member as any).image ? ((member as any).images || [(member as any).image]) : [];
+                  return (
+                    <motion.div key={member.name} variants={fadeUp}>
+                      <Card className="bg-[#0f2847]/60 border-[#1a3a5c] h-full overflow-hidden group">
+                        <CardContent className="p-4 text-center">
+                          <div className="mx-auto w-16 h-16 rounded-full bg-[#163561] flex items-center justify-center text-lg font-semibold text-[#C9A227] mb-3">
+                            {imgs[0] ? (
+                              <img
+                                src={imgs[0]}
+                                alt={member.name}
+                                className="w-full h-full object-cover rounded-full"
+                              />
+                            ) : (
+                              <span>
+                                {member.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
+                              </span>
+                            )}
+                          </div>
+
+                          <h3 className="text-base font-semibold text-white">
+                            {member.name}
+                          </h3>
+                          <p className="text-[#C9A227] text-xs mt-1">{member.role}</p>
+                          <p className="text-[#e4e4e7] text-sm mt-3 leading-relaxed">
+                            {member.bio}
+                          </p>
+
+                          {imgs.length > 1 && (
+                            <div className="mt-3 flex items-center justify-center gap-2 overflow-x-auto">
+                              {imgs.map((s: string, i: number) => (
+                                <div key={i} className="w-12 h-12 rounded overflow-hidden border border-white/10">
+                                  <img src={s} className="w-full h-full object-cover" />
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  );
+                })}
         </motion.div>
       </section>
+      
 
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 
