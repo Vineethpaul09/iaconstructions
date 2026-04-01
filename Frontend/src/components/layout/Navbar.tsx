@@ -182,7 +182,7 @@ const DesktopDropdown: React.FC<DesktopDropdownProps> = ({
         )}
       </Link>
 
-              {item.children && (
+      {item.children && (
         <AnimatePresence>
           {open && (
             <motion.div
@@ -303,7 +303,9 @@ const MobileAccordion: React.FC<MobileAccordionProps> = ({ item, onClose }) => {
                     onClick={onClose}
                     className={cn(
                       "block px-8 py-2 text-sm transition-colors",
-                      childActive ? "text-[#C9A227]" : "text-[#e4e4e7] hover:text-[#C9A227]",
+                      childActive
+                        ? "text-[#C9A227]"
+                        : "text-[#e4e4e7] hover:text-[#C9A227]",
                     )}
                   >
                     {child.label}
