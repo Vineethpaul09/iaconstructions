@@ -64,6 +64,7 @@ const overlayVariants = {
 // ───────────────────────────── Top Bar
 interface TopBarProps {
   phone: string;
+  phone2: string;
   phoneTel: string;
   email: string;
   whatsapp: string;
@@ -73,6 +74,7 @@ interface TopBarProps {
 
 const TopBar: React.FC<TopBarProps> = ({
   phone,
+  phone2,
   phoneTel,
   email,
   whatsapp,
@@ -90,6 +92,15 @@ const TopBar: React.FC<TopBarProps> = ({
           <Phone className="h-3 w-3 text-[#C9A227]" />
           {phone}
         </a>
+        {phone2 && (
+          <a
+            href={`tel:${phone2.replace(/[^+\d]/g, "")}`}
+            className="flex items-center gap-1.5 hover:text-[#C9A227] transition-colors"
+          >
+            <Phone className="h-3 w-3 text-[#C9A227]" />
+            {phone2}
+          </a>
+        )}
         <a
           href={`mailto:${email}`}
           className="flex items-center gap-1.5 hover:text-[#C9A227] transition-colors"
@@ -330,6 +341,7 @@ const Navbar: React.FC = () => {
   const company = settings.company as
     | {
         phone?: string;
+        phone2?: string;
         headerPhone?: string;
         email?: string;
         whatsapp?: string;
@@ -340,6 +352,7 @@ const Navbar: React.FC = () => {
   const social = settings.social as { instagram?: string } | undefined;
 
   const phone = company?.headerPhone || company?.phone || DEFAULTS.phone;
+  const phone2 = company?.phone2 || "";
   const logoUrl = company?.logoUrl || "";
   const emailAddr = company?.email || DEFAULTS.email;
   const whatsapp = company?.whatsapp || DEFAULTS.whatsapp;
@@ -375,6 +388,7 @@ const Navbar: React.FC = () => {
       {/* ── Top info bar ── */}
       <TopBar
         phone={phone}
+        phone2={phone2}
         phoneTel={phoneTel}
         email={emailAddr}
         whatsapp={whatsapp}

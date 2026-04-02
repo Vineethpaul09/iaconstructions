@@ -19,7 +19,7 @@ export const services: Service[] = [
     id: "svc-002",
     title: "Construction Services",
     description:
-      "Custom construction on your plot with premium materials, strict safety standards, and transparent billing across Hyderabad.",
+      "Custom construction on your plot with high-quality materials, strict safety standards, and transparent billing across Hyderabad.",
     icon: "HardHat",
     image: "/images/Construction-Services.jpeg",
     features: [

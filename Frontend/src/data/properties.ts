@@ -10,7 +10,7 @@ export const staticProjects: Project[] = [
     name: "IAC Serenity Villa",
     slug: "iac-serenity-villa",
     description:
-      "Luxury 4-BHK hilltop villa in Bandlaguda Jagir with premium Italian marble flooring, private infinity pool, and home automation.",
+      "Luxury 4-BHK hilltop villa in Bandlaguda Jagir with high-quality Italian marble flooring, private infinity pool, and home automation.",
     type: "villa",
     status: "completed",
     price: 30000000,
@@ -59,7 +59,7 @@ export const staticProjects: Project[] = [
     name: "IAC Skyline Residences",
     slug: "iac-skyline-residences",
     description:
-      "Premium 3-BHK apartments in Mehdipatnam with panoramic city views and resort-style clubhouse.",
+      "Affordable 3-BHK apartments in Mehdipatnam with panoramic city views and resort-style clubhouse.",
     type: "apartment",
     status: "ongoing",
     price: 12000000,

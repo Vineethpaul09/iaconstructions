@@ -3,8 +3,14 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useSiteSettings } from "@/hooks/useSupabase";
+import { SITE } from "@/config/site";
 
 const CTASection: React.FC = () => {
+  const { settings } = useSiteSettings();
+  const company = settings.company as { phone?: string } | undefined;
+  const phone = company?.phone || SITE.phone;
+  const phoneTel = `tel:${phone.replace(/[^+\d]/g, "")}`;
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -80,7 +86,7 @@ const CTASection: React.FC = () => {
             className="min-w-[180px] border-[#fafafa]/20 text-[#fafafa] hover:bg-[#fafafa]/10"
             asChild
           >
-            <a href="tel:+919154450123">
+            <a href={phoneTel}>
               <Phone className="mr-2 h-4 w-4" />
               Talk to an Expert
             </a>

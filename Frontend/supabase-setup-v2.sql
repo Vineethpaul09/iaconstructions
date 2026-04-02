@@ -165,7 +165,7 @@ CREATE POLICY "project_images_auth_delete"
 
 -- ── Seed default site settings ──────────────────────────
 INSERT INTO site_settings (key, value) VALUES
-  ('hero', '{"title": "Building Dreams, Delivering Excellence", "subtitle": "Premium real estate developments across Hyderabad"}'::jsonb),
+  ('hero', '{"title": "Building Dreams, Delivering Excellence", "subtitle": "Quality homes at smart prices across Hyderabad"}'::jsonb),
   ('company', '{"phone": "+91 91544 50123", "email": "info@iaconstructions.in", "whatsapp": "919154450123", "address": "VASAVI NILAYAM, MIG 59, Road No 1, KPHB Colony, Kukatpally, Hyderabad, 500072", "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.7148008252918!2d78.40137041221254!3d17.490251879710808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91548e5ff957%3A0x268fb3341bc87451!2sSR%20prime%20mens%20pg!5e0!3m2!1sen!2sca!4v1772489835178!5m2!1sen!2sca"}'::jsonb),
   ('social', '{"facebook": "", "instagram": "https://www.instagram.com/iaconstructions.in", "twitter": "", "youtube": ""}'::jsonb)
 ON CONFLICT (key) DO NOTHING;

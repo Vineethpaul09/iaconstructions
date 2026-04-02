@@ -37,10 +37,10 @@ const slides: HeroSlide[] = [
     id: 1,
     image:
       "https://images.pexels.com/photos/7672060/pexels-photo-7672060.jpeg?auto=compress&cs=tinysrgb&w=1920&fit=crop",
-    tag: "Premium Apartments",
-    title: "Luxury Living in Hyderabad",
+    tag: "Quality Apartments",
+    title: "Quality Homes, Smart Prices",
     subtitle:
-      "We build premium 2, 3 & 4 BHK apartments crafted for modern families",
+      "We build quality, budget-friendly 2, 3 & 4 BHK apartments crafted for modern families",
     location: "Hyderabad · Telangana",
     cta: "View Projects",
     link: "/projects",
@@ -119,7 +119,9 @@ const SLIDE_DURATION = 6000; // ms
 export default function Hero() {
   const navigate = useNavigate();
   const { settings } = useSiteSettings();
-  const heroSettings = settings.hero as { title?: string; subtitle?: string } | undefined;
+  const heroSettings = settings.hero as
+    | { title?: string; subtitle?: string }
+    | undefined;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -345,7 +347,7 @@ export default function Hero() {
               <Home className="h-5 w-5 text-[#C9A227]" />
               <div>
                 <p className="text-xs font-semibold text-white">
-                  Trusted by NRIs Worldwide
+                  Trusted by locals &amp; NRIs Worldwide
                 </p>
                 <p className="text-[11px] text-white/50">
                   USA · Canada · Australia · UK · Middle East

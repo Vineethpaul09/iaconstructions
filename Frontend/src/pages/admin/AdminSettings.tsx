@@ -18,6 +18,7 @@ export default function AdminSettings() {
   );
   const [company, setCompany] = useState<{
     phone: string;
+    phone2: string;
     headerPhone: string;
     email: string;
     whatsapp: string;
@@ -49,6 +50,7 @@ export default function AdminSettings() {
     (settings.company as
       | {
           phone: string;
+          phone2: string;
           headerPhone: string;
           email: string;
           whatsapp: string;
@@ -58,6 +60,7 @@ export default function AdminSettings() {
         }
       | undefined) ?? {
       phone: "",
+      phone2: "",
       headerPhone: "",
       email: "",
       whatsapp: "",
@@ -210,6 +213,20 @@ export default function AdminSettings() {
                   setCompany({ ...getCompany(), phone: e.target.value })
                 }
                 className="w-full px-3 py-2.5 bg-[#071428] border border-[#1a3a5c] rounded-lg text-white text-sm focus:outline-none focus:border-[#C9A227] transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#e4e4e7] mb-1.5">
+                Secondary Number (optional)
+              </label>
+              <input
+                type="text"
+                value={getCompany().phone2}
+                onChange={(e) =>
+                  setCompany({ ...getCompany(), phone2: e.target.value })
+                }
+                className="w-full px-3 py-2.5 bg-[#071428] border border-[#1a3a5c] rounded-lg text-white text-sm focus:outline-none focus:border-[#C9A227] transition-colors"
+                placeholder="+91 98765 43210 (optional second number)"
               />
             </div>
             <div>

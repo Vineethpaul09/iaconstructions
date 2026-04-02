@@ -91,7 +91,7 @@ const milestones = [
     title: "Growing Portfolio",
     highlight: false,
     description:
-      "Diversified into premium apartments and rental income properties — delivering high-yield investment opportunities for buyers seeking steady returns, while strengthening our footprint across multiple sought-after locations.",
+      "Diversified into quality apartments and rental income properties — delivering high-yield investment opportunities for buyers seeking steady returns, while strengthening our footprint across multiple sought-after locations.",
   },
   {
     year: "2024",
@@ -112,28 +112,28 @@ const milestones = [
 
 const coreValues = [
   {
-    icon: <Lightbulb className="h-7 w-7" />,
+    icon: <Lightbulb className="h-5 w-5" />,
     title: "Innovation",
     description:
       "We embrace cutting-edge technologies and design philosophies to create spaces that inspire modern living.",
   },
   {
-    icon: <ShieldCheck className="h-7 w-7" />,
+    icon: <ShieldCheck className="h-5 w-5" />,
     title: "Integrity",
     description:
       "Transparency in pricing, timelines, and quality — every promise we make, we deliver without compromise.",
   },
   {
-    icon: <Leaf className="h-7 w-7" />,
+    icon: <Leaf className="h-5 w-5" />,
     title: "Sustainability",
     description:
       "From rainwater harvesting to solar integration, we build green homes that respect our planet and future generations.",
   },
   {
-    icon: <Award className="h-7 w-7" />,
+    icon: <Award className="h-5 w-5" />,
     title: "Excellence",
     description:
-      "ISO-certified processes, premium materials, and meticulous craftsmanship define every iA Constructions project.",
+      "ISO-certified processes, high-quality materials, and meticulous craftsmanship define every iA Constructions project.",
   },
 ];
 
@@ -170,14 +170,14 @@ export default function AboutPage() {
       "@context": "https://schema.org",
       "@type": "AboutPage",
       name: `About ${SITE.name}`,
-      description: `Learn about ${SITE.name} — a trusted ${SITE.address.city}-based builder delivering premium residential and commercial projects since ${SITE.foundingDate}.`,
+      description: `Learn about ${SITE.name} — a trusted ${SITE.address.city}-based builder delivering quality, budget-friendly residential and commercial projects since ${SITE.foundingDate}.`,
       url: siteUrl("/about"),
       mainEntity: {
         "@type": "Organization",
         name: SITE.name,
         foundingDate: SITE.foundingDate,
         foundingLocation: `${SITE.address.city}, ${SITE.address.region}, India`,
-        description: `Premium residential and commercial construction company in ${SITE.address.city} specializing in apartments, villas, and NRI investment properties.`,
+        description: `Quality, budget-friendly residential and commercial construction company in ${SITE.address.city} specializing in apartments, villas, and NRI investment properties.`,
         areaServed: { "@type": "City", name: SITE.address.city },
       },
     }),
@@ -186,7 +186,7 @@ export default function AboutPage() {
 
   usePageSEO({
     title: "About Us — Our Story & Values",
-    description: `Learn about ${SITE.name} — a trusted ${SITE.address.city}-based builder delivering premium residential & commercial projects since ${SITE.foundingDate}.`,
+    description: `Learn about ${SITE.name} — a trusted ${SITE.address.city}-based builder delivering quality, budget-friendly residential & commercial projects since ${SITE.foundingDate}.`,
     canonical: siteUrl("/about"),
     ogImageAlt: `About ${SITE.name} — ${SITE.tagline} since ${SITE.foundingDate}`,
     jsonLd: aboutJsonLd,
@@ -329,10 +329,12 @@ export default function AboutPage() {
                   Our Mission
                 </h3>
                 <p className="text-[#e4e4e7] leading-relaxed">
-                  To transform the Indian real estate landscape by delivering
-                  world-class living spaces that combine innovative design,
-                  uncompromising quality, and exceptional value — making luxury
-                  accessible to every aspiring homeowner.
+                  To redefine Hyderabad's real estate standard by delivering
+                  quality homes across every budget — from affordable starter
+                  homes to premium residences — built on trust, precision, and
+                  transparency. Whether you are a local family or an NRI
+                  investing from abroad, we make owning a home in Hyderabad
+                  simple, honest, and truly rewarding.
                 </p>
               </CardContent>
             </Card>
@@ -348,9 +350,10 @@ export default function AboutPage() {
                   Our Vision
                 </h3>
                 <p className="text-[#e4e4e7] leading-relaxed">
-                  To become Hyderabad's most trusted real estate developer —
-                  known for quality construction, transparent processes, and
-                  seamless NRI property services.
+                  To be Hyderabad's most trusted builder for every buyer — local
+                  families, first-time homeowners, and NRIs alike — recognised
+                  for honest pricing, on-time delivery, and homes that stand the
+                  test of time across every budget segment.
                 </p>
               </CardContent>
             </Card>
@@ -361,20 +364,18 @@ export default function AboutPage() {
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 
       {/* ── Core Values ──────────────────────────────────────────── */}
-      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="text-center mb-14"
+          className="text-center mb-6"
         >
-          <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
+          <span className="text-[#C9A227] font-medium uppercase tracking-widest text-xs">
             What Drives Us
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-white">
-            Core Values
-          </h2>
+          <h2 className="text-2xl font-bold mt-1 text-white">Core Values</h2>
         </motion.div>
 
         <motion.div
@@ -382,19 +383,19 @@ export default function AboutPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
         >
           {coreValues.map((cv) => (
             <motion.div key={cv.title} variants={fadeUp}>
               <Card className="bg-[#0f2847]/60 border-[#1a3a5c] hover:border-[#C9A227]/30 transition-colors h-full text-center group">
-                <CardContent className="p-6 flex flex-col items-center gap-4">
-                  <div className="p-4 rounded-full bg-[#C9A227]/10 text-[#C9A227] group-hover:bg-[#C9A227]/20 transition-colors">
+                <CardContent className="p-4 flex flex-col items-center gap-2">
+                  <div className="p-2.5 rounded-full bg-[#C9A227]/10 text-[#C9A227] group-hover:bg-[#C9A227]/20 transition-colors">
                     {cv.icon}
                   </div>
-                  <h3 className="text-lg font-semibold text-white">
+                  <h3 className="text-sm font-semibold text-white">
                     {cv.title}
                   </h3>
-                  <p className="text-[#e4e4e7] text-sm leading-relaxed">
+                  <p className="text-[#e4e4e7] text-xs leading-relaxed">
                     {cv.description}
                   </p>
                 </CardContent>
@@ -407,7 +408,7 @@ export default function AboutPage() {
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 
       {/* ── Leadership Team ──────────────────────────────────────── */}
-      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -415,10 +416,10 @@ export default function AboutPage() {
           viewport={{ once: true, margin: "-80px" }}
           className="text-center mb-5"
         >
-          <span className="text-[#C9A227] font-medium uppercase tracking-widest text-sm">
+          <span className="text-[#C9A227] font-medium uppercase tracking-widest text-xs">
             Our People
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold mt-2 text-white">
+          <h2 className="text-2xl font-bold mt-1 text-white">
             Leadership Team
           </h2>
         </motion.div>
@@ -428,56 +429,66 @@ export default function AboutPage() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4"
         >
-                {team.map((member, idx) => {
-                  const imgs = (member as any).images || (member as any).image ? ((member as any).images || [(member as any).image]) : [];
-                  return (
-                    <motion.div key={member.name} variants={fadeUp}>
-                      <Card className="bg-[#0f2847]/60 border-[#1a3a5c] h-full overflow-hidden group">
-                        <CardContent className="p-4 text-center">
-                          <div className="mx-auto w-16 h-16 rounded-full bg-[#163561] flex items-center justify-center text-lg font-semibold text-[#C9A227] mb-3">
-                            {imgs[0] ? (
-                              <img
-                                src={imgs[0]}
-                                alt={member.name}
-                                className="w-full h-full object-cover rounded-full"
-                              />
-                            ) : (
-                              <span>
-                                {member.name
-                                  .split(" ")
-                                  .map((n) => n[0])
-                                  .join("")}
-                              </span>
-                            )}
+          {team.map((member, idx) => {
+            const imgs =
+              (member as any).images || (member as any).image
+                ? (member as any).images || [(member as any).image]
+                : [];
+            return (
+              <motion.div key={member.name} variants={fadeUp}>
+                <Card className="bg-[#0f2847]/60 border-[#1a3a5c] h-full overflow-hidden group">
+                  <CardContent className="p-3 text-center">
+                    <div className="mx-auto w-12 h-12 rounded-full bg-[#163561] flex items-center justify-center text-sm font-semibold text-[#C9A227] mb-2">
+                      {imgs[0] ? (
+                        <img
+                          src={imgs[0]}
+                          alt={member.name}
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      ) : (
+                        <span>
+                          {member.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 className="text-sm font-semibold text-white">
+                      {member.name}
+                    </h3>
+                    <p className="text-[#C9A227] text-xs mt-0.5 leading-tight">
+                      {member.role}
+                    </p>
+                    <p className="text-[#e4e4e7] text-xs mt-2 leading-relaxed">
+                      {member.bio}
+                    </p>
+
+                    {imgs.length > 1 && (
+                      <div className="mt-3 flex items-center justify-center gap-2 overflow-x-auto">
+                        {imgs.map((s: string, i: number) => (
+                          <div
+                            key={i}
+                            className="w-12 h-12 rounded overflow-hidden border border-white/10"
+                          >
+                            <img
+                              src={s}
+                              className="w-full h-full object-cover"
+                            />
                           </div>
-
-                          <h3 className="text-base font-semibold text-white">
-                            {member.name}
-                          </h3>
-                          <p className="text-[#C9A227] text-xs mt-1">{member.role}</p>
-                          <p className="text-[#e4e4e7] text-sm mt-3 leading-relaxed">
-                            {member.bio}
-                          </p>
-
-                          {imgs.length > 1 && (
-                            <div className="mt-3 flex items-center justify-center gap-2 overflow-x-auto">
-                              {imgs.map((s: string, i: number) => (
-                                <div key={i} className="w-12 h-12 rounded overflow-hidden border border-white/10">
-                                  <img src={s} className="w-full h-full object-cover" />
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  );
-                })}
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </section>
-      
 
       <Separator className="bg-[#122d4d] max-w-6xl mx-auto" />
 

@@ -50,9 +50,9 @@ function sortProperties(list: Property[], sortBy: string): Property[] {
 
 export default function PropertiesPage() {
   usePageSEO({
-    title: "Properties — Premium Apartments & Villas for Sale",
+    title: "Properties — Quality Apartments & Villas for Sale",
     description:
-      "Browse premium apartments, villas, and plots for sale in Hyderabad by iA Constructions. Filter by location, budget, and property type.",
+      "Browse budget-friendly apartments, villas, and plots for sale in Hyderabad by iA Constructions. Filter by location, budget, and property type.",
     canonical: siteUrl("/properties"),
     keywords:
       "flats for sale Hyderabad, apartments for sale Kukatpally, 2 BHK flats Hyderabad, 3 BHK apartments KPHB, villas for sale Hyderabad, plots Hyderabad, property for sale Miyapur, affordable flats Hyderabad, luxury apartments Gachibowli Kondapur, ready to move flats Hyderabad",
@@ -155,7 +155,7 @@ export default function PropertiesPage() {
               Our Properties
             </h1>
             <p className="text-[#e4e4e7] max-w-2xl">
-              We build premium residences and investment opportunities in and
+              We build quality residences and investment opportunities in and
               around Hyderabad, Telangana.
             </p>
           </motion.div>

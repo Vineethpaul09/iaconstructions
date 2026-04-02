@@ -347,7 +347,7 @@ export default function ProjectsPage() {
       "@type": "CollectionPage",
       name: `Real Estate Projects | ${SITE.name}`,
       url: siteUrl("/projects"),
-      description: `Portfolio of premium residential and commercial real estate projects by ${SITE.name} in ${SITE.address.city}.`,
+      description: `Portfolio of quality, budget-friendly residential and commercial real estate projects by ${SITE.name} in ${SITE.address.city}.`,
       isPartOf: {
         "@type": "WebSite",
         name: SITE.name,
@@ -361,7 +361,7 @@ export default function ProjectsPage() {
     title: "Our Projects — Apartments, Villas & More",
     description: `Explore ${SITE.name}' portfolio of ongoing, completed & upcoming residential and commercial projects in ${SITE.address.city}. RERA approved.`,
     canonical: siteUrl("/projects"),
-    ogImageAlt: `Premium real estate projects in ${SITE.address.city} by ${SITE.name}`,
+    ogImageAlt: `Quality real estate projects in ${SITE.address.city} by ${SITE.name}`,
     jsonLd: projectsJsonLd,
     keywords:
       "ongoing projects Hyderabad, completed projects Hyderabad, upcoming apartments Hyderabad, new residential projects Kukatpally, RERA approved projects Telangana, gated community projects Hyderabad, under construction flats Hyderabad, luxury apartment projects KPHB",
@@ -441,7 +441,7 @@ export default function ProjectsPage() {
             </h1>
             <p className="text-[#e4e4e7] max-w-2xl text-lg">
               From ongoing developments to completed landmarks — explore our
-              portfolio of premium real estate projects in and around Hyderabad.
+              portfolio of quality real estate projects in and around Hyderabad.
             </p>
           </motion.div>
         </div>

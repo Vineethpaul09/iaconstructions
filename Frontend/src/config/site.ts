@@ -11,7 +11,7 @@ export const SITE = {
   alternateName: "iA Constructions Builders & Developers",
   tagline: "Builders & Developers",
   url: SITE_URL,
-  ogImage: `${SITE_URL}/images/og-default.jpg`,
+  ogImage: `${SITE_URL}/images/Construction-Services2.jpeg`,
   email: "info@iaconstructions.in",
   phone: "+91 91544 50123",
   phoneTel: "+91-91544-50123",

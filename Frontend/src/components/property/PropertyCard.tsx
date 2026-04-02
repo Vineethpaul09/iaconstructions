@@ -22,6 +22,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatPrice, formatArea } from "@/lib/utils";
+import { useSiteSettings } from "@/hooks/useSupabase";
+import { SITE } from "@/config/site";
 import type { Property } from "@/types";
 
 interface PropertyCardProps {
@@ -76,6 +78,10 @@ export default function PropertyCard({
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
 
+  const { settings } = useSiteSettings();
+  const company = settings.company as { whatsapp?: string } | undefined;
+  const whatsappNumber = company?.whatsapp || SITE.whatsapp;
+
   const TypeIcon = typeIcons[property.type];
   const status = statusConfig[property.status];
   const heroImage = property.images?.[0];
@@ -83,7 +89,7 @@ export default function PropertyCard({
   const whatsappMessage = encodeURIComponent(
     `Hi, I'm interested in "${property.name}". Please share more details.`,
   );
-  const whatsappLink = `https://wa.me/919154450123?text=${whatsappMessage}`;
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
   const galleryRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToIndex = (idx: number) => {

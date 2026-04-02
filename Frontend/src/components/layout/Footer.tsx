@@ -34,6 +34,7 @@ const Footer: React.FC = () => {
   const company = settings.company as
     | {
         phone?: string;
+        phone2?: string;
         email?: string;
         whatsapp?: string;
         address?: string;
@@ -51,6 +52,7 @@ const Footer: React.FC = () => {
     | undefined;
 
   const phone = company?.phone || DEFAULTS.phone;
+  const phone2 = company?.phone2 || "";
   const emailAddr = company?.email || DEFAULTS.email;
   const whatsapp = company?.whatsapp || DEFAULTS.whatsapp;
   const address = company?.address || DEFAULTS.address;
@@ -67,6 +69,15 @@ const Footer: React.FC = () => {
       href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`,
     },
     { Icon: Phone, text: phone, href: phoneTel },
+    ...(phone2
+      ? [
+          {
+            Icon: Phone,
+            text: phone2,
+            href: `tel:${phone2.replace(/[^+\d]/g, "")}`,
+          },
+        ]
+      : []),
     { Icon: Mail, text: emailAddr, href: `mailto:${emailAddr}` },
   ];
 
@@ -121,8 +132,8 @@ const Footer: React.FC = () => {
               )}
             </Link>
             <p className="text-sm leading-relaxed mb-6 max-w-xs">
-              Crafting quality living spaces in and around Hyderabad. Trusted by
-              NRIs across USA, Canada, Australia &amp; UK.
+              Crafting quality living spaces in &amp; around Hyderabad. Trusted
+              by NRIs across USA, Canada, Australia &amp; UK.
             </p>
             <div className="flex items-center gap-3">
               {socialLinks.map(({ Icon, href, label }) => (

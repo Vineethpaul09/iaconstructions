@@ -66,6 +66,24 @@ const subjects = [
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function ContactPage() {
+  const { settings } = useSiteSettings();
+
+  const company = settings.company as
+    | {
+        phone?: string;
+        phone2?: string;
+        headerPhone?: string;
+        email?: string;
+        whatsapp?: string;
+        address?: string;
+        mapEmbedUrl?: string;
+      }
+    | undefined;
+
+  const phone = company?.phone || DEFAULTS.phone;
+  const phone2 = company?.phone2 || "";
+  const emailAddr = company?.email || DEFAULTS.email;
+
   const contactJsonLd = useMemo(
     () => ({
       "@context": "https://schema.org",
@@ -75,8 +93,8 @@ export default function ContactPage() {
       mainEntity: {
         "@type": "Organization",
         name: SITE.name,
-        telephone: SITE.phoneTel,
-        email: SITE.email,
+        telephone: phone.replace(/[^+\d]/g, ""),
+        email: emailAddr,
         address: {
           "@type": "PostalAddress",
           streetAddress: SITE.address.street,
@@ -87,34 +105,18 @@ export default function ContactPage() {
         },
       },
     }),
-    [],
+    [phone, emailAddr],
   );
 
   usePageSEO({
     title: "Contact Us — Get In Touch",
-    description: `Contact ${SITE.name} for premium apartments, villas & commercial spaces in ${SITE.address.city}. Call ${SITE.phone} or visit our office.`,
+    description: `Contact ${SITE.name} for budget-friendly apartments, villas & commercial spaces in ${SITE.address.city}. Call ${phone} or visit our office.`,
     canonical: siteUrl("/contact"),
     ogImageAlt: `Contact ${SITE.name} — ${SITE.address.city} builders and developers`,
     jsonLd: contactJsonLd,
     keywords:
       "contact builders Hyderabad, construction company phone number, builders office Kukatpally KPHB, real estate enquiry Hyderabad, book site visit Hyderabad, property consultation Hyderabad",
   });
-
-  const { settings } = useSiteSettings();
-
-  const company = settings.company as
-    | {
-        phone?: string;
-        headerPhone?: string;
-        email?: string;
-        whatsapp?: string;
-        address?: string;
-        mapEmbedUrl?: string;
-      }
-    | undefined;
-
-  const phone = company?.phone || DEFAULTS.phone;
-  const emailAddr = company?.email || DEFAULTS.email;
   const whatsapp = company?.whatsapp || DEFAULTS.whatsapp;
   const address = company?.address || DEFAULTS.address;
   const mapEmbedUrl = company?.mapEmbedUrl || DEFAULTS.mapEmbedUrl;
@@ -137,27 +139,27 @@ export default function ContactPage() {
     {
       icon: <MapPin className="h-6 w-6" />,
       title: "Visit Us",
-      lines: addressLines,
+      lines: addressLines.map((l) => ({ text: l })),
     },
     {
       icon: <Phone className="h-6 w-6" />,
       title: "Call Us",
-      lines: [phone],
-      href: phoneTel,
+      lines: phone2
+        ? [
+            { text: phone, href: phoneTel },
+            { text: phone2, href: `tel:${phone2.replace(/[^+\d]/g, "")}` },
+          ]
+        : [{ text: phone, href: phoneTel }],
     },
     {
       icon: <Mail className="h-6 w-6" />,
       title: "Email Us",
-      lines: [emailAddr],
-      href: `mailto:${emailAddr}`,
+      lines: [{ text: emailAddr, href: `mailto:${emailAddr}` }],
     },
     {
       icon: <Clock className="h-6 w-6" />,
       title: "Working Hours",
-      lines: [
-        "Mon \u2013 Sat: 9:00 AM \u2013 7:00 PM",
-        "Sunday: By Appointment",
-      ],
+      lines: [{ text: "Mon \u2013 Sun: 8:00 AM \u2013 7:00 PM" }],
     },
   ];
 
@@ -167,6 +169,7 @@ export default function ContactPage() {
       state: addressParts.slice(-2, -1).join("") || "Telangana",
       address,
       phone,
+      phone2,
     },
   ];
 
@@ -441,11 +444,21 @@ export default function ContactPage() {
                       <h3 className="text-white font-semibold mb-1">
                         {info.title}
                       </h3>
-                      {info.lines.map((line) => (
-                        <p key={line} className="text-[#e4e4e7] text-sm">
-                          {line}
-                        </p>
-                      ))}
+                      {info.lines.map((line) =>
+                        "href" in line ? (
+                          <a
+                            key={line.text}
+                            href={line.href}
+                            className="block text-[#e4e4e7] text-sm hover:text-[#C9A227] transition-colors"
+                          >
+                            {line.text}
+                          </a>
+                        ) : (
+                          <p key={line.text} className="text-[#e4e4e7] text-sm">
+                            {line.text}
+                          </p>
+                        ),
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -541,6 +554,11 @@ export default function ContactPage() {
                   <p className="text-[#C9A227] text-sm font-medium">
                     {office.phone}
                   </p>
+                  {office.phone2 && (
+                    <p className="text-[#C9A227] text-sm font-medium">
+                      {office.phone2}
+                    </p>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>

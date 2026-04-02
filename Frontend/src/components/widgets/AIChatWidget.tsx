@@ -1,7 +1,9 @@
-﻿import React, { useState, useRef, useEffect } from "react";
+﻿import React, { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSiteSettings } from "@/hooks/useSupabase";
+import { SITE } from "@/config/site";
 
 /* ─── Types ─────────────────────────────────────────── */
 
@@ -19,14 +21,14 @@ const QUICK_ACTIONS = [
   "Schedule a visit",
 ] as const;
 
-const BOT_RESPONSES: Record<string, string> = {
+const getBotResponses = (phone: string): Record<string, string> => ({
   "Show me villas":
     "We have stunning villas starting from ₹1.8 Cr in Hyderabad and Secunderabad. Our top picks include the IAC Serenity Villas (4 BHK, 3200 sq ft) and IAC Greenfield Estate (5 BHK, 4500 sq ft). Would you like more details on any of these?",
   "What's your best deal?":
     "Our current best deal is the IAC Skyline 3 BHK apartments in Gachibowli, Hyderabad — offered at a special pre-launch price of ₹89 L with no GST, free modular kitchen, and a 0% booking amount scheme. Limited units left!",
   "Schedule a visit":
-    "I'd love to arrange a site visit for you! Please share your preferred date, time, and the project you're interested in. Alternatively, you can call us at +91 91544 50123 to book instantly.",
-};
+    `I'd love to arrange a site visit for you! Please share your preferred date, time, and the project you're interested in. Alternatively, you can call us at ${phone} to book instantly.`,
+});
 
 const INITIAL_MESSAGE: ChatMessage = {
   id: "init",
@@ -34,12 +36,18 @@ const INITIAL_MESSAGE: ChatMessage = {
   text: "Hello! I'm your AI property assistant. Ask me about properties, pricing, or schedule a visit.",
 };
 
-const FALLBACK_RESPONSE =
-  "Thanks for your question! Our team will get back to you shortly. In the meantime, you can call us at +91 91544 50123 for immediate assistance.";
+const getFallbackResponse = (phone: string) =>
+  `Thanks for your question! Our team will get back to you shortly. In the meantime, you can call us at ${phone} for immediate assistance.`;
 
 /* ─── Component ─────────────────────────────────────── */
 
 const AIChatWidget: React.FC = () => {
+  const { settings } = useSiteSettings();
+  const company = settings.company as { phone?: string } | undefined;
+  const phone = company?.phone || SITE.phone;
+  const botResponses = useMemo(() => getBotResponses(phone), [phone]);
+  const fallbackResponse = useMemo(() => getFallbackResponse(phone), [phone]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_MESSAGE]);
   const [inputValue, setInputValue] = useState("");
@@ -65,8 +73,8 @@ const AIChatWidget: React.FC = () => {
     // Simulate bot response delay
     setTimeout(() => {
       const response =
-        BOT_RESPONSES[text.trim() as keyof typeof BOT_RESPONSES] ??
-        FALLBACK_RESPONSE;
+        botResponses[text.trim() as keyof typeof botResponses] ??
+        fallbackResponse;
       addMessage("bot", response);
     }, 600);
   };
