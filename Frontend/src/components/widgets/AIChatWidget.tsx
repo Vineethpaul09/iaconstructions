@@ -26,8 +26,7 @@ const getBotResponses = (phone: string): Record<string, string> => ({
     "We have stunning villas starting from ₹1.8 Cr in Hyderabad and Secunderabad. Our top picks include the IAC Serenity Villas (4 BHK, 3200 sq ft) and IAC Greenfield Estate (5 BHK, 4500 sq ft). Would you like more details on any of these?",
   "What's your best deal?":
     "Our current best deal is the IAC Skyline 3 BHK apartments in Gachibowli, Hyderabad — offered at a special pre-launch price of ₹89 L with no GST, free modular kitchen, and a 0% booking amount scheme. Limited units left!",
-  "Schedule a visit":
-    `I'd love to arrange a site visit for you! Please share your preferred date, time, and the project you're interested in. Alternatively, you can call us at ${phone} to book instantly.`,
+  "Schedule a visit": `I'd love to arrange a site visit for you! Please share your preferred date, time, and the project you're interested in. Alternatively, you can call us at ${phone} to book instantly.`,
 });
 
 const INITIAL_MESSAGE: ChatMessage = {
